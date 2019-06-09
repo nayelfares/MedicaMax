@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html  lang="ar" >
+<head>
+<style>
+.jstree-anchor { height:auto !important; white-space:normal !important; }
+div.sticky {
+  position: -webkit-sticky; /* Safari */
+  position: sticky;
+  top: 0;
+  padding: 5px;
+  background-color: #cae8ca;
+  border: 2px solid #4CAF50;
+  z-index: 2; 
+}
+
+.toggle.ios, .toggle-on.ios, .toggle-off.ios { border-radius: 50px; }
+  .toggle.ios .toggle-handle { border-radius: 50px; }
+</style>
+        <!-- Switchery css -->
+        <link href="{{ asset('/assets/plugins/switchery/switchery.min.css')}}" rel="stylesheet" />
+        <!-- Bootstrap CSS -->
+        <link href="{{ asset('/assets/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
+        
+        <!-- Font Awesome CSS -->
+        <link href="{{ asset('/assets/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet" type="text/css" />
+        
+        <!-- Custom CSS -->
+        <link href="{{ asset('/assets/css/style.css') }}" rel="stylesheet" type="text/css" />
+
+        
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jstree/3.3.5/themes/default/style.min.css" />
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jstree/3.3.5/jstree.min.js"></script>
+
+    <!--NOTE-->
+    <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
+  <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script> 
+  <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote.css" rel="stylesheet">
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote.js"></script>
+<!-- choice -->
+  <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+  <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+ 
+ 
+
+</head>
+
+<body>
+
+    <div class="row sticky"  >
+            <!--        2           -->
+        <div class="col-md-11 mb-0 col-sm-0" style="overflow:auto;height:175px;" >
+                <div class="row " >
+                    <div class="col-md-1 mb-0 col-sm-0">
+                        <label >Code<span class="text-danger">*</span></label>
+
+                        <input type="text" name="code" data-parsley-trigger="change" class="form-control" id="code"  >
+                    </div>
+                    <div class="col-md-1 mb-0 col-sm-0">
+                        <label >Parent Code</label>
+                        <input type="text" name="parent_code" data-parsley-trigger="change"  class="form-control" id="parent_code" readOnly>
+                    </div> 
+                    <div class="col-md-5 mb-0 col-sm-0">
+                        <button id="previous_node" type="button" class="btn btn-outline-success btn-sm"><i class="fa fa-arrow-circle-left bigfonts" aria-hidden="true"></i></button>
+
+                        <label >Classification English Term<span class="text-danger">*</span></label>
+
+                         
+                        <button id="next_node" type="button" class="btn btn-outline-success btn-sm"><i class="fa fa-arrow-circle-right bigfonts" aria-hidden="true"></i></button>
+
+
+
+                        <textarea rows="2" cols="78" type="text" name="en_term" data-parsley-trigger="change" class="form-control" id="en_term" style="font-size:18px;height:40px;font-weight:bold;"   ></textarea>
+                    </div>
+                    <div class="col-md-5 mb-0 col-sm-0">
+                         <button id="previous_node2" type="button" class="btn btn-outline-success btn-sm"><i class="fa fa-arrow-circle-left bigfonts" aria-hidden="true"></i></button> 
+
+                        <label>Classification Arabic Term</label>
+
+                        <button id="next_node2" type="button" class="btn btn-outline-success btn-sm"><i class="fa fa-arrow-circle-right bigfonts" aria-hidden="true"></i></button>
+
+
+                        <textarea rows="2" cols="78" type="text" name="ar_term" data-parsley-trigger="change"   class="form-control" id="ar_term"
+                        dir="rtl" style="font-size:18px;height:40px;font-weight:bold;"></textarea>
+                    </div>
+                </div>
+
+                <div class="row">
+                {{ csrf_field() }}
+                    <div class="col-md-6 mb-0 col-sm-0" style="padding-right: 0.0px">
+                        <textarea id="note" name="note" class="summernote">Note : </textarea>
+                    </div>
+                    <div class="col-md-6 mb-0 col-sm-0" style="padding-left: 0.0px">
+                        <textarea id="ar_note" name="ar_note" class="summernote">Note : </textarea>
+                    </div>
+                </div>
+            </div>
+       
+<!--        3           -->
+            <div class="colum col-md-1 mb-0 col-sm-0">  
+                     
+                    <div class="checkbox" >
+                        <input type="checkbox"  data-toggle="toggle" data-width="80" data-height="100%" name="save_auto__" id="save_auto__"  data-on="AouSave" data-off="ManSave" data-onstyle="success" data-offstyle="danger" data-style="ios">
+                    </div>
+
+
+                    <div>
+                        <input  type="button" value="" id="save" class="btn btn-outline-success btn-sm" style="display: none;"/>
+                    </div>
+                    <div>
+                        <button type="Addbutton" id="AddButton" class="btn btn-outline-primary btn-sm"  style="margin: 0.0px;padding: 0.0px;"><i class="fa fa-plus bigfonts"></i> Add </button>
+                    </div>
+                    <div>
+                        <button id="EditButton" type="button" class="btn btn-outline-success btn-sm" style="margin: 0.0px;padding: 0.0px;"><i class="fa fa-pencil"></i> Edit </button>
+                    </div>
+                    <div>
+                        <button id="DeleteButton" type="button" class="btn btn-outline-danger btn-sm" style="margin: 0.0px;padding: 0.0px;"><i class="fa fa-trash-o"></i> Delete </button>
+                    </div>
+            </div>
+       
+    </div> 
+<!-------------------------------------->
+        <div  dir="rtl" class="row" style = "margin-right:25px; ">
+            <!--        1           -->
+            <div class="col-md-12 mb-0 col-sm-0">
+                <div class="row">
+
+         
+                    <form id="s">
+                        <div class="row">
+                            <input  type="search" id="plugins4_q" value="" class="input" style="margin-right:35px;display:block;  border-radius:1px; border:1px solid silver;">
+                            <button type="submit" class="btn btn-outline-success btn-sm" ><i class="fa fa-search bigfonts" aria-hidden="true"></i></button>
+                        </div>
+                    </form>
+
+                   <a style="margin-right: 1.0em;" class="btn btn-outline-success btn-sm" href="{{route('classification.draw_tree3') }}" padding="4px" ><i class="fa fa-language bigfonts" aria-hidden="true"></i></a>
+
+                   <button id="re_indexing_tree" type="button" class="btn btn-outline-success btn-sm"> <i class="fa fa-refresh bigfonts" aria-hidden="true"></i></button>
+
+
+
+
+                    <input id="cut_node" name="cut_node" type="button" class="btn btn-outline-success btn-sm"  value="Cut">
+                    <input id="past_node" name="past_node" type="button" class="btn btn-outline-success btn-sm" value="Paste">
+
+                    <input type="button" class="btn btn-outline-success btn-sm"  value="ColAll" onclick="$('#container').jstree('close_all');">
+                    <input type="button" class="btn btn-outline-success btn-sm"  value="EXpAll" onclick="$('#container').jstree('open_all');">   
+                   
+<!--
+<input type="button" class="btn btn-outline-success btn-sm"  value="Cut">
+<input type="button" onclick="$.tree.focused().copy();" value="Copy">
+<input type="button" class="btn btn-outline-success btn-sm" value="Paste">
+-->
+
+                </div>
+                <hr style="float:right;border-style: inset; border-width: 0.8px;margin-top: 0.0em;margin-bottom: 0.0em; width:1100px;padding-bottom: 0.0px">
+                <div  id="container"  style="display:block;overflow:auto;height:400px;width:1100px;text-align: right;"  >
+                </div>
+            </div>
+        </div>
+
+
+
+        <div dir="rtl" class="row">
+            <div class="row">
+                <hr style="float:right;border-style: inset; border-width: 2px;margin-right: 4.7em; margin-top: 0.0em;margin-bottom:0.0em; width:1100px;padding-bottom: 0.0px;">
+            </div>
+
+            <div class="row"  style="display:block;float:right;overflow:auto;height:203px;width:1100px;text-align: right;margin-right:3.6em; ">
+                <div class="table-responsive">
+                    <table id="example" class="table table-bordered table-hover display" style="width:100%;">
+                    </table>
+                </div>
+            </div>
+        </div>
+
+</body>
+
+<!-----------------------------------------> 
+<script type="text/javascript">
+var tree;
+var index;
+var old_index;
+var parent_code ;
+var parent_index ;
+var compare = 1;
+var result_search;
+var first = true;
+var save_auto_choice = false;
+var cut_node_index ;
+    $(document).ready(function(){ 
+    //fill data to tree  with AJAX call
+    tree =$('#container').jstree({
+        'core' : {
+            "check_callback": true,
+            'data' : {
+                "url" : "{{route('classification.build_tree_ar')}}",
+                "plugins" : [  "checkbox","state"],
+                "dataType" : "json" // needed only if you do not supply JSON headers
+            },
+            "themes": {
+            "theme": "default",
+            "dots": true,
+            "icons": false,
+        },
+        },
+        "search" : {
+                'show_only_matches' : false,
+            },
+        "ui": {
+            "select_limit": 1,
+            "select_multiple_modifier": "none",
+
+        },
+        'plugins': [ "sort","state","themes", "json_data", "ui", "Select", "types", "crrm","html_data", "search", "massload","wholerow","dnd", "contextmenu","changed"]
+    }).on('create_node.jstree', function(e, data) {
+    console.log('saved');
+});
+////////////////////////////////////////////////////////////////////////////////////////    
+    //manul search
+    $("#s").submit(function(e) {
+         e.preventDefault();  
+
+        $.ajax({
+                type :'GET',
+                url:"{{route('classification.search_')}}",
+                data:{
+                    condition : $("#plugins4_q").val()
+                },
+                success:function(res){
+                    $("#example").empty();
+                    if(res){
+                        $("#example").append("<thead><tr><th>id</th><th>Code</th><th>English Term</th><th>Arabic Term</th></tr></thead><tbody>")
+                        result_search =  JSON.parse(res);
+                        result_search.forEach(function(item){
+                            
+                            $("#example").append("<tr onclick='clickOnRow("+item.index+")'><td>"+item.index+"</td><td>"+item.code+"</td><td>"+ item.en_term+"</td><td>"+item.ar_term+"</td></tr>");
+                        });
+                        $("#example").append("</tbody>");
+                    } 
+                }
+            });
+        //foucs
+        var searchResult = $("#container").jstree('search', $("#plugins4_q").val());
+        $(searchResult).find('.jstree-search').focus();
+});
+
+//after choise Event
+    $('#container').on("changed.jstree", function (e, data) {
+  
+
+        if(first == false && save_auto_choice == true){
+            var code = document.getElementById('code').value;
+            var en_term = document.getElementById('en_term').value;
+            var ar_term = document.getElementById('ar_term').value;
+            var note;
+            var myInput = document.getElementById('note').value;
+            if(myInput)
+                note = document.getElementById('note').value ;
+            else
+                note =  "Note :" ;
+            save_auto(old_index,compare,code,en_term,ar_term,note);
+        }
+
+        index = data.selected[0];
+        old_index=index;
+        //parent_code = data.node.parent;
+        /*for open all child node when click on node*/
+        $("#container").jstree(true).open_all([data.selected[0]]);
+        /**/
+        fill_field(compare);
+//save auto for first time
+        if(first == true && save_auto_choice == true){
+            var code = document.getElementById('code').value;
+            var en_term = document.getElementById('en_term').value;
+            var ar_term = document.getElementById('ar_term').value;
+            var note;
+            var myInput = document.getElementById('note').value;
+            if(myInput)
+                note = document.getElementById('note').value ;
+            else
+                note =  "Note :" ;
+            save_auto(old_index,compare,code,en_term,ar_term,note);
+            
+        }
+        first = false;  
+    }); 
+   //  
+    //delete
+    $('#DeleteButton').click(function(){
+        if (confirm('Are you sure want to remove this classification?')) {
+            $.ajax({
+                type :'GET',
+                url:"{{route('node.delete')}}",
+                data:{
+                    index : index
+                },
+                success:function(res){
+                    if(res == "yes"){
+                        //reindex
+                            //reindexing_tree();                               
+                        //delete node without refresh
+                            var sel = $('#container').jstree(true).get_selected();
+                            $('#container').jstree(true).delete_node(sel);
+                        }
+                    else
+                        window.alert("you can't remove it ,becuse it has child!!");
+                }
+            });
+        }
+    });
+    //Edit
+    $('#EditButton').click(function(){
+        compare = 1;
+        fill_field(compare);
+    });
+    //ADD
+    $('#AddButton').click(function(){
+        compare = 2;
+        fill_field(compare);
+    });
+    //save  
+    $('#save').click(function(){
+        var code = document.getElementById('code').value;
+        var en_term = document.getElementById('en_term').value;
+        var ar_term = document.getElementById('ar_term').value;
+        var note;
+        var myInput = document.getElementById('note').value;
+        if(myInput)
+            note = document.getElementById('note').value ;
+        else
+            note =  "Note :" ;
+
+        save_auto(index,compare,code,en_term,ar_term,note);     
+    });
+
+    //note
+    $('#note').summernote();
+    //choice
+    $('#save_auto__').change(function(){
+        if($(this).prop('checked'))
+        {
+            save_auto_choice = true;
+            document.getElementById("save").style.display = "none";
+        }
+        else
+        {
+            save_auto_choice = false;
+            document.getElementById("save").style.display = "block";   
+        }
+    });
+    //cut_node
+    $("#cut_node").click(function(){
+        var node = $('#container').jstree(true).get_node(index);
+        cut_node_index = node.id;
+        $('#container').jstree(true).cut(node);
+    });
+    //past_node
+    $("#past_node").click(function(){
+        var parent = $('#container').jstree(true).get_node(index);
+        parent_index =  parent.id;
+         
+        $.ajax({
+            type : 'GET',
+            url : "{{route('update_parent')}}",
+            data : {
+                index : cut_node_index,
+                parent_index : parent_index,
+            },
+            success:function(res){
+                $('#container').jstree(true).paste(parent,"first");
+            }
+        })
+    });
+});
+
+//////////////////////////End  $(document).ready(function()
+
+
+    function clickOnRow(x) {
+        index = x;
+       /* var node = $('#container').jstree(true).get_node(id);
+        $(node).find('.jstree-search').focus();
+*/
+        
+        if(compare == 1)
+        {
+            document.getElementById("save").value= "save";
+            document.getElementById("save").style.display = "block";
+            $.ajax({
+                type :'GET',
+                url:"{{route('node.view')}}",
+                data:{
+                    index : index
+                },
+                success:function(res){
+                    document.getElementById('code').value = res.code;
+                    document.getElementById("parent_code").value = res.parent_code; 
+                    document.getElementById('en_term').value = res.en_term;
+                    document.getElementById('ar_term').value = res.ar_term;
+                    //initialize summernote
+                    $('.summernote').summernote();
+                    $('.summernote').summernote('code', res.note);
+                    var searchResult = $("#container").jstree('search', res.en_term);
+                    $(searchResult).find('.jstree-search').focus();
+                }
+            });
+        }
+        else
+        {
+            document.getElementById("save").value= "save";
+            document.getElementById("save").style.display = "block";
+            document.getElementById("parent_code").value = code;
+            document.getElementById("code").value = ""; 
+            document.getElementById("en_term").value = "";
+            document.getElementById("ar_term").value = "";
+            //initialize summernote
+            $('.summernote').summernote();
+            $('.summernote').summernote('code', "");
+        }  
+    }
+
+    
+
+    $('#re_indexing_tree').click(function(){
+        reindexing_tree();
+    });
+
+    $('#next_node').click(function(){
+        next_node();
+    });
+
+    
+    $('#previous_node').click(function(){
+        previous_node()
+    });
+
+    $('#next_node2').click(function(){
+        next_node();
+    });
+
+    
+    $('#previous_node2').click(function(){
+        previous_node()
+    });
+
+/////////////////////////////////////////////////////////////Function
+
+    function fill_field(compare){
+        if(compare == 1)
+        {
+            document.getElementById("save").value= "save";
+            document.getElementById("save").style.display = "block";
+            $.ajax({
+                type :"GET",
+                url:"{{route('node.view')}}",
+                data:{
+                    index : index
+                },
+                success:function(res){
+                    document.getElementById('code').value = res.code;
+                    document.getElementById('parent_code').value = res.parent_code; 
+                    document.getElementById('en_term').value = res.en_term;
+                    document.getElementById('ar_term').value = res.ar_term;
+                    //initialize summernote
+                    $('.summernote').summernote();
+                    $('.summernote').summernote('code', res.note);
+                }
+            });
+        }
+        else
+        {
+            document.getElementById("save").value= "create";
+            document.getElementById("save").style.display = "block";
+            $.ajax({
+                type :'GET',
+                url:"{{route('node.view')}}",
+                data:{
+                    index : index
+                },
+                success:function(res){
+                    document.getElementById("parent_code").value = res.code;
+                    document.getElementById('code').value = "";
+                    document.getElementById('en_term').value = "";
+                    document.getElementById('ar_term').value = "";
+                    //initialize summernote
+                    $('.summernote').summernote();
+                    $('.summernote').summernote('code', res.note);
+                }
+            });
+        }
+    }
+
+    function save_auto(index,compare,code,en_term,ar_term,note) {
+//        console.log(index+"--"+compare+"--"+code+"--"+en_term+"--"+ar_term+"--"+note);
+        if(compare == 2){
+            parent_index = index;
+            index = null;
+        }
+        $.ajax({
+                type :'GET',
+                url:"{{route('node.save')}}",
+                data:{
+                    index : index,
+                    parent_index : parent_index,
+                    code : code,
+                    en_term : en_term,
+                    ar_term : ar_term,
+                    note : note,
+                },
+                success:function(res){ 
+                    //edit
+                    var diminsion =  JSON.parse(res);
+                    var text_ = "<label style='float:right; width:"+diminsion[0].code_width+"px;font-size:16px;padding: 0.0ex ;'>"+code+"</label><label style='float:right; width:500px;direction:rtl;text-align:right;font-size:18px;padding: 0.0ex ;margint-buttom:0.01ex;'>"+ar_term+"</label><label style='text-align:left;width:"+diminsion[0].en_width+"px;font-size:16px;padding: 0.0ex ;margint-buttom:0.01ex;'>"+en_term+"</label>"
+                    if(compare == 1)
+                    { 
+                        var node = $('#container').jstree(true).get_node(index);
+                        
+                        node.text = text_ ;
+                        $('#container').jstree(true).redraw_node(node, false, false, false);
+                    }
+                    //create
+                    else
+                    {
+                        /*
+                        reindexing_tree();
+                        */
+                          $('#container').jstree().create_node(diminsion[0].parent_index ,  { "id" : diminsion[0].index, "text" : text_ }, "last", false);
+
+                       // $('#container').jstree(true).refresh();               
+                    }
+                }
+                
+            });
+    }
+
+    function createNode(parent_node, new_node_id, new_node_text, position) {
+    $('#jstree').jstree('create_node', $(parent_node), { "text":new_node_text, "id":new_node_id }, position, false, false); 
+}
+
+
+    function reindexing_tree(){
+        $.ajax({
+            type:"GET",
+            url :"{{route('classification.re_indexing')}}",
+            success:function(res){
+                window.alert("reindxing complete");
+                $('#container').jstree(true).refresh();
+            }
+        });
+        
+    }
+
+    function next_node(){
+        var tree = $ ('#container'). jstree (true)
+        curr = tree.get_selected (false);
+        tree.deselect_all ();
+        tree.open_all ();
+        var n = tree.get_next_dom (curr);
+        tree.select_node (n);
+        /*index = parseInt(index) + parseInt(1);
+        var next_ = index.toString();
+        var instance = $('#container').jstree(true); 
+        instance.deselect_all();
+        instance.select_node(next_);*/
+    }
+
+
+    
+
+    function previous_node(){
+        var tree = $ ('#container'). jstree (true)
+        curr = tree.get_selected (false);
+        tree.deselect_all ();
+        tree.open_all ();
+        var n = tree.get_prev_dom (curr);
+        tree.select_node (n);
+        /*index = parseInt(index) - parseInt(1);
+        var prev = index.toString();
+        var instance = $('#container').jstree(true); 
+        instance.deselect_all();
+        instance.select_node(prev);*/
+        
+               
+    }
+
+</script>
+</html>

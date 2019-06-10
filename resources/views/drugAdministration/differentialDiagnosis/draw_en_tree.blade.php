@@ -34,7 +34,6 @@ div.fixedpar {
 .note-editable{
 	height:100px !important;
 }
-
 .toggle.ios, .toggle-on.ios, .toggle-off.ios { border-radius: 50px; }
   .toggle.ios .toggle-handle { border-radius: 50px; }
 
@@ -101,7 +100,7 @@ label.b {
                 <div class="col-xs-16 col-sm-16 col-md-10 col-lg-10 col-xl-12" style="margin-top: 0.0em;margin-bottom: 0.0em;">
                     <div class="row " >
                         <div class="col-md-1 mb-0 col-sm-0" style="padding-right: 1px;">
-                            <label style="margin: 0.0px;"
+                            <label style="margin: 0.0px;height:30px;"
                             > P/Code*<span class="text-danger">*</span></label>
                             <div id="div_parent">
                                 <select class="form-control select2" name="parent_code" id="parent_code"  style="height:30px">
@@ -117,8 +116,10 @@ label.b {
                                      
                             <button id="previous_node" type="button" class="btn btn-outline-success btn-sm" style="padding: 0.0px;margin: 0.0px"><i class="fa fa-arrow-circle-left bigfonts" aria-hidden="true"></i></button>
 
-                            <label style="padding: 0.0px;margin: 0.0px">English Term<span class="text-danger">*</span></label>
-
+                            <label style="padding: 0.0px;margin: 0.0px;height:30px;">English Term<span class="text-danger">*</span></label>
+                                    <button type="Addbutton" id="AddButton" class="btn btn-outline-primary btn-sm" style="padding: 0.0px;margin-left: 5.0px;"><i class="fa fa-plus bigfonts"></i> Add </button>
+                                    <button id="EditButton" type="button" class="btn btn-outline-success btn-sm" style="padding: 0.0px;margin-left: 20.0px"><i class="fa fa-pencil"></i> Edit </button>
+                                    <button id="DeleteButton" type="button" class="btn btn-outline-danger btn-sm" style="padding: 0.0px;margin-left: 20.0px"><i class="fa fa-trash-o"></i> Delete </button>
                              
                             <button id="next_node" type="button" class="btn btn-outline-success btn-sm" style="padding: 0.0px;margin: 0.0px"><i class="fa fa-arrow-circle-right bigfonts" aria-hidden="true"></i></button>
                             <button id="sdf_next_node" type="button" class="btn btn-outline-success btn-sm" style="padding: 0.0px;margin: 0.0px"><i class="fa fa-caret-square-o-down bigfonts" aria-hidden="true"></i></button>
@@ -138,9 +139,9 @@ label.b {
                                 </div>
                                  <!--   -->
                                 <div class="col-md-4 mb-0 col-sm-0" style="padding-left: 0.1px;">
-                                    <button type="Addbutton" id="AddButton" class="btn btn-outline-primary btn-sm" style="padding: 0.0px;margin-left: 5.0px;"><i class="fa fa-plus bigfonts"></i> Add </button>
-                                    <button id="EditButton" type="button" class="btn btn-outline-success btn-sm" style="padding: 0.0px;margin-left: 20.0px"><i class="fa fa-pencil"></i> Edit </button>
-                                    <button id="DeleteButton" type="button" class="btn btn-outline-danger btn-sm" style="padding: 0.0px;margin-left: 20.0px"><i class="fa fa-trash-o"></i> Delete </button>
+
+                                                        <button id="save_auto__" name="save_auto__"  onclick="saveAotuFunction()" style = "margin-left:35px; "><i class="fa fa-magic bigfonts" aria-hidden="true"></i></button>
+                                                     <button id="save_create" class="btn btn-outline-success btn-sm" style = "margin-left: 2px;margin-right: 16px;"><i class="fa fa-save bigfonts" aria-hidden="true"></i></button>
                                 </div>
                                 <div class="col-md-4 mb-0 col-sm-0" style="padding-left: 0.1px;">
                                    <!-- <button class="btn btn-outline-primary btn-sm" href="{{route('dif_dia.export')}}" style="padding: 0.0px;margin-left: 20.0px"><i class="fa fa-upload bigfonts" aria-hidden="true"></i> Export</button>-->
@@ -169,8 +170,7 @@ label.b {
                 
          <!--fixedpar-->
                 <div class="row" style="width:90%;">
-                    <button id="save_auto__" name="save_auto__"  onclick="saveAotuFunction()" style = "margin-left:35px;"><i class="fa fa-magic bigfonts" aria-hidden="true"></i></button>
-                    <button id="save_create" class="btn btn-outline-success btn-sm" style = "margin-left: 2px;margin-right: 16px;"><i class="fa fa-save bigfonts" aria-hidden="true"></i></button>
+
                     <form id="s" >
                         <div class="row">
                             <input  type="search" id="plugins4_q" value="" class="input" style="display:block;  border-radius:1px; border:1px solid silver;"  >

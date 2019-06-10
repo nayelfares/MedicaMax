@@ -28,9 +28,7 @@ div.fixedpar {
     top: 185px;
     z-index: 2;
 }
-.form-control{
-	height:100px !important;
-}
+
 .note-editable{
 	height:100px !important;
 }
@@ -106,7 +104,7 @@ label.b {
                                 <select class="form-control select2" name="parent_code" id="parent_code"  style="height:30px">
                                 </select>
                             </div>
-                            <input type= "text" name="parent__code" data-parsley-trigger="change" class="form-control" id="parent__code" readonly style="height:30px" placeholder="Code">
+                            <input type= "text" name="parent__code" data-parsley-trigger="change" class="form-control" id="parent__code" readonly style="height:30px !important;" placeholder="Code">
                             <input type= "text" name="term_id" id="term_id">
                             <input type="text" name="code" data-parsley-trigger="change" class="form-control" id="code"  style="height:30px" placeholder="Code">
                         </div>
@@ -123,7 +121,7 @@ label.b {
                              
                             <button id="next_node" type="button" class="btn btn-outline-success btn-sm" style="padding: 0.0px;margin: 0.0px"><i class="fa fa-arrow-circle-right bigfonts" aria-hidden="true"></i></button>
                             <button id="sdf_next_node" type="button" class="btn btn-outline-success btn-sm" style="padding: 0.0px;margin: 0.0px"><i class="fa fa-caret-square-o-down bigfonts" aria-hidden="true"></i></button>
-                            <textarea rows="2" cols="78" type="text" name="en_term" data-parsley-trigger="change" class="form-control" id="en_term" style="font-size:15px;height:60px;font-weight:bold;"   ></textarea>
+                            <textarea rows="2" cols="78" type="text" name="en_term" data-parsley-trigger="change" class="form-control" id="en_term" style="font-size:15px;height:100px;font-weight:bold;resize:none;"   ></textarea>
                         </div>
                         <div class="col-md-6 mb-0 col-sm-0" style="padding-left: 0.1px;">
                             <div class="row">
@@ -151,7 +149,7 @@ label.b {
                             </div>
 
                             <textarea rows="2" cols="78" type="text" name="ar_term" data-parsley-trigger="change"   class="form-control" id="ar_term"
-                            dir="rtl" style="font-size:18px;height:60px;font-weight:bold;"></textarea>
+                            dir="rtl" style="font-size:18px;height:100px;font-weight:bold; resize:none;"></textarea>
                         </div>
                     </div>
 

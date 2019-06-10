@@ -28,7 +28,12 @@ div.fixedpar {
     top: 185px;
     z-index: 2;
 }
-
+.form-control{
+	height:100px !important;
+}
+.note-editable{
+	height:100px !important;
+}
 
 .toggle.ios, .toggle-on.ios, .toggle-off.ios { border-radius: 50px; }
   .toggle.ios .toggle-handle { border-radius: 50px; }

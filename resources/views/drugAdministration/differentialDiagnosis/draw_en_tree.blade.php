@@ -95,7 +95,7 @@ label.b {
 </head>
 <body>
 
-    <div class="row sticky" style="border: 2px solid;padding: 0px;resize: vertical;overflow: auto;" >
+    <div class="row sticky" style="border: 2px solid;padding: 0px;resize: none;overflow: auto;" >
             <!--        2           -->
                 <div class="col-xs-16 col-sm-16 col-md-10 col-lg-10 col-xl-12" style="margin-top: 0.0em;margin-bottom: 0.0em;">
                     <div class="row " >

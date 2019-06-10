@@ -99,7 +99,7 @@ label.b {
     <div class="row sticky" style="border: 2px solid;padding: 0px;resize: none;overflow: auto;" >
             <!--        2           -->
                 <div class="col-xs-16 col-sm-16 col-md-10 col-lg-10 col-xl-12" style="margin-top: 0.0em;margin-bottom: 0.0em;">
-                    <div class="row " >
+                    <div class="row "  >
                         <div class="col-md-1 mb-0 col-sm-0" style="padding-right: 1px;">
                             <label style="margin: 0.0px;height:30px;"
                             > P/Code*<span class="text-danger">*</span></label>
@@ -118,12 +118,12 @@ label.b {
                             <button id="previous_node" type="button" class="btn btn-outline-success btn-sm" style="padding: 0.0px;margin: 0.0px"><i class="fa fa-arrow-circle-left bigfonts" aria-hidden="true"></i></button>
 
                             <label style="padding: 0.0px;margin: 0.0px;height:30px;">English Term<span class="text-danger">*</span></label>
-                           <button type="Addbutton" id="AddButton" class="btn btn-outline-primary btn-sm" style="padding: 0.0px;margin-left: 5.0px;"><i class="fa fa-plus bigfonts"></i> Add </button>
-                           <button id="EditButton" type="button" class="btn btn-outline-success btn-sm" style="padding: 0.0px;margin-left: 20.0px"><i class="fa fa-pencil"></i> Edit </button>
-                           <button id="DeleteButton" type="button" class="btn btn-outline-danger btn-sm" style="padding: 0.0px;margin-left: 20.0px"><i class="fa fa-trash-o"></i> Delete </button>
                              
                             <button id="next_node" type="button" class="btn btn-outline-success btn-sm" style="padding: 0.0px;margin: 0.0px"><i class="fa fa-arrow-circle-right bigfonts" aria-hidden="true"></i></button>
                             <button id="sdf_next_node" type="button" class="btn btn-outline-success btn-sm" style="padding: 0.0px;margin: 0.0px"><i class="fa fa-caret-square-o-down bigfonts" aria-hidden="true"></i></button>
+                           <button type="Addbutton" id="AddButton" class="btn btn-outline-primary btn-sm" style="padding: 0.0px;margin-left: 5.0px;"><i class="fa fa-plus bigfonts"></i> Add </button>
+                           <button id="EditButton" type="button" class="btn btn-outline-success btn-sm" style="padding: 0.0px;margin-left: 20.0px"><i class="fa fa-pencil"></i> Edit </button>
+                           <button id="DeleteButton" type="button" class="btn btn-outline-danger btn-sm" style="padding: 0.0px;margin-left: 20.0px"><i class="fa fa-trash-o"></i> Delete </button>
                             <textarea rows="2" cols="78" type="text" name="en_term" data-parsley-trigger="change" class="form-control" id="en_term" style="font-size:15px;height:100px;font-weight:bold;resize:none;"   ></textarea>
                         </div>
                         <div class="col-md-6 mb-0 col-sm-0" style="padding-left: 0.1px;">
@@ -156,7 +156,7 @@ label.b {
                     </div>
 
 
-                    <div class="row" style="margin-top: 0.0em;margin-bottom: 0.0em;">
+                    <div class="row" style="margin-top: 0.0em;margin-bottom: 0.0em;height:195px;">
                     {{ csrf_field() }}
                         <div class="col-md-6 mb-0 col-sm-0"  style="padding-right: 0.1px;margin-top: 0.0em;margin-bottom: 0.0em;">
                             <textarea id="en_note" name="en_note" class="summernote"> </textarea>

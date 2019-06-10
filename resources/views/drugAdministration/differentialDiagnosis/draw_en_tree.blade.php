@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+<meta name="csrf-token" content="{{ csrf_token() }}" />
 <head>
 <style>
 .jstree-anchor { height:auto !important; white-space:normal !important; }
@@ -29,9 +30,9 @@ div.fixedpar {
     z-index: 2;
 }
 
-.note-editable{
-	height:100px !important;
-}
+
+
+
 .toggle.ios, .toggle-on.ios, .toggle-off.ios { border-radius: 50px; }
   .toggle.ios .toggle-handle { border-radius: 50px; }
 
@@ -93,18 +94,18 @@ label.b {
 </head>
 <body>
 
-    <div class="row sticky" style="border: 2px solid;padding: 0px;resize: none;overflow: auto;" >
+    <div class="row sticky" style="border: 2px solid;padding: 0px;resize: vertical;overflow: auto;" >
             <!--        2           -->
                 <div class="col-xs-16 col-sm-16 col-md-10 col-lg-10 col-xl-12" style="margin-top: 0.0em;margin-bottom: 0.0em;">
                     <div class="row " >
                         <div class="col-md-1 mb-0 col-sm-0" style="padding-right: 1px;">
-                            <label style="margin: 0.0px;height:30px;"
+                            <label style="margin: 0.0px;"
                             > P/Code*<span class="text-danger">*</span></label>
                             <div id="div_parent">
                                 <select class="form-control select2" name="parent_code" id="parent_code"  style="height:30px">
                                 </select>
                             </div>
-                            <input type= "text" name="parent__code" data-parsley-trigger="change" class="form-control" id="parent__code" readonly style="height:30px !important;" placeholder="Code">
+                            <input type= "text" name="parent__code" data-parsley-trigger="change" class="form-control" id="parent__code" readonly style="height:30px" placeholder="Code">
                             <input type= "text" name="term_id" id="term_id">
                             <input type="text" name="code" data-parsley-trigger="change" class="form-control" id="code"  style="height:30px" placeholder="Code">
                         </div>
@@ -114,14 +115,12 @@ label.b {
                                      
                             <button id="previous_node" type="button" class="btn btn-outline-success btn-sm" style="padding: 0.0px;margin: 0.0px"><i class="fa fa-arrow-circle-left bigfonts" aria-hidden="true"></i></button>
 
-                            <label style="padding: 0.0px;margin: 0.0px;height:30px;">English Term<span class="text-danger">*</span></label>
-                                    <button type="Addbutton" id="AddButton" class="btn btn-outline-primary btn-sm" style="padding: 0.0px;margin-left: 5.0px;"><i class="fa fa-plus bigfonts"></i> Add </button>
-                                    <button id="EditButton" type="button" class="btn btn-outline-success btn-sm" style="padding: 0.0px;margin-left: 20.0px"><i class="fa fa-pencil"></i> Edit </button>
-                                    <button id="DeleteButton" type="button" class="btn btn-outline-danger btn-sm" style="padding: 0.0px;margin-left: 20.0px"><i class="fa fa-trash-o"></i> Delete </button>
+                            <label style="padding: 0.0px;margin: 0.0px">English Term<span class="text-danger">*</span></label>
+
                              
                             <button id="next_node" type="button" class="btn btn-outline-success btn-sm" style="padding: 0.0px;margin: 0.0px"><i class="fa fa-arrow-circle-right bigfonts" aria-hidden="true"></i></button>
                             <button id="sdf_next_node" type="button" class="btn btn-outline-success btn-sm" style="padding: 0.0px;margin: 0.0px"><i class="fa fa-caret-square-o-down bigfonts" aria-hidden="true"></i></button>
-                            <textarea rows="2" cols="78" type="text" name="en_term" data-parsley-trigger="change" class="form-control" id="en_term" style="font-size:15px;height:100px;font-weight:bold;resize:none;"   ></textarea>
+                            <textarea rows="2" cols="78" type="text" name="en_term" data-parsley-trigger="change" class="form-control" id="en_term" style="font-size:15px;height:60px;font-weight:bold;"   ></textarea>
                         </div>
                         <div class="col-md-6 mb-0 col-sm-0" style="padding-left: 0.1px;">
                             <div class="row">
@@ -137,9 +136,9 @@ label.b {
                                 </div>
                                  <!--   -->
                                 <div class="col-md-4 mb-0 col-sm-0" style="padding-left: 0.1px;">
-
-                                                        <button id="save_auto__" name="save_auto__"  onclick="saveAotuFunction()" style = "margin-left:35px; "><i class="fa fa-magic bigfonts" aria-hidden="true"></i></button>
-                                                     <button id="save_create" class="btn btn-outline-success btn-sm" style = "margin-left: 2px;margin-right: 16px;"><i class="fa fa-save bigfonts" aria-hidden="true"></i></button>
+                                    <button type="Addbutton" id="AddButton" class="btn btn-outline-primary btn-sm" style="padding: 0.0px;margin-left: 5.0px;"><i class="fa fa-plus bigfonts"></i> Add </button>
+                                    <button id="EditButton" type="button" class="btn btn-outline-success btn-sm" style="padding: 0.0px;margin-left: 20.0px"><i class="fa fa-pencil"></i> Edit </button>
+                                    <button id="DeleteButton" type="button" class="btn btn-outline-danger btn-sm" style="padding: 0.0px;margin-left: 20.0px"><i class="fa fa-trash-o"></i> Delete </button>
                                 </div>
                                 <div class="col-md-4 mb-0 col-sm-0" style="padding-left: 0.1px;">
                                    <!-- <button class="btn btn-outline-primary btn-sm" href="{{route('dif_dia.export')}}" style="padding: 0.0px;margin-left: 20.0px"><i class="fa fa-upload bigfonts" aria-hidden="true"></i> Export</button>-->
@@ -149,7 +148,7 @@ label.b {
                             </div>
 
                             <textarea rows="2" cols="78" type="text" name="ar_term" data-parsley-trigger="change"   class="form-control" id="ar_term"
-                            dir="rtl" style="font-size:18px;height:100px;font-weight:bold; resize:none;"></textarea>
+                            dir="rtl" style="font-size:18px;height:60px;font-weight:bold;"></textarea>
                         </div>
                     </div>
 
@@ -157,10 +156,10 @@ label.b {
                     <div class="row" style="margin-top: 0.0em;margin-bottom: 0.0em;">
                     {{ csrf_field() }}
                         <div class="col-md-6 mb-0 col-sm-0"  style="padding-right: 0.1px;margin-top: 0.0em;margin-bottom: 0.0em;">
-                            <div id="en_note" name="en_note" class="summernote"> </div>
+                            <textarea id="en_note" name="en_note" class="summernote"> </textarea>
                         </div>
                         <div class="col-md-6 mb-0 col-sm-0" style="padding-left: 0.0px;margin-top: 0.0em;margin-bottom: 0.0em;">
-                            <div id="ar_note" name="ar_note" class="summernote"> </div>
+                            <textarea id="ar_note" name="ar_note" class="summernote"> </textarea>
                         </div>
                     </div>
                 </div>
@@ -168,7 +167,8 @@ label.b {
                 
          <!--fixedpar-->
                 <div class="row" style="width:90%;">
-
+                    <button id="save_auto__" name="save_auto__"  onclick="saveAotuFunction()" style = "margin-left:35px;"><i class="fa fa-magic bigfonts" aria-hidden="true"></i></button>
+                    <button id="save_create" class="btn btn-outline-success btn-sm" style = "margin-left: 2px;margin-right: 16px;"><i class="fa fa-save bigfonts" aria-hidden="true"></i></button>
                     <form id="s" >
                         <div class="row">
                             <input  type="search" id="plugins4_q" value="" class="input" style="display:block;  border-radius:1px; border:1px solid silver;"  >
@@ -243,6 +243,8 @@ label.b {
     var selected_node;
     var all_parents_code = "";
     var get_data = 0;
+
+    var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
         $(document).ready(function(){ 
             tree =$('#container').jstree({
         'core' : {
@@ -310,6 +312,7 @@ label.b {
                     ar_note = document.getElementById('ar_note').value ;
                 else
                     ar_note = " ";
+                //save_note_just(my_id,ar_note,en_note);
                 save_auto(my_id,compare,code,parent_code,en_term,ar_term,en_note,ar_note,bold,italic,color_text,color_background,under_line,ar_size,en_size,copy_style);
             }
             id = data.selected[0];
@@ -317,7 +320,10 @@ label.b {
             {
                 fill_field(compare , id);
                 if(copy_style == true)
-                        autoChangeFontStyle(bold,italic,color_text,color_background,under_line,ar_size,en_size);
+                {
+                    //save_note_just(my_id,ar_note,en_note);
+                    autoChangeFontStyle(bold,italic,color_text,color_background,under_line,ar_size,en_size);
+                }
             }
         });
         //delete
@@ -373,7 +379,7 @@ label.b {
                 ar_note = document.getElementById('ar_note').value ;
             else
                 ar_note = " "
-            
+            //save_note_just(my_id,ar_note,en_note);
             save_auto(my_id,compare,code,parent_code,en_term,ar_term,en_note,ar_note,bold,italic,color_text,color_background,under_line,ar_size,en_size,copy_style);
         });
 
@@ -658,6 +664,22 @@ label.b {
             });
         }
     //parent_code contain parent_id
+        function save_note_just(my_id,ar_note,en_note){
+            $.ajax({
+                    type :"POST",
+                    url:"{{route('dif_dia_node_note.save')}}",
+                    data:{
+                        id : my_id,
+                        en_note : en_note,
+                        ar_note : ar_note,
+                        _token: CSRF_TOKEN,
+                    },
+                    success:function(res){
+                        console.log(res);
+                    }
+        });
+        }
+
         function save_auto(my_id,compare,code,parent_code,en_term,ar_term,en_note,ar_note,text_bold,text_italic,text_color,background_color,under_line,ar_size,en_size,copy_style) {
             console.log(my_id);
             console.log(compare);
@@ -679,7 +701,7 @@ label.b {
             //ar_term=super_script(ar_term);
             //en_term=super_script(en_term);
             $.ajax({
-                type :"GET",
+                type :"POST",
                 url:"{{route('dif_dia_node.save')}}",
                 data:{
                     id : my_id,
@@ -698,6 +720,7 @@ label.b {
                     ar_size :ar_size,
                     en_size :en_size,
                     copy_style : copy_style,
+                    _token: CSRF_TOKEN,
                 },
                 success:function(res){
                     //edit
@@ -1004,5 +1027,13 @@ label.b {
             console.log("focus");
             $("#container").jstree(true).get_node(id, true).children('.jstree-anchor').focus();
         }
+
+        $.ajaxSetup(
+        {
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
 </script>
 </html>
+

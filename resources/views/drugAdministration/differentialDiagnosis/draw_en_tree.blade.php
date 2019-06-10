@@ -172,7 +172,7 @@ label.b {
                 <div class="row" style="width:90%;">
 
                     <form id="s" >
-                        <div class="row">
+                        <div class="row" style="margin-left:30px;">
                             <input  type="search" id="plugins4_q" value="" class="input" style="display:block;  border-radius:1px; border:1px solid silver;"  >
                             <button type="submit" class="btn btn-outline-success btn-sm" ><i class="fa fa-search bigfonts" aria-hidden="true"></i></button>
                         </div>

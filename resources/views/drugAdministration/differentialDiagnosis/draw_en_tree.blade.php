@@ -312,7 +312,6 @@ label.b {
                     ar_note = document.getElementById('ar_note').value ;
                 else
                     ar_note = " ";
-                //save_note_just(my_id,ar_note,en_note);
                 save_auto(my_id,compare,code,parent_code,en_term,ar_term,en_note,ar_note,bold,italic,color_text,color_background,under_line,ar_size,en_size,copy_style);
             }
             id = data.selected[0];
@@ -321,7 +320,7 @@ label.b {
                 fill_field(compare , id);
                 if(copy_style == true)
                 {
-                    //save_note_just(my_id,ar_note,en_note);
+                    
                     autoChangeFontStyle(bold,italic,color_text,color_background,under_line,ar_size,en_size);
                 }
             }
@@ -378,8 +377,7 @@ label.b {
             if(myInput)
                 ar_note = document.getElementById('ar_note').value ;
             else
-                ar_note = " "
-            //save_note_just(my_id,ar_note,en_note);
+                ar_note = " ";
             save_auto(my_id,compare,code,parent_code,en_term,ar_term,en_note,ar_note,bold,italic,color_text,color_background,under_line,ar_size,en_size,copy_style);
         });
 
@@ -662,22 +660,6 @@ label.b {
                     } 
                 }
             });
-        }
-    //parent_code contain parent_id
-        function save_note_just(my_id,ar_note,en_note){
-            $.ajax({
-                    type :"POST",
-                    url:"{{route('dif_dia_node_note.save')}}",
-                    data:{
-                        id : my_id,
-                        en_note : en_note,
-                        ar_note : ar_note,
-                        _token: CSRF_TOKEN,
-                    },
-                    success:function(res){
-                        console.log(res);
-                    }
-        });
         }
 
         function save_auto(my_id,compare,code,parent_code,en_term,ar_term,en_note,ar_note,text_bold,text_italic,text_color,background_color,under_line,ar_size,en_size,copy_style) {

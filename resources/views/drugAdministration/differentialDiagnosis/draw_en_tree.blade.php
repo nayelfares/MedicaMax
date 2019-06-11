@@ -39,7 +39,9 @@ div.fixedpar {
   .toggle.ios .toggle-handle { border-radius: 50px; }
 
 .red { background:red !important; }
-
+    .dd1{
+        margin-left: -75px !important;
+    }
 
 sup{
     color:blue;
@@ -61,6 +63,9 @@ label.a {
 label.b {
   visibility: hidden;
 }
+body{
+        overflow-y: hidden !important;
+    }
 </style>
 <script src="{{ asset('js/alaa/jquery-3.3.1.js')}}"></script> 
 <link href="{{asset('/assets/plugins/select2/css/select2.min.css')}}" rel="stylesheet" type="text/css"/>
@@ -161,7 +166,7 @@ label.b {
                         <div class="col-md-6 mb-0 col-sm-0"  style="padding-right: 0.1px;margin-top: 0.0em;margin-bottom: 0.0em;">
                             <textarea id="en_note" name="en_note" class="summernote"> </textarea>
                         </div>
-                        <div class="col-md-6 mb-0 col-sm-0" style="padding-left: 0.0px;margin-top: 0.0em;margin-bottom: 0.0em;" dir="rtl">
+                        <div class="col-md-6 mb-0 col-sm-0" style="padding-left: 0.0px;margin-top: 0.0em;margin-bottom: 0.0em;text-align:right;">
                             <textarea id="ar_note" name="ar_note" class="summernote" > </textarea>
                         </div>
                     </div>
@@ -203,7 +208,7 @@ label.b {
 <!-------------------------------------->
      <div  >
             <!--        1           -->
-            <div class="col-md-24 mb-0 col-sm-0">
+            <div class="dd1" >
                 <!-- Tree  -->
                 <hr class="fixedpar" style="float:left;border-style: inset; border-width: 0.8px;margin-top: 0.0em;margin-bottom: 0.0em; width:1425px;padding-bottom: 0.0px">
                 <div  id="container"  style="margin-left:15px;display:block;overflow:auto;height:425px;width:1425px;">

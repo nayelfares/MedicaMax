@@ -61,6 +61,9 @@ label.a {
 label.b {
   visibility: hidden;
 }
+body{
+        overflow-y: hidden !important;
+    }
 </style>
 <script src="{{ asset('js/alaa/jquery-3.3.1.js')}}"></script> 
 <link href="{{asset('/assets/plugins/select2/css/select2.min.css')}}" rel="stylesheet" type="text/css"/>
@@ -161,8 +164,8 @@ label.b {
                         <div class="col-md-6 mb-0 col-sm-0"  style="padding-right: 0.1px;margin-top: 0.0em;margin-bottom: 0.0em;">
                             <textarea id="en_note" name="en_note" class="summernote"> </textarea>
                         </div>
-                        <div class="col-md-6 mb-0 col-sm-0" style="padding-left: 0.0px;margin-top: 0.0em;margin-bottom: 0.0em;" dir="rtl">
-                            <textarea id="ar_note" name="ar_note" class="summernote" dir='rtl' style='text-align:right' > </textarea>
+                        <div class="col-md-6 mb-0 col-sm-0" style="padding-left: 0.0px;margin-top: 0.0em;margin-bottom: 0.0em;text-align:right;">
+                            <textarea id="ar_note" name="ar_note" class="summernote" > </textarea>
                         </div>
                     </div>
                 </div>

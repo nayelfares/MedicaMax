@@ -202,7 +202,11 @@ Route::get('dd_en_tree','DifferentialDiagnosisController@build_en_tree')->name('
 Route::get('delete_dif_dia_node', 'DifferentialDiagnosisController@delete_node')->name('dif_dia_node.delete');
 Route::get('dif_dia_node_view', 'DifferentialDiagnosisController@view_node')->name('dif_dia_node.view');
 Route::get( 'dif_dia_search','DifferentialDiagnosisController@search')->name('dif_dia_node.search');
-Route::get('dif_dia_node_save', 'DifferentialDiagnosisController@save_node')->name('dif_dia_node.save');
+Route::POST('dif_dia_node_save', 'DifferentialDiagnosisController@save_node')->name('dif_dia_node.save');
+Route::POST('dif_dia_node_note_save', 'DifferentialDiagnosisController@save_note_node')->name('dif_dia_node_note.save');
+
+
+
 Route::get('dif_dia_term_replace', 'DifferentialDiagnosisController@term_replace')->name('dif_dia_term.replace');
 
 Route::get('update_parent_dif_dia', 'DifferentialDiagnosisController@update_parent')->name('update_parent_dif_dia');

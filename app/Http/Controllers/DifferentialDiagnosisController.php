@@ -17,12 +17,12 @@ class DifferentialDiagnosisController extends Controller
 {
     //
    public function __construct()
-	{
-    	$this->middleware('auth');
+    {
+        $this->middleware('auth');
         $this->stack = array();
-	}
+    }
 
-	/**
+    /**
      * Display a listing of the resource.
      * 
      * @return \Illuminate\Http\Response
@@ -51,9 +51,9 @@ class DifferentialDiagnosisController extends Controller
         
         $tree = [];
         foreach ($dif_dias as $dif_dia) {
-            $code_width = 175;
-            $ar_width = 525 - 12 * $dif_dia->level ;
-            $en_width = 675 - 12 * $dif_dia->level ;
+            $code_width = 60;
+            $ar_width = 300 - 12 * $dif_dia->level ;
+            $en_width = 475 - 12 * $dif_dia->level ;
             $type = 'b';
             $tree[] = [
                 "id" => (string)$dif_dia->id,
@@ -69,9 +69,9 @@ class DifferentialDiagnosisController extends Controller
         return json_encode($tree);
         
     }
-	
+    
 
-	/* export excel file*/
+    /* export excel file*/
     public function differentialDiagnosisExport(){
      
         return Excel::download( new DiseasesExport , 'differential diagnosis.xls');
@@ -115,9 +115,9 @@ class DifferentialDiagnosisController extends Controller
     {       // Get Information My Disease 
             $dif_dia = DifferentialDiagnosis::find( $request->id);
             
-            $code_width = 175;
-            $ar_width = 525 - 12 * $dif_dia->level ;
-            $en_width = 675 - 12 * $dif_dia->level ;
+            $code_width = 60;
+            $ar_width = 300 - 12 * $dif_dia->level ;
+            $en_width = 475 - 12 * $dif_dia->level ;
              
             $type = 'b';
             $result = [];
@@ -166,6 +166,9 @@ class DifferentialDiagnosisController extends Controller
         return json_encode($result);
     }
 
+    public function save_note_node(Request $request){
+        return $request;
+    }
 
     public function save_node(Request $request)
     {
@@ -252,9 +255,9 @@ class DifferentialDiagnosisController extends Controller
                 'en_size' => $request->en_size,
                 'show_code' => "0",
             ])->id;
-            $code_width = 175;
-            $ar_width = 525 - 12 * $level ;
-            $en_width = 675 - 12 * $level ;
+            $code_width = 60;
+            $ar_width = 300 - 12 * $level ;
+            $en_width = 475 - 12 * $level ;
             $type = 'b';
 
             $node[] = [
@@ -375,12 +378,13 @@ class DifferentialDiagnosisController extends Controller
                     'show_code' => $show_code
                 ];     
 
-            }             
+            }    
+           // return $input;         
             DB::table('differential_diagnoses')->where('id',$request->id)->update($input);
             
-            $code_width = 175;
-            $ar_width = 525 - 12 * $level ;
-            $en_width = 675 - 12 * $level ;
+            $code_width = 60;
+            $ar_width = 300 - 12 * $level ;
+            $en_width = 475 - 12 * $level ;
             $node = [];
             $node [] = [
                 "code_width" =>$code_width,
@@ -416,7 +420,7 @@ class DifferentialDiagnosisController extends Controller
         {
             $en_term = str_replace($request->from, $request->to, $en_dif_dia->en_term);
             $input = [
-            	"en_term" => $en_term
+                "en_term" => $en_term
             ];
             DB::table('differential_diagnoses')->where('id', $en_dif_dia->id)->update($input);
         }

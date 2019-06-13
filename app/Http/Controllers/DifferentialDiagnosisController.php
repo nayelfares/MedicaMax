@@ -166,14 +166,8 @@ class DifferentialDiagnosisController extends Controller
         return json_encode($result);
     }
 
-    public function save_note_node(Request $request){
-        return $request;
-    }
-
     public function save_node(Request $request)
     {
-
-       
         if(is_null($request->id))
         {
             $this->validate($request, [
@@ -279,9 +273,6 @@ class DifferentialDiagnosisController extends Controller
             //ar_note
             $ar_detail=$request->ar_note;
             
-            //simple arabic term for all
-         
-
             //get simle arab term for this disease
             $re = '/\w|\s/um';
             preg_match_all($re, $request->ar_term, $matches, PREG_SET_ORDER, 0);
@@ -297,7 +288,6 @@ class DifferentialDiagnosisController extends Controller
             $new_parent = 0 ;
             $level = $my_dif_dia->level;
             
-            $input = [];
             $request->parent_code = ($request->parent_code=='null' ? '' : $request->parent_code);
             
             $input = [];

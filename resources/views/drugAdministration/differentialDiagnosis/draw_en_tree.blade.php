@@ -31,7 +31,7 @@ div.fixedpar {
 }
 
 .note-editable{
-    height:100px;
+    height:100px ;
     resize: none;
 }
 div.note-statusbar{
@@ -43,6 +43,7 @@ div.note-statusbar{
         height: 100%;
         width: 1335px;
     }
+
 
 .toggle.ios, .toggle-on.ios, .toggle-off.ios { border-radius: 50px; }
   .toggle.ios .toggle-handle { border-radius: 50px; }
@@ -69,6 +70,7 @@ label.a {
 label.b {
   visibility: hidden;
 }
+
 </style>
 <script src="{{ asset('js/alaa/jquery-3.3.1.js')}}"></script> 
 <link href="{{asset('/assets/plugins/select2/css/select2.min.css')}}" rel="stylesheet" type="text/css"/>
@@ -106,11 +108,11 @@ label.b {
 
     <div class="row sticky" style="border: 2px solid;padding: 0px;resize: none;overflow: auto;" >
             <!--        2           -->
-                <div id="summercontainer" style="margin-top: 0.0em;margin-bottom: 0.0em;">
+                 <div id="summercontainer" style="margin-top: 0.0em;margin-bottom: 0.0em;">
                     <div class="row "  >
                         <div class="col-md-1 mb-0 col-sm-0" style="padding-right: 1px;">
                             <label style="margin: 0.0px;height:30px;"
-                            > P/Code*<span class="text-danger">*</span></label>
+                            > P/Code<span class="text-danger">**</span></label>
                             <div id="div_parent">
                                 <select class="form-control select2" name="parent_code" id="parent_code"  style="height:30px">
                                 </select>
@@ -186,7 +188,6 @@ label.b {
                         </div>
                     </form>
                     <button style="margin-left: 1.0em;" id="eraser_search" name="eraser_search" class="btn btn-outline-success btn-sm"  ><i class="fa fa-eraser bigfonts" aria-hidden="true"></i></button>
-                    <!--<a class="btn btn-outline-success btn-sm" href="{{route('disease.draw_tree_ar') }}" padding="4px" ><i class="fa fa-language bigfonts" aria-hidden="true"></i></a>-->
                     <input id="cut_node" name="cut_node" type="button" class="btn btn-outline-success btn-sm"  value="Cut">
                     <input id="past_node" name="past_node" type="button" class="btn btn-outline-success btn-sm" value="Paste">
 
@@ -257,24 +258,6 @@ label.b {
 
     var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
         $(document).ready(function(){ 
-                 $('#ar_note').on('summernote.keydown', function(we, e) {
-                     if (event.key === "Enter"){
-                           var he=$("#summercontainer").height()+20;
-                           if(he < 500){
-                            $('div.note-editable').height($('div.note-editable').css("height"));
-                            $("#summercontainer").height(he);
-                          }
-                      }
-					});
-                 $('#en_note').on('summernote.keydown', function(we, e) {
-                     if (event.key === "Enter"){
-                           var he=$("#summercontainer").height()+20;
-                           if(he < 500){
-                            $('div.note-editable').height($('div.note-editable').css("height"));
-                            $("#summercontainer").height(he);
-                          }
-                      }
-					});
             tree =$('#container').jstree({
         'core' : {
             "check_callback": true,
@@ -411,10 +394,28 @@ label.b {
 
         //note
         $('#en_note').summernote();
+        $('#en_note').on('summernote.keydown', function(we, e) {
+            if (event.key === "Enter"){
+                   var he=$("#summercontainer").height()+20;
+                   if(he < 500){
+                    $('div.note-editable').height($('div.note-editable').css("height"));
+                    $("#summercontainer").height(he);
+                }
+            }
+        });
         $('#ar_note').summernote();
+        $('#ar_note').on('summernote.keydown', function(we, e) {
+            if (event.key === "Enter"){
+                   var he=$("#summercontainer").height()+20;
+                   if(he < 500){
+                    $('div.note-editable').height($('div.note-editable').css("height"));
+                    $("#summercontainer").height(he);
+                }
+            }
+        });
+                 
 
         
-
         //cut_node
         $("#cut_node").click(function(){
             var node = $('#container').jstree(true).get_node(id);
@@ -476,7 +477,7 @@ label.b {
                     $.each(result_view,function(key,value){
                         all_parents_code = all_parents_code.concat('<option value="'+key+'">'+value+'</option>');
                     });
-                    all_parents_code = all_parents_code.concat('<option value="null">'+''+'</option>'); 
+                    all_parents_code = all_parents_code.concat('<option value="null">'+'null'+'</option>'); 
                     get_data=1;       
                 }
             });
@@ -693,23 +694,10 @@ label.b {
         }
 
         function save_auto(my_id,compare,code,parent_code,en_term,ar_term,en_note,ar_note,text_bold,text_italic,text_color,background_color,under_line,ar_size,en_size,copy_style) {
-            console.log(my_id);
-            console.log(compare);
-            console.log(code);
-            console.log(parent_code);
-            console.log(en_term);
-            console.log(ar_term);
-            console.log(text_bold);
-            console.log(text_italic);
-            console.log(text_color);
-            console.log(background_color);
-            console.log(under_line);
-            console.log(ar_size);
-            console.log(en_size);
-            console.log(ar_note);
-            console.log(en_note);
-
-            console.log(copy_style);
+            if(compare == 2){
+                parent_id = my_id;
+                my_id = null;
+            }
             //ar_term=super_script(ar_term);
             //en_term=super_script(en_term);
             $.ajax({

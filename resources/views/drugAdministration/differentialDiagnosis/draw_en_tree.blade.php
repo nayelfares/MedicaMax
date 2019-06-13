@@ -31,14 +31,22 @@ div.fixedpar {
 }
 
 .note-editable{
-    height:100px !important;
+    height:100px;
+    resize: none;
 }
-
+div.note-statusbar{
+        visibility: hidden;
+    }
+/*    summercontainer*/    
+#summercontainer{
+        position: relative;
+        height: 100%;
+        width: 1335px;
+    }
 
 .toggle.ios, .toggle-on.ios, .toggle-off.ios { border-radius: 50px; }
   .toggle.ios .toggle-handle { border-radius: 50px; }
 
-.red { background:red !important; }
 
 
 sup{
@@ -61,9 +69,6 @@ label.a {
 label.b {
   visibility: hidden;
 }
-body{
-        overflow-y: hidden !important;
-    }
 </style>
 <script src="{{ asset('js/alaa/jquery-3.3.1.js')}}"></script> 
 <link href="{{asset('/assets/plugins/select2/css/select2.min.css')}}" rel="stylesheet" type="text/css"/>
@@ -101,7 +106,7 @@ body{
 
     <div class="row sticky" style="border: 2px solid;padding: 0px;resize: none;overflow: auto;" >
             <!--        2           -->
-                <div class="col-xs-16 col-sm-16 col-md-10 col-lg-10 col-xl-12" style="margin-top: 0.0em;margin-bottom: 0.0em;">
+                <div id="summercontainer" style="margin-top: 0.0em;margin-bottom: 0.0em;">
                     <div class="row "  >
                         <div class="col-md-1 mb-0 col-sm-0" style="padding-right: 1px;">
                             <label style="margin: 0.0px;height:30px;"
@@ -252,6 +257,13 @@ body{
 
     var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
         $(document).ready(function(){ 
+                 $('#ar_note').on('summernote.keydown', function(we, e) {
+                     if (event.key === "Enter"){
+				       	$('div.note-editable').height($('div.note-editable').css("height"));
+                         var he=$("#summercontainer").height()+20;
+                        $("#summercontainer").height(he);
+                      }
+					});
             tree =$('#container').jstree({
         'core' : {
             "check_callback": true,

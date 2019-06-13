@@ -259,9 +259,20 @@ label.b {
         $(document).ready(function(){ 
                  $('#ar_note').on('summernote.keydown', function(we, e) {
                      if (event.key === "Enter"){
-				       	$('div.note-editable').height($('div.note-editable').css("height"));
-                         var he=$("#summercontainer").height()+20;
-                        $("#summercontainer").height(he);
+                           var he=$("#summercontainer").height()+20;
+                           if(he < 500){
+                            $('div.note-editable').height($('div.note-editable').css("height"));
+                            $("#summercontainer").height(he);
+                          }
+                      }
+					});
+                 $('#en_note').on('summernote.keydown', function(we, e) {
+                     if (event.key === "Enter"){
+                           var he=$("#summercontainer").height()+20;
+                           if(he < 500){
+                            $('div.note-editable').height($('div.note-editable').css("height"));
+                            $("#summercontainer").height(he);
+                          }
                       }
 					});
             tree =$('#container').jstree({

@@ -410,7 +410,28 @@ label.b {
             }
         });
                  
-
+            $("#ar_term").keypress(function (e) {
+            
+                if (event.key === "Enter"){
+                    var ath=$("#ar_term").height()+30;
+                    if(ath < 150){
+                       $("#ar_term").height(ath);
+                       $("#en_term").height(ath); 
+                    }
+                }
+                
+            });
+            $("#en_term").keypress(function (e) {
+            
+                if (event.key === "Enter"){
+                    var ath=$("#en_term").height()+30;
+                    if(ath < 150){
+                       $("#ar_term").height(ath);
+                       $("#en_term").height(ath); 
+                    }
+                }
+                
+            });
         
         //cut_node
         $("#cut_node").click(function(){

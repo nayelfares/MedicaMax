@@ -268,7 +268,7 @@ label.b {
             },
             "themes": {
             "theme": "default",
-            "dots": true,
+            "dots": false,
             "icons": false,
         },
         },
@@ -280,10 +280,10 @@ label.b {
             "select_multiple_modifier": "none",
         },
         "sort" :  function (a, b) {
-            return this.get_node(a).original.px < this.get_node(b).original.px ? -1 : 1;
-            //return this.get_node(a).text < this.get_node(b).text ? -1 : 1;
+            //return this.get_node(a).original.px < this.get_node(b).original.px ? -1 : 1;
+            return this.get_node(a).text < this.get_node(b).text ? -1 : 1;
         },
-        'plugins': [ "sort","state","themes", "json_data", "ui", "Select", "types", "crrm","html_data", "search", "massload","wholerow","dnd","changed"]
+        'plugins': [ "sort","state","themes", "json_data", "ui", "Select", "types", "crrm","html_data", "search", "massload","dnd","changed"]
     }).on('create_node.jstree', function(e, data) {
     console.log('saved');
         });

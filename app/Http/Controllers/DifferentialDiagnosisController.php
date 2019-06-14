@@ -47,7 +47,7 @@ class DifferentialDiagnosisController extends Controller
 
     public function build_en_tree()
     {
-        $dif_dias = DB::table('differential_diagnoses')->get(); 
+        $dif_dias = DB::table('differential_diagnoses')->orderBy('code', 'asc')->get(); 
         
         $tree = [];
         foreach ($dif_dias as $dif_dia) {

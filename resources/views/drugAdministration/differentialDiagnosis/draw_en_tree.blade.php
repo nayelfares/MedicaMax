@@ -263,7 +263,7 @@ label.b {
             "check_callback": true,
             'data' : {
                 "url" : "{{route('dif_dia.en_tree')}}",
-                "plugins" : [  "checkbox","state"],
+                "plugins" : [ "checkbox","state"],
                 "dataType" : "json" // needed only if you do not supply JSON headers
             },
             "themes": {
@@ -279,11 +279,7 @@ label.b {
             "select_limit": 1,
             "select_multiple_modifier": "none",
         },
-        "sort" :  function (a, b) {
-            //return this.get_node(a).original.px < this.get_node(b).original.px ? -1 : 1;
-            return this.get_node(a).text < this.get_node(b).text ? -1 : 1;
-        },
-        'plugins': [ "sort","state","themes", "json_data", "ui", "Select", "types", "crrm","html_data", "search", "massload","dnd","changed"]
+        'plugins': [ "state","themes", "json_data", "ui", "Select", "types", "crrm","html_data", "search", "massload","dnd","changed"]
     }).on('create_node.jstree', function(e, data) {
     console.log('saved');
         });

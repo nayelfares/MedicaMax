@@ -134,7 +134,20 @@ label.b {
                            <button type="Addbutton" id="AddButton" class="btn btn-outline-primary btn-sm" style="padding: 0.0px;margin-left: 5.0px;"><i class="fa fa-plus bigfonts"></i> Add </button>
                            <button id="EditButton" type="button" class="btn btn-outline-success btn-sm" style="padding: 0.0px;margin-left: 20.0px"><i class="fa fa-pencil"></i> Edit </button>
                            <button id="DeleteButton" type="button" class="btn btn-outline-danger btn-sm" style="padding: 0.0px;margin-left: 20.0px"><i class="fa fa-trash-o"></i> Delete </button>
-                            <textarea rows="2" cols="78" type="text" name="en_term" data-parsley-trigger="change" class="form-control" id="en_term" style="font-size:15px;height:100px;font-weight:bold;resize:none;"   ></textarea>
+                            <textarea rows="2" cols="78" type="text" name="en_term" data-parsley-trigger="change" class="form-control" id="en_term" style="font-size:15px;height:60px;font-weight:bold;resize:none;"   ></textarea>
+                            <script>
+                                $(document).ready(function() {
+                                    $('#en_term').summernote({
+                                     toolbar: [
+                                        ['style', ['bold', 'italic', 'underline', 'clear']],
+                                        ['font', ['strikethrough', 'superscript', 'subscript']],
+                                        ['fontsize', ['fontsize']],
+                                        ['color', ['color']],
+                                        ['height', ['height']]
+                                  ]
+                                });
+                                });
+                            </script>
                         </div>
                         <div class="col-md-6 mb-0 col-sm-0" style="padding-left: 0.1px;">
                             <div class="row">
@@ -161,7 +174,20 @@ label.b {
                             </div>
 
                             <textarea rows="2" cols="78" type="text" name="ar_term" data-parsley-trigger="change"   class="form-control" id="ar_term"
-                            dir="rtl" style="font-size:26px;height:100px;font-weight:bold;resize:none;"></textarea>
+                            dir="rtl" style="font-size:26px;height:60px;font-weight:bold;resize:none;"></textarea>
+                            <script>
+                                $(document).ready(function() {
+                                    $('#ar_term').summernote({
+                                     toolbar: [
+                                        ['style', ['bold', 'italic', 'underline', 'clear']],
+                                        ['font', ['strikethrough', 'superscript', 'subscript']],
+                                        ['fontsize', ['fontsize']],
+                                        ['color', ['color']],
+                                        ['height', ['height']]
+                                  ]
+                                });
+                                });
+                            </script>
                         </div>
                     </div>
 
@@ -371,8 +397,8 @@ label.b {
             var my_id = document.getElementById('term_id').value;
             var code = document.getElementById('code').value;
             var parent_code = document.getElementById('parent_code').value;
-            var en_term = document.getElementById('en_term').value;
-            var ar_term = document.getElementById('ar_term').value;
+            var en_term =  $("#en_term").summernote("code");// document.getElementById('en_term').value;
+            var ar_term = $("#ar_term").summernote("code");//document.getElementById('ar_term').value;
             var en_note;
             var myInput = document.getElementById('en_note').value;
             if(myInput)
@@ -389,6 +415,7 @@ label.b {
         });
 
         //note
+         
         $('#en_note').summernote();
         $('#en_note').on('summernote.keydown', function(we, e) {
             if (event.key === "Enter"){
@@ -579,8 +606,10 @@ label.b {
                             $.each(result_view.parent_code,function(key,value){
                                 $('#parent_code').append('<option value="'+key+'">'+value+'</option>');
                             });  
-                            document.getElementById('en_term').value = node.en_term;
-                            document.getElementById('ar_term').value = node.ar_term;
+                         //   document.getElementById('en_term').value = node.en_term;
+                            $("#en_term").summernote("code",node.en_term);
+                         //   document.getElementById('ar_term').value = node.ar_term;
+                            $("#ar_term").summernote("code",node.ar_term);
                             //initialize summernote
                             $('.summernote').summernote();
                             $("#en_note").summernote('code',res.en_note);
@@ -613,8 +642,10 @@ label.b {
                             document.getElementById("parent__code").style.display = "block";
                             document.getElementById("parent__code").value = node.code;
                             document.getElementById("code").value = ""; 
-                            document.getElementById("en_term").value = "";
-                            document.getElementById("ar_term").value = "";
+                           // document.getElementById("en_term").value = "";
+                            $("#en_term").summernote("code","");
+                           //document.getElementById("ar_term").value = "";
+                            $("#ar_term").summernote("code","");
                             //initialize summernote
                             $('.summernote').summernote();
                             $('.summernote').summernote('code');
@@ -650,12 +681,15 @@ label.b {
                                 $('#parent_code').empty();
                                 $('#parent_code').append('<option value="'+node.parent_code+'">'+node.parent_code+'</option>');
                                 $('#parent_code').append(all_parents_code);
-                                document.getElementById('en_term').value = node.en_term;
-                                document.getElementById('ar_term').value = node.ar_term;
+                               //document.getElementById('en_term').value = node.en_term;
+                                $("#en_term").summernote("code",node.en_term);
+                               // document.getElementById('ar_term').value = node.ar_term;
+                               $("#ar_term").summernote("code",node.ar_term);
                                 //initialize summernote
                                 $('.summernote').summernote();
                                 $("#en_note").summernote('code',node.en_note);
-                                $("#ar_note").summernote('code',node.ar_note);                     
+                                $("#ar_note").summernote('code',node.ar_note);  
+                        
                     }
                 });
             }
@@ -675,8 +709,10 @@ label.b {
                         document.getElementById("parent__code").style.display = "block";
                         document.getElementById("parent__code").value = node.code;
                         document.getElementById('code').value = "";
-                        document.getElementById('en_term').value = "";
-                        document.getElementById('ar_term').value = "";
+                       // document.getElementById('en_term').value = "";
+                        $("#en_term").summernote("code","");
+                      // document.getElementById('ar_term').value = "";
+                        $("#ar_term").summernote("code","");
                         document.getElementById("parent_code").readOnly = true;
                         //initialize summernote
                         $('.summernote').summernote();

@@ -144,35 +144,51 @@ Route::post('quantitycompositionimport','CompositionQuantityController@QuantityC
 *   Diseases 
 *
 **********************/
-
-Route::resource('drug-administration/disease','DiseaseController');
 /*
-* Arabic Tree
+* The Disease Controller Route
 */
-Route::get( 'draw_ar_tree','DiseaseController@draw_tree')->name('disease.draw_tree_ar');
-Route::get('tree_ar/{id}','DiseaseController@build_diseases_tree_ar')->name('disease.ar_tree');
+Route::resource('drug-administration/disease','DiseaseController');
+
 /*
-* English Tree
+* Build English Tree
 */
 Route::get( 'draw_en_tree','DiseaseController@draw_en_tree')->name('disease.draw_en_tree');
-//Route::get('en_tree/{id}','DiseaseController@build_diseases_en_tree')->name('disease.en_tree');
-Route::get('en_tree','DiseaseController@build_diseases_en_tree')->name('disease.en_tree');
+Route::get('tree_ar/{id}','DiseaseController@build_diseases_tree_en')->name('disease.en_tree');
 /*
-* Disease Node Function
+* Delete Node
 */
 Route::get('delete_disease_node', 'DiseaseController@delete_disease_node')->name('disease_node.delete');
+/*
+* Update Parent Node
+*/
 Route::get('update_parent_disease', 'DiseaseController@update_parent_disease')->name('update_parent_disease');
+/*
+* View Node
+*/
 Route::get('disease_node_view', 'DiseaseController@disease_view_node')->name('disease_node.view');
+/*
+* Search for Nodes
+*/
 Route::get( 'disease_search','DiseaseController@disease_search')->name('disease_node.search');
-Route::get('disease_node_save', 'DiseaseController@disease_node_save')->name('disease_node.save');
+/*
+* Save Node and Create
+*/
+Route::POST('disease_node_save', 'DiseaseController@disease_node_save')->name('disease_node.save');
+/*
+* Replace String in Term
+*/
 Route::get('disease_term_replace', 'DiseaseController@disease_term_replace')->name('disease_term.replace');
+/*
+* Get Parents Code
+*/
 Route::get('diseases_get_parents','DiseaseController@get_parent_codes')->name('get_parent_codes');
+/*
+* Get Parents Code
+*/
 Route::get('get_all_parents_for_node','DiseaseController@get_all_parents_for_node')->name('get_all_parents_for_node');
-Route::get('draw_tree_result_search','DiseaseController@draw_tree_result_search')->name('draw_tree_result_search');
 /*
 * Disease Export &&  Import
 */
-
 Route::get('DiseasesExport', 'DiseaseController@DiseasesExport')->name('disease.export');
 Route::get('import_interface_', 'DiseaseController@importInterface')->name('disease.import_interface');
 Route::post('diseaseimport','DiseaseController@diseasesImport')->name('disease.import');
@@ -182,41 +198,47 @@ Route::post('diseaseimport','DiseaseController@diseasesImport')->name('disease.i
 *   Differential Diagnosis 
 *
 **********************/
-
-Route::resource('drug-administration/differentialDiagnosis','DifferentialDiagnosisController');
 /*
-* Arabic Tree
-*
+* The Differential Diagnosis Controller Route
+*/
+Route::resource('drug-administration/differentialDiagnosis','DifferentialDiagnosisController');
 
-Route::get( 'draw_ar_tree','DifferentialDiagnosisController@draw_ar_tree')->name('dif_dia.draw_ar_tree');
-Route::get('tree_ar','DifferentialDiagnosisController@build_ar_tree')->name('dif_dia.ar_tree');
-
-*
-* English Tree
+/*
+* Build English Tree
 */
 Route::get( 'dd_draw_en_tree','DifferentialDiagnosisController@draw_en_tree')->name('dif_dia.draw_en_tree');
 Route::get('dd_en_tree','DifferentialDiagnosisController@build_en_tree')->name('dif_dia.en_tree');
 /*
-* dif_dia Node Function
+* Delete Node
 */
 Route::get('delete_dif_dia_node', 'DifferentialDiagnosisController@delete_node')->name('dif_dia_node.delete');
-Route::get('dif_dia_node_view', 'DifferentialDiagnosisController@view_node')->name('dif_dia_node.view');
-Route::get( 'dif_dia_search','DifferentialDiagnosisController@search')->name('dif_dia_node.search');
-Route::POST('dif_dia_node_save', 'DifferentialDiagnosisController@save_node')->name('dif_dia_node.save');
-Route::POST('dif_dia_node_note_save', 'DifferentialDiagnosisController@save_note_node')->name('dif_dia_node_note.save');
-
-
-
-Route::get('dif_dia_term_replace', 'DifferentialDiagnosisController@term_replace')->name('dif_dia_term.replace');
-
+/*
+* Update Parent Node
+*/
 Route::get('update_parent_dif_dia', 'DifferentialDiagnosisController@update_parent')->name('update_parent_dif_dia');
-
+/*
+* View Node
+*/
+Route::get('dif_dia_node_view', 'DifferentialDiagnosisController@view_node')->name('dif_dia_node.view');
+/*
+* Search for Nodes
+*/
+Route::get( 'dif_dia_search','DifferentialDiagnosisController@search')->name('dif_dia_node.search');
+/*
+* Save Node and Create
+*/
+Route::POST('dif_dia_node_save', 'DifferentialDiagnosisController@save_node')->name('dif_dia_node.save');
+/*
+* Replace String in Term
+*/
+Route::get('dif_dia_term_replace', 'DifferentialDiagnosisController@term_replace')->name('dif_dia_term.replace');
+/*
+* Get Parents Code
+*/
 Route::get('dif_dias_get_parents','DifferentialDiagnosisController@get_parent_codes')->name('get_parent_codes');
-
 /*
 * dif_dia Export &&  Import 
 */
-
 Route::get('dif_diasExport', 'DifferentialDiagnosisController@dif_diasExport')->name('dif_dia.export');
 Route::get('dd_import_interface', 'DifferentialDiagnosisController@importInterface')->name('dif_dia.import_interface');
 Route::post('dif_diaimport','DifferentialDiagnosisController@dif_diasImport')->name('dif_dia.import');

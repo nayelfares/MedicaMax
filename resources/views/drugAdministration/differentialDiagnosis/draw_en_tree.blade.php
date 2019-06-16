@@ -70,7 +70,18 @@ label.a {
 label.b {
   visibility: hidden;
 }
-
+#cke_1_bottom{
+        visibility: hidden;
+    }
+#cke_2_bottom{
+        visibility: hidden;
+    }
+#cke_3_bottom{
+        visibility: hidden;
+    }
+#cke_4_bottom{
+        visibility: hidden;
+    }
 </style>
 <script src="{{ asset('js/alaa/jquery-3.3.1.js')}}"></script> 
 <link href="{{asset('/assets/plugins/select2/css/select2.min.css')}}" rel="stylesheet" type="text/css"/>
@@ -97,11 +108,11 @@ label.b {
     <!--NOTE-->
     <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
   <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script> 
-  <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote.css" rel="stylesheet">
-  <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote.js"></script>
+
 <!-- choice -->
   <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
   <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+  <script src="https://cdn.ckeditor.com/4.11.4/standard-all/ckeditor.js"></script>
 
 </head>
 <body>
@@ -258,6 +269,8 @@ label.b {
 
     var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
         $(document).ready(function(){ 
+                        
+            
             tree =$('#container').jstree({
         'core' : {
             "check_callback": true,
@@ -305,19 +318,18 @@ label.b {
                 var my_id = document.getElementById('term_id').value;
                 var code = document.getElementById('code').value;
                 var parent_code = document.getElementById('parent_code').value;
-                var en_term = document.getElementById('en_term').value;
-                var ar_term = document.getElementById('ar_term').value;
-                var en_note;
-                var myInput = document.getElementById('en_note').value;
+                var en_term = CKEDITOR.instances['en_term'].getData();
+                var ar_term = CKEDITOR.instances['ar_term'].getData();
+                var myInput = CKEDITOR.instances['en_note'].getData();
                 if(myInput)
-                    en_note = document.getElementById('en_note').value ;
+                    en_note = CKEDITOR.instances['en_note'].getData();
                 else
                     en_note = " ";
 
                 var ar_note;
-                var myInput = document.getElementById('ar_note').value;
+                var myInput = CKEDITOR.instances['ar_note'].getData();
                 if(myInput)
-                    ar_note = document.getElementById('ar_note').value ;
+                    ar_note = CKEDITOR.instances['ar_note'].getData();
                 else
                     ar_note = " ";
                 save_auto(my_id,compare,code,parent_code,en_term,ar_term,en_note,ar_note,bold,italic,color_text,color_background,under_line,ar_size,en_size,copy_style);
@@ -371,45 +383,23 @@ label.b {
             var my_id = document.getElementById('term_id').value;
             var code = document.getElementById('code').value;
             var parent_code = document.getElementById('parent_code').value;
-            var en_term = document.getElementById('en_term').value;
-            var ar_term = document.getElementById('ar_term').value;
+            var en_term = CKEDITOR.instances['en_term'].getData();
+            var ar_term = CKEDITOR.instances['ar_term'].getData();
             var en_note;
-            var myInput = document.getElementById('en_note').value;
+            var myInput = CKEDITOR.instances['en_note'].getData();
             if(myInput)
-                en_note = document.getElementById('en_note').value ;
+                en_note = CKEDITOR.instances['en_note'].getData();
             else
                 en_note=" ";
             var ar_note;
-            var myInput = document.getElementById('ar_note').value;
+            var myInput = CKEDITOR.instances['ar_note'].getData();
             if(myInput)
-                ar_note = document.getElementById('ar_note').value ;
+                ar_note = CKEDITOR.instances['ar_note'].getData();
             else
                 ar_note = " ";
             save_auto(my_id,compare,code,parent_code,en_term,ar_term,en_note,ar_note,bold,italic,color_text,color_background,under_line,ar_size,en_size,copy_style);
         });
-
-        //note
-        $('#en_note').summernote();
-        $('#en_note').on('summernote.keydown', function(we, e) {
-            if (event.key === "Enter"){
-                   var he=$("#summercontainer").height()+20;
-                   if(he < 500){
-                    $('div.note-editable').height($('div.note-editable').css("height"));
-                    $("#summercontainer").height(he);
-                }
-            }
-        });
-        $('#ar_note').summernote();
-        $('#ar_note').on('summernote.keydown', function(we, e) {
-            if (event.key === "Enter"){
-                   var he=$("#summercontainer").height()+20;
-                   if(he < 500){
-                    $('div.note-editable').height($('div.note-editable').css("height"));
-                    $("#summercontainer").height(he);
-                }
-            }
-        });
-                 
+         
 
         
         //cut_node
@@ -558,12 +548,11 @@ label.b {
                             $.each(result_view.parent_code,function(key,value){
                                 $('#parent_code').append('<option value="'+key+'">'+value+'</option>');
                             });  
-                            document.getElementById('en_term').value = node.en_term;
-                            document.getElementById('ar_term').value = node.ar_term;
-                            //initialize summernote
-                            $('.summernote').summernote();
-                            $("#en_note").summernote('code',res.en_note);
-                            $("#ar_note").summernote('code',res.ar_note);
+                            CKEDITOR.instances['en_term'].setData(node.en_term);
+                            CKEDITOR.instances['ar_term'].setData(node.ar_term);
+                            
+                            CKEDITOR.instances['en_note'].setData(res.en_note);
+                            CKEDITOR.instances['ar_note'].setData(res.ar_note);
                             
                             var searchResult = $("#container").jstree('search', id);
                             $(searchResult).find('.jstree-search').focus();
@@ -592,12 +581,10 @@ label.b {
                             document.getElementById("parent__code").style.display = "block";
                             document.getElementById("parent__code").value = node.code;
                             document.getElementById("code").value = ""; 
-                            document.getElementById("en_term").value = "";
-                            document.getElementById("ar_term").value = "";
-                            //initialize summernote
-                            $('.summernote').summernote();
-                            $('.summernote').summernote('code');
-                            $('.summernote').summernote('code');
+                            CKEDITOR.instances['en_term'].setData("");
+                            CKEDITOR.instances['ar_term'].setData("");
+                            CKEDITOR.instances['en_note'].setData("");
+                            CKEDITOR.instances['ar_note'].setData("");
                         }
                     });
                 }
@@ -629,12 +616,10 @@ label.b {
                                 $('#parent_code').empty();
                                 $('#parent_code').append('<option value="'+node.parent_code+'">'+node.parent_code+'</option>');
                                 $('#parent_code').append(all_parents_code);
-                                document.getElementById('en_term').value = node.en_term;
-                                document.getElementById('ar_term').value = node.ar_term;
-                                //initialize summernote
-                                $('.summernote').summernote();
-                                $("#en_note").summernote('code',node.en_note);
-                                $("#ar_note").summernote('code',node.ar_note);                     
+                                CKEDITOR.instances['en_term'].setData(node.en_term);
+                                CKEDITOR.instances['ar_term'].setData(node.ar_term);
+                                CKEDITOR.instances['en_note'].setData(node.en_note);
+                                CKEDITOR.instances['ar_note'].setData(node.ar_note);                   
                     }
                 });
             }
@@ -654,13 +639,11 @@ label.b {
                         document.getElementById("parent__code").style.display = "block";
                         document.getElementById("parent__code").value = node.code;
                         document.getElementById('code').value = "";
-                        document.getElementById('en_term').value = "";
-                        document.getElementById('ar_term').value = "";
+                        CKEDITOR.instances['en_term'].setData("");
+                        CKEDITOR.instances['ar_term'].setData("");
                         document.getElementById("parent_code").readOnly = true;
-                        //initialize summernote
-                        $('.summernote').summernote();
-                        $("#en_note").summernote('code');
-                        $("#ar_note").summernote('code');
+                        CKEDITOR.instances['en_note'].setData("");
+                        CKEDITOR.instances['ar_note'].setData("");
                     }
                 });
             }
@@ -1033,8 +1016,101 @@ label.b {
 
 
 
+       //initialize CKeditor for English Term
+                                    CKEDITOR.replace('en_term', {
+                                  // Define the toolbar groups as it is a more accessible solution.
+                                    height: 70,width:565,extraPlugins: 'copyformatting,colorbutton',
+                                  toolbarGroups: [		
+                                    { name: 'document', groups: [ 'mode', 'document', 'doctools' ] },
+                                    { name: 'clipboard', groups: [ 'clipboard', 'undo' ] },
+                                    { name: 'editing', groups: [ 'find', 'selection', 'spellchecker', 'editing' ] },
+                                    { name: 'forms', groups: [ 'forms' ] },
+                                    { name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ] },
+                                    { name: 'paragraph', groups: [ 'list', 'indent', 'blocks', 'align', 'bidi', 'paragraph' ] },
+                                    { name: 'links', groups: [ 'links' ] },
+                                    { name: 'insert', groups: [ 'insert' ] },
+                                    
+                                    { name: 'styles', groups: [ 'styles' ] },
+                                    { name: 'colors', groups: [ 'colors' ] },
+                                    { name: 'tools', groups: [ 'tools' ] },
+                                    { name: 'others', groups: [ 'others' ] },
+                                    { name: 'about', groups: [ 'about' ] }
+                                  ],
+                                  // Remove the redundant buttons from toolbar groups defined above.
+                                  removeButtons: 'Iframe,PageBreak,SpecialChar,Smiley,HorizontalRule,Table,Flash,Image,Link,Unlink,Anchor,Source,Save,NewPage,Preview,Print,Templates,PasteFromWord,Find,Replace,Form,Checkbox,Radio,TextField,Textarea,Select,Button,HiddenField,ImageButton,ShowBlocks,About'
+                                });
+    
+    //initialize CKeditor for Arabic Term
+                                    CKEDITOR.replace('ar_term', {
+                                  // Define the toolbar groups as it is a more accessible solution.
+                                    height: 70,width:665,extraPlugins: 'copyformatting,colorbutton',language: 'ar',
+                                  toolbarGroups: [		
+                                    { name: 'document', groups: [ 'mode', 'document', 'doctools' ] },
+                                    { name: 'clipboard', groups: [ 'clipboard', 'undo' ] },
+                                    { name: 'editing', groups: [ 'find', 'selection', 'spellchecker', 'editing' ] },
+                                    { name: 'forms', groups: [ 'forms' ] },
+                                    { name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ] },
+                                    { name: 'paragraph', groups: [ 'list', 'indent', 'blocks', 'align', 'bidi', 'paragraph' ] },
+                                    { name: 'links', groups: [ 'links' ] },
+                                    { name: 'insert', groups: [ 'insert' ] },
+                                    
+                                    { name: 'styles', groups: [ 'styles' ] },
+                                    { name: 'colors', groups: [ 'colors' ] },
+                                    { name: 'tools', groups: [ 'tools' ] },
+                                    { name: 'others', groups: [ 'others' ] },
+                                    { name: 'about', groups: [ 'about' ] }
+                                  ],
+                                  // Remove the redundant buttons from toolbar groups defined above.
+                                  removeButtons: 'Iframe,PageBreak,SpecialChar,Smiley,HorizontalRule,Table,Flash,Image,Link,Unlink,Anchor,Source,Save,NewPage,Preview,Print,Templates,PasteFromWord,Find,Replace,Form,Checkbox,Radio,TextField,Textarea,Select,Button,HiddenField,ImageButton,ShowBlocks,About'
+                                });
 
 
+        //initialize CKeditor for English Note
+                                   CKEDITOR.replace('en_note', {
+                                  // Define the toolbar groups as it is a more accessible solution.
+                                    height: 90,width:665,extraPlugins: 'copyformatting,colorbutton',language: 'en',
+                                  toolbarGroups: [		
+                                    { name: 'clipboard', groups: [ 'clipboard', 'undo' ] },
+                                    { name: 'document', groups: [ 'mode', 'document', 'doctools' ] },
+                                    { name: 'editing', groups: [ 'find', 'selection', 'spellchecker', 'editing' ] },
+                                    { name: 'forms', groups: [ 'forms' ] },
+                                    { name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ] },
+                                    { name: 'paragraph', groups: [ 'list', 'indent', 'blocks', 'align', 'bidi', 'paragraph' ] },
+                                    { name: 'links', groups: [ 'links' ] },
+                                    { name: 'insert', groups: [ 'insert' ] },
+                                    { name: 'styles', groups: [ 'styles' ] },
+                                    { name: 'colors', groups: [ 'colors' ] },
+                                    { name: 'tools', groups: [ 'tools' ] },
+                                    { name: 'others', groups: [ 'others' ] },
+                                    { name: 'about', groups: [ 'about' ] }
+                                  ],
+                                  // Remove the redundant buttons from toolbar groups defined above.
+                                  removeButtons: 'Iframe,PageBreak,SpecialChar,Smiley,HorizontalRule,Flash,Unlink,Anchor,Source,Save,NewPage,Preview,Print,Templates,PasteFromWord,Find,Replace,Form,Checkbox,Radio,TextField,Textarea,Select,Button,HiddenField,ImageButton,ShowBlocks,About'
+                                });
+    
+    //initialize CKeditor for Arabic note
+                                    CKEDITOR.replace('ar_note', {
+                                  // Define the toolbar groups as it is a more accessible solution.
+                                    height: 90,width:665,extraPlugins: 'copyformatting,colorbutton',language: 'ar',
+                                  toolbarGroups: [		
+                                    { name: 'clipboard', groups: [ 'clipboard', 'undo' ] },
+                                    { name: 'document', groups: [ 'mode', 'document', 'doctools' ] },
+                                    { name: 'editing', groups: [ 'find', 'selection', 'spellchecker', 'editing' ] },
+                                    { name: 'forms', groups: [ 'forms' ] },
+                                    { name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ] },
+                                    { name: 'paragraph', groups: [ 'list', 'indent', 'blocks', 'align', 'bidi', 'paragraph' ] },
+                                    { name: 'links', groups: [ 'links' ] },
+                                    { name: 'insert', groups: [ 'insert' ] },
+                                    { name: 'styles', groups: [ 'styles' ] },
+                                    { name: 'colors', groups: [ 'colors' ] },
+                                    { name: 'tools', groups: [ 'tools' ] },
+                                    { name: 'others', groups: [ 'others' ] },
+                                    { name: 'about', groups: [ 'about' ] }
+                                  ],
+                                  // Remove the redundant buttons from toolbar groups defined above.
+                                  removeButtons: 'Iframe,PageBreak,SpecialChar,Smiley,HorizontalRule,Flash,Unlink,Anchor,Source,Save,NewPage,Preview,Print,Templates,PasteFromWord,Find,Replace,Form,Checkbox,Radio,TextField,Textarea,Select,Button,HiddenField,ImageButton,ShowBlocks,About'
+                                });
+                                
     
 </script>
 </html>

@@ -173,7 +173,7 @@ Route::get( 'disease_search','DiseaseController@disease_search')->name('disease_
 /*
 * Save Node and Create
 */
-Route::POST('disease_node_save', 'DiseaseController@disease_node_save')->name('disease_node.save');
+Route::post('disease_node_save_', 'DiseaseController@disease_node_save')->name('disease_node.save');
 /*
 * Replace String in Term
 */
@@ -181,11 +181,15 @@ Route::get('disease_term_replace', 'DiseaseController@disease_term_replace')->na
 /*
 * Get Parents Code
 */
-Route::get('diseases_get_parents','DiseaseController@get_parent_codes')->name('get_parent_codes');
+Route::get('diseases_get_parents','DiseaseController@get_parent_codes')->name('dis_get_parent_codes');
 /*
 * Get Parents Code
 */
 Route::get('get_all_parents_for_node','DiseaseController@get_all_parents_for_node')->name('get_all_parents_for_node');
+/*
+* create simple arabic term for search 
+*/
+Route::post('diseases.s_ar_term','DiseaseController@create_simple_ar_term_to_nodes')->name('diseases.s_ar_term');
 /*
 * Disease Export &&  Import
 */
@@ -227,7 +231,7 @@ Route::get( 'dif_dia_search','DifferentialDiagnosisController@search')->name('di
 /*
 * Save Node and Create
 */
-Route::POST('dif_dia_node_save', 'DifferentialDiagnosisController@save_node')->name('dif_dia_node.save');
+Route::post('dif_dia_node_save', 'DifferentialDiagnosisController@save_node')->name('dif_dia_node.save');
 /*
 * Replace String in Term
 */

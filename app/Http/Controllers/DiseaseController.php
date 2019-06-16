@@ -1,5 +1,5 @@
 <?php
-
+ 
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
@@ -15,13 +15,13 @@ use Log;
 
 class DiseaseController extends Controller
 {
-	public function __construct()
-	{
-    	$this->middleware('auth');
+    public function __construct()
+    {
+        $this->middleware('auth');
         $this->stack = array();
-	}
+    }
 
-	/**
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -31,7 +31,6 @@ class DiseaseController extends Controller
         $count = DB::table('diseases')->count();
         return view('drugAdministration/diseases/index', compact('count'));
     }
-
     /* 
     *
     *   Draw English Tree 
@@ -44,75 +43,7 @@ class DiseaseController extends Controller
          return view('/drugAdministration/diseases/draw_en_tree');
     }
 
-    public function build_diseases_en_tree()
-    {
-        $diseases = DB::table('diseases')->where('diseases_level','<',4)->get();
-        foreach ($diseases as $disease) {
-            $code_width = 175;
-            $ar_width = 525 - 12 * $disease->diseases_level ;
-            $en_width = 675 - 12 * $disease->diseases_level ;
-            //if(substr($disease->code, -3, 1) == '^')
-            if(strpos($disease->code,'^')!== false)
-            {
-                $code_width = 150;
-                $en_width = 700 - 12 * $disease->diseases_level ;
-                if(substr($disease->code, -5, 1) == '^')
-                {
-                    $code_width = 125;
-                    $en_width = 725 - 12 * $disease->diseases_level ;
-                }else
-                if(substr($disease->code, -7, 1) == '^')
-                {
-                    $code_width = 100;
-                    $en_width = 750 - 12 * $disease->diseases_level ;
-
-                }
-            }
-            if($disease->show_code == 1)
-                $type = 'a';
-            else 
-                $type = 'b';
-            if($disease->diseases_level == 3){
-                $tree[] = [
-                    "id" => (string)$disease->id,
-                    "children" => $disease->has_child == 1 ? true : false,
-                    "parent" => is_null($disease->parent_id) ? "#" : (string)$disease->parent_id,
-                    "text" => "
-                        <div  style='font-weight: ".$disease->bold.";font-style: ".$disease->italic.";background-color:".$disease->background_color.";'>
-                            <label class=".$type." style='text-decoration:".$disease->under_line.";color:".$disease->text_color.";word-wrap: break-word;font-weight: ".$disease->bold.";float:left; width:".$code_width."px;font-size:".$disease->en_size."px;padding: 0.0ex ;' >".$disease->code."</label>
-                            <label  style='text-align: left; text-decoration:".$disease->under_line.";color:".$disease->text_color.";word-wrap: break-word;font-weight: ".$disease->bold.";width:".$en_width."px;font-size:".$disease->en_size."px;padding: 0.0ex ;margint-buttom:0.01ex;'>".$disease->en_term."</label>
-                            <label dir='rtl' style='text-decoration:".$disease->under_line.";color:".$disease->text_color.";word-wrap: break-word;font-weight: ".$disease->bold.";float:right; width:".$ar_width."px;text-align:right;font-size:".$disease->ar_size."px;padding: 0.0ex ;margint-buttom:0.01ex;' >".$disease->ar_term."</label>
-                        </div>"
-                ];
-            }
-            else{
-                $tree[] = [
-                    "id" => (string)$disease->id,
-                    "parent" => is_null($disease->parent_id) ? "#" : (string)$disease->parent_id,
-                    "text" => "
-                        <div  style='font-weight: ".$disease->bold.";font-style: ".$disease->italic.";background-color:".$disease->background_color.";'>
-                            <label class=".$type." style='text-decoration:".$disease->under_line.";color:".$disease->text_color.";word-wrap: break-word;font-weight: ".$disease->bold.";float:left; width:".$code_width."px;font-size:".$disease->en_size."px;padding: 0.0ex ;' >".$disease->code."</label>
-                            <label  style='text-align: left; text-decoration:".$disease->under_line.";color:".$disease->text_color.";word-wrap: break-word;font-weight: ".$disease->bold.";width:".$en_width."px;font-size:".$disease->en_size."px;padding: 0.0ex ;margint-buttom:0.01ex;'>".$disease->en_term."</label>
-                            <label dir='rtl' style='text-decoration:".$disease->under_line.";color:".$disease->text_color.";word-wrap: break-word;font-weight: ".$disease->bold.";float:right; width:".$ar_width."px;text-align:right;font-size:".$disease->ar_size."px;padding: 0.0ex ;margint-buttom:0.01ex;' >".$disease->ar_term."</label>
-                        </div>"
-                ];
-            }
-        }
-        return json_encode($tree);
-    }
-	/* 
-    *
-    *   Draw Arabic Tree 
-    *   Alaa Nasser Batha
-    *   alaa.ba6ha@gmail.com
-    *   +963991135289
-    */
-	public function draw_tree()
-    {
-         return view('/drugAdministration/diseases/draw_tree_ar');
-    }
-
-    public function build_diseases_tree_ar($id)
+    public function build_diseases_tree_en($id)
     {
         $parent_id = ( $id == 0 ? null : $id ); 
         $diseases = DB::table('diseases')->where('parent_id','=',$parent_id)->get(); 
@@ -157,13 +88,10 @@ class DiseaseController extends Controller
             ];
         }
         return json_encode($tree);
-	}
-
-	/* export excel file*/
-    public function diseasesExport(){
-     
+    }
+    /* export excel file*/
+    public function diseasesExport(){     
         return Excel::download( new DiseasesExport , 'diseases.xls');
-
     }
 
      /* import excel file*/
@@ -177,9 +105,7 @@ class DiseaseController extends Controller
         return redirect()->intended('drug-administration/disease')->with('success', 'All good!');;
     }
     /*
-    *
-    *   Function On The Tree
-    *
+    *   Delete Node
     */
     public function delete_disease_node(Request $request)
     {
@@ -195,16 +121,13 @@ class DiseaseController extends Controller
             return "no";
         }
     }
-
-
+    /*
+    *   View Node
+    */
     public function disease_view_node(Request $request)
     {       // Get Information My Disease 
             $dis = Disease::find( $request->id);
-            /*$dis->en_term = str_replace("</sup>", "**", $dis->en_term);
-            $dis->en_term = str_replace("<sup>", "**", $dis->en_term);
-            $dis->ar_term = str_replace("</sup>", "**", $dis->ar_term);
-            $dis->ar_term = str_replace("<sup>", "**", $dis->ar_term);
-            */          
+                      
             $code_width = 175;
             $ar_width = 525 - 12 * $dis->diseases_level ;
             $en_width = 675 - 12 * $dis->diseases_level ;
@@ -250,18 +173,19 @@ class DiseaseController extends Controller
             
             return json_encode($result);
     }
+    /*
+    *   Search Node in code || parent code || ar term || en_term
+    */
 
     public function disease_search (Request $request)
     {
         $diseases = DB::table('diseases')
                     ->where('en_term', 'like', "%".$request['condition']."%")
-                    ->orWhere('ar_term', 'like', "%".$request['condition']."%")
                     ->orWhere('s_ar_term', 'like', "%".$request['condition']."%")
                     ->orwhere('code', 'like', "%".$request['condition']."%")
                     ->orwhere('parent_code', 'like', "%".$request['condition']."%")
                     ->get();
         $count = $diseases->count();
-
         $tree = [];
         foreach ($diseases as $disease) {
             $disease->code = str_replace("!!","",$disease->code);
@@ -285,11 +209,15 @@ class DiseaseController extends Controller
         ];
         return json_encode($result);
     }
+    
 
-
+    /*
+    *   Save & Create Node
+    */
     public function disease_node_save(Request $request)
     {
 
+        //Create
         if(is_null($request->id))
         {
             $this->validate($request, [
@@ -309,39 +237,10 @@ class DiseaseController extends Controller
                 $level =  $parent_disease->diseases_level + 1 ;      
             }
             //note
-            $detail=$request->note;
-            /*$dom = new \domdocument();
-            $dom->loadHtml($detail, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
-            $images = $dom->getelementsbytagname('img');
-            foreach($images as $k => $img){
-                $data = $img->getattribute('src');
-                list($type, $data) = explode(';', $data);
-                list(, $data)      = explode(',', $data);
-                $data = base64_decode($data);
-                $image_name= time().$k.'.png';
-                $path = public_path() .'/'. $image_name;
-                file_put_contents($path, $data);
-                $img->removeattribute('src');
-                $img->setattribute('src', $image_name);
-            }
-            $detail = $dom->savehtml();*/
+            $detail=$request->en_note;
             //ar_note
             $ar_detail=$request->ar_note;
-            /*$ar_dom = new \domdocument();
-            $ar_dom->loadHtml($ar_detail, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
-            $ar_images = $ar_dom->getelementsbytagname('img');
-            foreach($ar_images as $ar_k => $ar_img){
-                $ar_data = $ar_img->getattribute('src');
-                list($ar_type, $ar_data) = explode(';', $ar_data);
-                list(, $ar_data)      = explode(',', $ar_data);
-                $ar_data = base64_decode($ar_data);
-                $ar_image_name= time().$ar_k.'.png';
-                $ar_path = public_path() .'/'. $ar_image_name;
-                file_put_contents($ar_path, $ar_data);
-                $ar_img->removeattribute('src');
-                $ar_img->setattribute('src', $ar_image_name);
-            }
-            $ar_detail = $ar_dom->savehtml();*/
+            
             //simple arabic term
             $re = '/\w|\s/um';
             preg_match_all($re, $request->ar_term, $matches, PREG_SET_ORDER, 0);
@@ -371,7 +270,15 @@ class DiseaseController extends Controller
                 'ar_size' => $request->ar_size,
                 'en_size' => $request->en_size,
                 'show_code' => $show_code,
+                'has_child' => false,
             ])->id;
+            if($parent_disease->has_child == false){
+                $update_array = [];
+                $update_array = [
+                    'has_child' => true,
+                ];
+                DB::table('diseases')->where('id',$request->parent_id)->update($update_array);
+            }
             $code_width = 175;
             $ar_width = 525 - 12 * $level ;
             $en_width = 675 - 12 * $level ;
@@ -411,43 +318,9 @@ class DiseaseController extends Controller
             $my_disease = Disease::find($request->id);
             
             //note
-            $detail=$request->note;
-            /*$dom = new \domdocument();
-            $dom->loadHtml($detail, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
-            $images = $dom->getelementsbytagname('img');
-            foreach($images as $k => $img){
-                $data = $img->getattribute('src');
-                list($type, $data) = explode(';', $data);
-                list(, $data)      = explode(',', $data);
-                $data = base64_decode($data);
-                $image_name= time().$k.'.png';
-                $path = public_path() .'/'. $image_name;
-                file_put_contents($path, $data);
-                $img->removeattribute('src');
-                $img->setattribute('src', $image_name);
-            }
-            $detail = $dom->savehtml();*/
+            $en_detail=$request->en_note;
             //ar_note
             $ar_detail=$request->ar_note;
-            /*
-            $ar_dom = new \domdocument();
-            $ar_dom->loadHtml($ar_detail, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
-            $ar_images = $ar_dom->getelementsbytagname('img');
-            foreach($ar_images as $ar_k => $ar_img){
-                $ar_data = $ar_img->getattribute('src');
-                list($ar_type, $ar_data) = explode(';', $ar_data);
-                list(, $ar_data)      = explode(',', $ar_data);
-                $ar_data = base64_decode($ar_data);
-                $ar_image_name= time().$ar_k.'.png';
-                $ar_path = public_path() .'/'. $ar_image_name;
-                file_put_contents($ar_path, $ar_data);
-                $ar_img->removeattribute('src');
-                $ar_img->setattribute('src', $ar_image_name);
-            }
-            $ar_detail = $ar_dom->savehtml();
-            */
-            //simple arabic term for all
-         
 
             //get simle arab term for this disease
             $re = '/\w|\s/um';
@@ -458,24 +331,20 @@ class DiseaseController extends Controller
                 $s_ar_term=$s_ar_term.$matche[0];
             }    
             
-            $type='a';
-            $show_code = 1;
+            $type='b';
+            $show_code = "0";
             if(strpos($request->code, '^')  === false)
             {
                 $type = 'a';
                 $show_code = "1";
             }
-            else
-            {
-                $type = 'b';
-                $show_code = "0";
-            }
             $new_parent = 0 ;
             $level = $my_disease->diseases_level;
-            $input = [];
+
             $request->parent_code = ($request->parent_code=='null' ? '' : $request->parent_code);
             
             $input = [];
+            $new_parent_id = NULL;
             if($request->parent_code != $my_disease->parent_code)
             {
                 
@@ -492,15 +361,15 @@ class DiseaseController extends Controller
                     'en_term' => $request->en_term,
                     'ar_term' => $request->ar_term,
                     's_ar_term' => $s_ar_term,
-                    'note' => $detail,
+                    'note' => $en_detail,
                     'ar_note' => $ar_detail,
-                    'bold' => $request->bold,
-                    'italic' => $request->italic,
-                    'text_color' =>$request->color_text,
-                    'background_color' => $request->color_background,
-                    'under_line' =>$request->under_line,
-                    'ar_size' => $request->ar_size,
-                    'en_size' => $request->en_size,
+                    'bold' => $request->copy_style == "true" ? $request->bold : $my_disease->bold,
+                    'italic' =>$request->copy_style == "true" ? $request->italic : $my_disease->italic,
+                    'text_color' =>$request->copy_style == "true" ? $request->color_text : $my_disease->text_color,
+                    'background_color' =>$request->copy_style == "true" ? $request->color_background : $my_disease->background_color,
+                    'under_line' =>$request->copy_style == "true" ? $request->under_line : $my_disease->under_line,
+                    'ar_size' =>$request->copy_style == "true" ? $request->ar_size : $my_disease->ar_size,
+                    'en_size' =>$request->copy_style == "true" ? $request->en_size : $my_disease->en_size,
                     'show_code' => $show_code,
                     'diseases_level' => $level,
                 ];
@@ -509,20 +378,20 @@ class DiseaseController extends Controller
                 {
                     $input = [
                     'code' => $request->code,  
-                    'parent_id' => NULL,
+                    'parent_id' => $new_parent_id,
                     'parent_code' => NULL,        
                     'en_term' => $request->en_term,
                     'ar_term' => $request->ar_term,
                     's_ar_term' => $s_ar_term,
-                    'note' => $detail,
+                    'note' => $en_detail,
                     'ar_note' => $ar_detail,
-                    'bold' => $request->bold,
-                    'italic' => $request->italic,
-                    'text_color' =>$request->color_text,
-                    'background_color' => $request->color_background,
-                    'under_line' =>$request->under_line,
-                    'ar_size' => $request->ar_size,
-                    'en_size' => $request->en_size,
+                    'bold' => $request->copy_style == "true" ? $request->bold : $my_disease->bold,
+                    'italic' =>$request->copy_style == "true" ? $request->italic : $my_disease->italic,
+                    'text_color' =>$request->copy_style == "true" ? $request->color_text : $my_disease->text_color,
+                    'background_color' =>$request->copy_style == "true" ? $request->color_background : $my_disease->background_color,
+                    'under_line' =>$request->copy_style == "true" ? $request->under_line : $my_disease->under_line,
+                    'ar_size' =>$request->copy_style == "true" ? $request->ar_size : $my_disease->ar_size,
+                    'en_size' =>$request->copy_style == "true" ? $request->en_size : $my_disease->en_size,
                     'show_code' => $show_code,
                     'diseases_level' => 1,
                 ];
@@ -535,15 +404,15 @@ class DiseaseController extends Controller
                     'en_term' => $request->en_term,
                     'ar_term' => $request->ar_term,
                     's_ar_term' => $s_ar_term,
-                    'note' => $detail,
+                    'note' => $en_detail,
                     'ar_note' => $ar_detail,
-                    'bold' => $request->bold,
-                    'italic' => $request->italic,
-                    'text_color' =>$request->color_text,
-                    'background_color' => $request->color_background,
-                    'under_line' =>$request->under_line,
-                    'ar_size' => $request->ar_size,
-                    'en_size' => $request->en_size,
+                    'bold' => $request->copy_style == "true" ? $request->bold : $my_disease->bold,
+                    'italic' =>$request->copy_style == "true" ? $request->italic : $my_disease->italic,
+                    'text_color' =>$request->copy_style == "true" ? $request->color_text : $my_disease->text_color,
+                    'background_color' =>$request->copy_style == "true" ? $request->color_background : $my_disease->background_color,
+                    'under_line' =>$request->copy_style == "true" ? $request->under_line : $my_disease->under_line,
+                    'ar_size' =>$request->copy_style == "true" ? $request->ar_size : $my_disease->ar_size,
+                    'en_size' =>$request->copy_style == "true" ? $request->en_size : $my_disease->en_size,
                     'show_code' => $show_code
                 ];                
             } 
@@ -552,8 +421,9 @@ class DiseaseController extends Controller
                 'code' => 'required | unique:diseases,code,'.$request->id.'',
                 'en_term' => 'required'
             ]);*/
-            //return $input;
-            DB::table('diseases')->where('id',$my_disease->id)->update($input);
+        
+
+            DB::table('diseases')->where('id',$request->id)->update($input);
             $code_width = 175;
             $ar_width = 525 - 12 * $level ;
             $en_width = 675 - 12 * $level ;
@@ -581,9 +451,16 @@ class DiseaseController extends Controller
                 "ar_width"   =>$ar_width,
                 "en_width"   =>$en_width,
                 "type"       =>$type, 
-                "parent_id"  =>$new_parent_id,
+                "parent_id"  => $new_parent_id == NULL? $request->parent_id : $new_parent_id,
                 "id"         =>$my_disease->id,
-            ]; 
+                'bold' => $request->copy_style == "true" ? $request->bold : $my_disease->bold,
+                'italic' =>$request->copy_style == "true" ? $request->italic : $my_disease->italic,
+                'text_color' =>$request->copy_style == "true" ? $request->color_text : $my_disease->text_color,
+                'background_color' =>$request->copy_style == "true" ? $request->color_background : $my_disease->background_color,
+                'under_line' =>$request->copy_style == "true" ? $request->under_line : $my_disease->under_line,
+                'ar_size' =>$request->copy_style == "true" ? $request->ar_size : $my_disease->ar_size,
+                'en_size' =>$request->copy_style == "true" ? $request->en_size : $my_disease->en_size,
+            ];
             return json_encode($node);
         }
     }
@@ -654,63 +531,16 @@ class DiseaseController extends Controller
         }
         return $result;
     }
-    
-
-    
-
-
 //create s_ar_term
-    /*
-
-    public function get_node_details($id){
-        $node = DB::table('diseases')->where('id','=',$id)->first();
-        if(is_null($node)){
-            return null;
-        }
-        else{
-            array_unshift($this->stack, $node);
-            if(!is_null($node->parent_id))
-            {
-                $this->get_node_details($node->parent_id);
-            }
-        }       
-        return $this->stack;
-    }
-
-    public function draw_tree_result_search(Request $request)
-    {
-        $result = array();
-        $diseases = $this->get_node_details($request->id);
-
-        $tree = [];
-        foreach ($diseases as $disease) {
-            $code_width = 125;
-            $ar_width = 300 - 12 * $disease->diseases_level ;
-            $en_width = 350 - 12 * $disease->diseases_level ;
-            $tree[] = [
-                "id" => (string)$disease->id,
-                //"children" => $disease->has_child == 1 ? true : false,
-                "parent" => is_null($disease->parent_id) ? "#" : (string)$disease->parent_id,
-                "text" => "
-                    <div  style='font-weight: ".$disease->bold.";font-style: ".$disease->italic.";background-color:".$disease->background_color.";'>
-                        <label class=".$type." style='text-decoration:".$disease->under_line.";color:".$disease->text_color.";word-wrap: break-word;font-weight: ".$disease->bold.";float:left; width:".$code_width."px;font-size:".$disease->en_size."px;padding: 0.0ex ;' >".$disease->code."</label>
-                        <label  style='text-align: left; text-decoration:".$disease->under_line.";color:".$disease->text_color.";word-wrap: break-word;font-weight: ".$disease->bold.";width:".$en_width."px;font-size:".$disease->en_size."px;padding: 0.0ex ;margint-buttom:0.01ex;'>".$disease->en_term."</label>
-                        <label dir='rtl' style='text-decoration:".$disease->under_line.";color:".$disease->text_color.";word-wrap: break-word;font-weight: ".$disease->bold.";float:right; width:".$ar_width."px;text-align:right;font-size:".$disease->ar_size."px;padding: 0.0ex ;margint-buttom:0.01ex;' >".$disease->ar_term."</label>
-                    </div>"
-            ];
-        }
-        return json_encode($tree);
-    }
-
-            //simple arabic term for all
-            if(is_null($my_disease->s_ar_term) || empty($my_disease->s_ar_term))
+    public function create_simple_ar_term_to_nodes(){
+        $diseases = DB::table('diseases')->select("ar_term","s_ar_term","id")->get();
+        $re = '/\w|\s/um';
+        foreach ($diseases as $my_disease) {
+            if(is_null($my_disease->s_ar_term) || empty($my_disease->s_ar_term) || $my_disease->s_ar_term == "")
             {
                 //$this->simple_arabic_term_for_all($request->id);
-                $re = '/\w|\s/um';
-                $diseases = DB::table("diseases")->get();
-                foreach ($diseases as $disease) 
-                {
-                    preg_match_all($re, $disease->ar_term, $matches, PREG_SET_ORDER, 0);
+                
+                    preg_match_all($re, $my_disease->ar_term, $matches, PREG_SET_ORDER, 0);
                     $s_ar_term ='';
                     foreach ($matches as $matche) 
                     {
@@ -719,92 +549,10 @@ class DiseaseController extends Controller
                     $input=[
                         's_ar_term' => $s_ar_term,
                     ]; 
-                    Disease::where('id', $disease->id)->update($input);  
-                }         
-            }*/
-
-/*
-*
-* Load first 3 level then load node by node
-*/
-/*
-public function build_diseases_tree_ar($id)
-    {
-        $parent_id = ( $id == 0 ? null : $id );
-        if($id == 0)
-            $diseases = DB::table('diseases')->where('diseases_level','<',4)->get(); 
-        else
-        $diseases = DB::table('diseases')->where('parent_id','=',$parent_id)->get(); 
-        
-        $tree = [];
-        foreach ($diseases as $disease) {
-            $disease->code = str_replace("!!","",$disease->code);
-            $code_width = 175;
-            $ar_width = 525 - 12 * $disease->diseases_level ;
-            $en_width = 675 - 12 * $disease->diseases_level ;
-            if(strpos($disease->code,'^')!== false)
-            {
-                $code_width = 150;
-                $en_width = 700 - 12 * $disease->diseases_level ;
-                if(substr($disease->code, -5, 1) == '^')
-                {
-                    $code_width = 125;
-                    $en_width = 725 - 12 * $disease->diseases_level ;
-                }else
-                if(substr($disease->code, -7, 1) == '^')
-                {
-                    $code_width = 50;
-                    $en_width = 750 - 12 * $disease->diseases_level ;
-
-                }                
-            }
-            if($disease->show_code == 1)
-                $type = 'a';
-            else 
-                $type = 'b';
-            if($disease->diseases_level > 2){
-                $tree[] = [
-                    "id" => (string)$disease->id,
-                    "children" => $disease->has_child == 1 ? true : false,
-                    "parent" => is_null($disease->parent_id) ? "#" : (string)$disease->parent_id,
-                    "text" => "
-                        <div  style='font-weight: ".$disease->bold.";font-style: ".$disease->italic.";background-color:".$disease->background_color.";'>
-                            <label class=".$type." style='text-decoration:".$disease->under_line.";color:".$disease->text_color.";word-wrap: break-word;font-weight: ".$disease->bold.";float:left; width:".$code_width."px;font-size:".$disease->en_size."px;padding: 0.0ex ;' >".$disease->code."</label>
-                            <label  style='text-align: left; text-decoration:".$disease->under_line.";color:".$disease->text_color.";word-wrap: break-word;font-weight: ".$disease->bold.";width:".$en_width."px;font-size:".$disease->en_size."px;padding: 0.0ex ;margint-buttom:0.01ex;'>".$disease->en_term."</label>
-                            <label dir='rtl' style='text-decoration:".$disease->under_line.";color:".$disease->text_color.";word-wrap: break-word;font-weight: ".$disease->bold.";float:right; width:".$ar_width."px;text-align:right;font-size:".$disease->ar_size."px;padding: 0.0ex ;margint-buttom:0.01ex;' >".$disease->ar_term."</label>
-                        </div>"
-                ];
-            }
-            else{
-                $tree[] = [
-                    "id" => (string)$disease->id,
-                    "parent" => is_null($disease->parent_id) ? "#" : (string)$disease->parent_id,
-                    "text" => "
-                        <div  style='font-weight: ".$disease->bold.";font-style: ".$disease->italic.";background-color:".$disease->background_color.";'>
-                            <label class=".$type." style='text-decoration:".$disease->under_line.";color:".$disease->text_color.";word-wrap: break-word;font-weight: ".$disease->bold.";float:left; width:".$code_width."px;font-size:".$disease->en_size."px;padding: 0.0ex ;' >".$disease->code."</label>
-                            <label  style='text-align: left; text-decoration:".$disease->under_line.";color:".$disease->text_color.";word-wrap: break-word;font-weight: ".$disease->bold.";width:".$en_width."px;font-size:".$disease->en_size."px;padding: 0.0ex ;margint-buttom:0.01ex;'>".$disease->en_term."</label>
-                            <label dir='rtl' style='text-decoration:".$disease->under_line.";color:".$disease->text_color.";word-wrap: break-word;font-weight: ".$disease->bold.";float:right; width:".$ar_width."px;text-align:right;font-size:".$disease->ar_size."px;padding: 0.0ex ;margint-buttom:0.01ex;' >".$disease->ar_term."</label>
-                        </div>"
-                ];
+                    Disease::where('id', $my_disease->id)->update($input);              
             }
         }
-        return json_encode($tree);
+        return "ok";
     }
-
-
-    public function update_parent_disease(Request $request){
-        $parent_disease = Disease::find($request->parent_id);;
-        $input = [
-            'parent_code' =>  $parent_disease->code,
-            'parent_id' => $parent_disease->id,
-            'diseases_level' => $parent_disease->diseases_level + 1,
-            ];
-        DB::table('diseases')->where('id', $request->id)->update($input);
-        $input2 = [
-            'has_child' =>   1,
-            ];
-        DB::table('diseases')->where('id', $parent_disease->id)->update($input2);
-    }
-    */
 
 }

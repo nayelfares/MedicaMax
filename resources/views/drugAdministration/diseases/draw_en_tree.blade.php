@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+<meta name="csrf-token" content="{{ csrf_token() }}" />
+<head> 
 <style>
 .jstree-anchor { height:auto !important; white-space:normal !important; }
 
@@ -13,7 +14,6 @@ div.sticky {
   background-color: #cae8ca;
   border: 2px solid #4CAF50; 
   z-index: 3; 
-  max-height: 250px;
 }
 label {
   white-space: pre-wrap;
@@ -30,6 +30,9 @@ div.fixedpar {
     z-index: 2;
 }
 
+.note-editable{     
+    height:100px !important;        
+}
 
 .toggle.ios, .toggle-on.ios, .toggle-off.ios { border-radius: 50px; }
   .toggle.ios .toggle-handle { border-radius: 50px; }
@@ -56,6 +59,10 @@ label.a {
 
 label.b {
   visibility: hidden;
+}
+
+body{       
+    overflow-y: hidden !important;      
 }
 </style>
 <script src="{{ asset('js/alaa/jquery-3.3.1.js')}}"></script> 
@@ -92,18 +99,19 @@ label.b {
 </head>
 <body>
 
-    <div class="row sticky" style="border: 2px solid;padding: 0px;resize: vertical;overflow: auto;" >
+    <div class="row sticky" style="border: 2px solid;padding: 0px;resize: none;overflow: auto;" >
             <!--        2           -->
                 <div class="col-xs-16 col-sm-16 col-md-10 col-lg-10 col-xl-12" style="margin-top: 0.0em;margin-bottom: 0.0em;">
                     <div class="row " >
                         <div class="col-md-1 mb-0 col-sm-0" style="padding-right: 1px;">
-                            <label style="margin: 0.0px;"
-                            > P/Code*<span class="text-danger">*</span></label>
+                            <label style="margin: 0.0px;height:30px;"
+                            > P/Code<span class="text-danger">**</span></label>
                             <div id="div_parent">
                                 <select class="form-control select2" name="parent_code" id="parent_code"  style="height:30px">
                                 </select>
                             </div>
                             <input type= "text" name="parent__code" data-parsley-trigger="change" class="form-control" id="parent__code" readonly style="height:30px" placeholder="Code">
+                            <input type= "text" name="term_id" id="term_id">
                             <input type="text" name="code" data-parsley-trigger="change" class="form-control" id="code"  style="height:30px" placeholder="Code">
                         </div>
                         <div class="col-md-5 mb-0 col-sm-0" style="padding: 0.0px;">
@@ -112,12 +120,19 @@ label.b {
                                      
                             <button id="previous_node" type="button" class="btn btn-outline-success btn-sm" style="padding: 0.0px;margin: 0.0px"><i class="fa fa-arrow-circle-left bigfonts" aria-hidden="true"></i></button>
 
-                            <label style="padding: 0.0px;margin: 0.0px">Disease English Term<span class="text-danger">*</span></label>
+                            <label style="padding: 0.0px;margin: 0.0px;height:30px;">Disease English Term<span class="text-danger">*</span></label>
 
                              
                             <button id="next_node" type="button" class="btn btn-outline-success btn-sm" style="padding: 0.0px;margin: 0.0px"><i class="fa fa-arrow-circle-right bigfonts" aria-hidden="true"></i></button>
                             <button id="sdf_next_node" type="button" class="btn btn-outline-success btn-sm" style="padding: 0.0px;margin: 0.0px"><i class="fa fa-caret-square-o-down bigfonts" aria-hidden="true"></i></button>
-                            <textarea rows="2" cols="78" type="text" name="en_term" data-parsley-trigger="change" class="form-control" id="en_term" style="font-size:15px;height:60px;font-weight:bold;"   ></textarea>
+                            <button type="Addbutton" id="AddButton" class="btn btn-outline-primary btn-sm" style="padding: 0.0px;margin-left: 5.0px;"><i class="fa fa-plus bigfonts"></i> Add 
+                            </button>
+                            <button id="EditButton" type="button" class="btn btn-outline-success btn-sm" style="padding: 0.0px;margin-left: 20.0px"><i class="fa fa-pencil"></i> Edit 
+                            </button>     
+                           <button id="DeleteButton" type="button" class="btn btn-outline-danger btn-sm" style="padding: 0.0px;margin-left: 20.0px"><i class="fa fa-trash-o"></i> Delete 
+                           </button>
+
+                            <textarea rows="2" cols="78" type="text" name="en_term" data-parsley-trigger="change" class="form-control" id="en_term" style="font-size:15px;height:70px;font-weight:bold;resize:none;"   ></textarea>
                         </div>
                         <div class="col-md-6 mb-0 col-sm-0" style="padding-left: 0.1px;">
                             <div class="row">
@@ -133,30 +148,30 @@ label.b {
                                 </div>
                                  <!--   -->
                                 <div class="col-md-4 mb-0 col-sm-0" style="padding-left: 0.1px;">
-                                    <button type="Addbutton" id="AddButton" class="btn btn-outline-primary btn-sm" style="padding: 0.0px;margin-left: 5.0px;"><i class="fa fa-plus bigfonts"></i> Add </button>
-                                    <button id="EditButton" type="button" class="btn btn-outline-success btn-sm" style="padding: 0.0px;margin-left: 20.0px"><i class="fa fa-pencil"></i> Edit </button>
-                                    <button id="DeleteButton" type="button" class="btn btn-outline-danger btn-sm" style="padding: 0.0px;margin-left: 20.0px"><i class="fa fa-trash-o"></i> Delete </button>
+                                     <button id="save_auto__" name="save_auto__"  onclick="saveAotuFunction()" style = "margin-left:35px;"><i class="fa fa-magic bigfonts" aria-hidden="true"></i></button>
+                                    <button id="save_create" class="btn btn-outline-success btn-sm" style = "margin-left: 2px;margin-right: 16px;"><i class="fa fa-save bigfonts" aria-hidden="true"></i></button>
                                 </div>
                                 <div class="col-md-4 mb-0 col-sm-0" style="padding-left: 0.1px;">
-                                    <button class="btn btn-outline-primary btn-sm" href="{{route('disease.export')}}" style="padding: 0.0px;margin-left: 20.0px"><i class="fa fa-upload bigfonts" aria-hidden="true"></i> Export</button>
-                                    <a class="btn btn-outline-primary btn-sm" href="{{route('disease.import_interface')}}" target="_blank" style="padding: 0.0px;margin-left: 20.0px"><i class="fa fa-download bigfonts" aria-hidden="true"></i> Import</a>
+                                    <button class="btn btn-outline-primary btn-lg" onclick="create_S_Ar_Term()" style="padding: 0.0px;margin: 0.0px"><i class="fa fa-recycle bigfonts" aria-hidden="true"></i> </button>
+                                    <button class="btn btn-outline-primary btn-sm" href="{{route('disease.export')}}" style="padding: 0.0px;margin: 0.0px"><i class="fa fa-upload bigfonts" aria-hidden="true"></i> Export</button>
+                                    <a class="btn btn-outline-primary btn-sm" href="{{route('disease.import_interface')}}" target="_blank" style="padding: 0.0px;margin: 0.0px"><i class="fa fa-download bigfonts" aria-hidden="true"></i> Import</a>
                                 </div>
                                     <!-------->
                             </div>
 
                             <textarea rows="2" cols="78" type="text" name="ar_term" data-parsley-trigger="change"   class="form-control" id="ar_term"
-                            dir="rtl" style="font-size:18px;height:60px;font-weight:bold;"></textarea>
+                            dir="rtl" style="font-size:26px;height:70px;font-weight:bold;resize:none;"></textarea>
                         </div>
                     </div>
 
 
-                    <div class="row" style="margin-top: 0.0em;margin-bottom: 0.0em;">
+                    <div class="row" style="margin-top: 0.0em;margin-bottom: 0.0em;height:195px;">
                     {{ csrf_field() }}
                         <div class="col-md-6 mb-0 col-sm-0"  style="padding-right: 0.1px;margin-top: 0.0em;margin-bottom: 0.0em;">
-                            <textarea id="note" name="note" class="summernote">Note : </textarea>
+                            <textarea id="en_note" name="en_note" class="summernote"> </textarea>
                         </div>
-                        <div class="col-md-6 mb-0 col-sm-0" style="padding-left: 0.0px;margin-top: 0.0em;margin-bottom: 0.0em;">
-                            <textarea id="ar_note" name="ar_note" class="summernote">Note : </textarea>
+                        <div class="col-md-6 mb-0 col-sm-0" style="padding-left: 0.0px;margin-top: 0.0em;margin-bottom: 0.0em;text-align:right;">
+                            <textarea id="ar_note" name="ar_note" class="summernote"> </textarea>
                         </div>
                     </div>
                 </div>
@@ -164,16 +179,13 @@ label.b {
                 
          <!--fixedpar-->
                 <div class="row" style="width:90%;">
-                    <button id="save_auto__" name="save_auto__"  onclick="saveAotuFunction()" style = "margin-left:35px;"><i class="fa fa-magic bigfonts" aria-hidden="true"></i></button>
-                    <button id="save_create" class="btn btn-outline-success btn-sm" style = "margin-left: 2px;margin-right: 16px;"><i class="fa fa-save bigfonts" aria-hidden="true"></i></button>
                     <form id="s" >
-                        <div class="row">
+                        <div class="row" style="margin-left:30px;">
                             <input  type="search" id="plugins4_q" value="" class="input" style="display:block;  border-radius:1px; border:1px solid silver;"  >
                             <button type="submit" class="btn btn-outline-success btn-sm" ><i class="fa fa-search bigfonts" aria-hidden="true"></i></button>
                         </div>
                     </form>
                     <button style="margin-left: 1.0em;" id="eraser_search" name="eraser_search" class="btn btn-outline-success btn-sm"  ><i class="fa fa-eraser bigfonts" aria-hidden="true"></i></button>
-                    <a class="btn btn-outline-success btn-sm" href="{{route('disease.draw_tree_ar') }}" padding="4px" ><i class="fa fa-language bigfonts" aria-hidden="true"></i></a>
                     <input id="cut_node" name="cut_node" type="button" class="btn btn-outline-success btn-sm"  value="Cut">
                     <input id="past_node" name="past_node" type="button" class="btn btn-outline-success btn-sm" value="Paste">
 
@@ -217,8 +229,7 @@ label.b {
 </body>
 <!-----------------------------------------> 
 <script type="text/javascript">
-    var id; //
-    var old_id;
+    var id; 
     var parent_code ;
     var parent_id ;
     var compare = 1;// 1 :edit , 2 : add
@@ -226,8 +237,8 @@ label.b {
     var first = true;
     var save_auto_choice = false;
     var cut_node_id ;
-    var color_text="000000";
-    var color_background = "ffffff";
+    var color_text="#000000";
+    var color_background = "#ffffff";
     var bold = "normal !important";
     var italic = "normal";
     var under_line = "none";
@@ -241,6 +252,8 @@ label.b {
     var selected_node;
     var all_parents_code = "";
     var get_data = 0;
+
+    var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
         $(document).ready(function(){ 
             $(function () {
                 $.support.cors = true;
@@ -250,12 +263,12 @@ label.b {
                         'data': {
                                 'url': function (node) {
                                     if(node.id === '#') {
-                                        return "{{route('disease.ar_tree',['id' => 0])}}";
+                                        return "{{route('disease.en_tree',['id' => 0])}}";
                                     }
                                     else {
                                         var parameter_id = node.id;
                                         console.log(parameter_id);
-                                        var url = "{{route('disease.ar_tree',':parameter_id')}}";
+                                        var url = "{{route('disease.en_tree',':parameter_id')}}";
                                         url = url.replace(':parameter_id',parameter_id);
                                         return url;
                                         //return "http://localhost:8000/tree_ar/" + node.id;
@@ -302,19 +315,24 @@ label.b {
             /**/
 
             if(id != null && save_auto_choice == true){
+                var my_id = document.getElementById('term_id').value;
                 var code = document.getElementById('code').value;
                 var parent_code = document.getElementById('parent_code').value;
                 var en_term = document.getElementById('en_term').value;
                 var ar_term = document.getElementById('ar_term').value;
-                var note;
-                var myInput = document.getElementById('note').value;
+                var en_note;
+                var myInput = document.getElementById('en_note').value;
                 if(myInput)
-                    note = document.getElementById('note').value ;
+                    en_note = document.getElementById('en_note').value ;
+                else        
+                    en_note = " ";
                 var ar_note;
                 var myInput = document.getElementById('ar_note').value;
                 if(myInput)
                     ar_note = document.getElementById('ar_note').value ;
-                save_auto(id,compare,code,parent_code,en_term,ar_term,note,ar_note,bold,italic,color_text,color_background,under_line,ar_size,en_size);
+                else        
+                    ar_note = " ";
+                save_auto(my_id,compare,code,parent_code,en_term,ar_term,en_note,ar_note,bold,italic,color_text,color_background,under_line,ar_size,en_size,copy_style);
             }
             id = data.selected[0];
             if(id != null )
@@ -358,27 +376,32 @@ label.b {
         });
         //save  
         $('#save_create').click(function(){
+            var my_id = document.getElementById('term_id').value;
             var code = document.getElementById('code').value;
             var parent_code = document.getElementById('parent_code').value;
             var en_term = document.getElementById('en_term').value;
             var ar_term = document.getElementById('ar_term').value;
-            var note;
-            var myInput = document.getElementById('note').value;
+            var en_note;
+            var myInput = document.getElementById('en_note').value;
             if(myInput)
-                note = document.getElementById('note').value ;
+                en_note = document.getElementById('en_note').value ;
+            else        
+                en_note=" ";
 
             var ar_note;
             var myInput = document.getElementById('ar_note').value;
             if(myInput)
                 ar_note = document.getElementById('ar_note').value ;
-
+            else        
+                ar_note=" ";
             
-            save_auto(id,compare,code,parent_code,en_term,ar_term,note,ar_note,bold,italic,color_text,color_background,under_line,ar_size,en_size);
+            save_auto(my_id,compare,code,parent_code,en_term,ar_term,en_note,ar_note,bold,italic,color_text,color_background,under_line,ar_size,en_size,copy_style);
         });
 
-        //note
-        $('#note').summernote();
+        //summer note
+        $('#en_note').summernote();
         $('#ar_note').summernote();
+
 
         //cut_node
         $("#cut_node").click(function(){
@@ -403,7 +426,7 @@ label.b {
                 }
             })
         });
-
+        // colorPicker for text and backgraound
         let colorPicker_text = document.getElementById("colorPicker_text");
         colorPicker_text.addEventListener("input", function(event) {
             color_text = colorPicker_text.value;
@@ -426,83 +449,81 @@ label.b {
         }, false);
 
         document.getElementById("parent__code").style.display = "none";
+        document.getElementById("term_id").style.display = "none";
 
 
         // Initialize select2
         $('.select2').select2();
-        //get parents code
+        
+        //get all parents code
         if(get_data == 0){
             $.ajax({
                 type :"GET",
-                url:"{{route('get_parent_codes')}}",
+                url:"{{route('dis_get_parent_codes')}}",
                 success:function(res){
                     result_view =  JSON.parse(res);        
                     $.each(result_view,function(key,value){
                         all_parents_code = all_parents_code.concat('<option value="'+key+'">'+value+'</option>');
                     });
-                    all_parents_code = all_parents_code.concat('<option value="null">'+''+'</option>'); 
+                    all_parents_code = all_parents_code.concat('<option value="null">'+'null'+'</option>'); 
                     get_data=1;       
                 }
             });
         }          
     //End Document ready
     });
-
+            //eraser field search
             $('#eraser_search').click(function(){
                 document.getElementById("plugins4_q").value = "";
                 $("#example").empty();
             });
-
+            //go to next node in the same level
             $('#next_node').click(function(){
                 next_open_node();
             });
-
-            
+            //go to previous node  in the same level
             $('#previous_node').click(function(){
                 previous_open_node()
             });
-
+            //go to next node in the same level
             $('#next_node2').click(function(){
                 next_open_node();
             });
-
-            
+            //go to previous node in the same level
             $('#previous_node2').click(function(){
                 previous_open_node()
             });
-
+            //go to next node in the next level
             $('#sdf_next_node').click(function(){
                 search_deep_first_next_node();
             });
-
-            
+            //go to previous node in the next level
             $('#sdf_previous_node').click(function(){
                 search_deep_first_previous_node()
             });
-
+            //go to next node in the next level
             $('#sdf_next_node2').click(function(){
                 search_deep_first_next_node();
             });
-
-            
+            //go to previous node in the next level            
             $('#sdf_previous_node2').click(function(){
                 search_deep_first_previous_node()
             });
-
+            //replace string in arabic term and english term
             $('#replace_term').click(function(){
                 replace_word_in_ar_en_term();
             });
-
+            //eraser field replace
             $('#eraser_replace').click(function(){
                 document.getElementById("from_term").value = "";
                 document.getElementById("to_term").value = "";
             });
-
-
+            // View node that selected it from table
             function clickOnRow(id) {
+                //view node and all parent in the tree
                 draw_path_node(id);
+                //view node details
                 $('#container').jstree(true).deselect_all();
-                //$('#container').jstree(true).select_node("'"+id+"'");
                 if(compare == 1)
                 {
                     //edit
@@ -516,6 +537,8 @@ label.b {
                         success:function(res){
                             result_view =  JSON.parse(res);
                             var node =result_view.node;
+
+                            document.getElementById('term_id').value = node.id;
                             document.getElementById('code').value = node.code;
                             document.getElementById("parent__code").style.display = "none";
                             document.getElementById("div_parent").style.display = "block";
@@ -528,19 +551,18 @@ label.b {
                             document.getElementById('ar_term').value = node.ar_term;
                             //initialize summernote
                             $('.summernote').summernote();
-                            $("#note").summernote('code',res.note);
+                            $("#en_note").summernote('code',res.en_note);
                             $("#ar_note").summernote('code',res.ar_note);
                             
                             var searchResult = $("#container").jstree('search', id);
                             $(searchResult).find('.jstree-search').focus();
 
-
                             setTimeout(function() { $("#container").jstree(true).get_node(id, true).children('.jstree-anchor').focus(); }, 2500);
-                           
                             //$("#container").jstree(true)._open_to(nodeId).focus();
                         }
                     });
                 }
+                //for add
                 else
                 {
                     $.ajax({
@@ -562,49 +584,352 @@ label.b {
                             document.getElementById("ar_term").value = "";
                             //initialize summernote
                             $('.summernote').summernote();
-                            $('.summernote').summernote('code', "");
-                            $('.summernote').summernote('code', "");
+                            $('.summernote').summernote('code');
+                            $('.summernote').summernote('code');
                         }
                     });
                 }
             }
-
-          
-
-
-
-
-        function fill_field(compare , id){
-        if(id != null){
-            if(compare == 1)
-            {
-                $.ajax({
-                    type :"GET",
-                    url:"{{route('disease_node.view')}}",
-                    data:{
-                        id : id,
-                        parents_code : 1
-                    },
-                    success:function(res){
+            //get Node Details 
+            function fill_field(compare , id){
+                if(id != null){
+                    if(compare == 1)
+                    {
+                        $.ajax({
+                            type :"GET",
+                            url:"{{route('disease_node.view')}}",
+                            data:{
+                                id : id,
+                                parents_code : 1
+                            },
+                            success:function(res){
+                                        result_view =  JSON.parse(res);
+                                        var node =result_view.node;
+                                        console.log(node);
+                                        document.getElementById('term_id').value = node.id;
+                                        document.getElementById('code').value = node.code;
+                                        document.getElementById("parent__code").style.display = "none";
+                                        document.getElementById("div_parent").style.display = "block";
+                                        $('#parent_code').empty();
+                                        $('#parent_code').append('<option value="'+node.parent_code+'">'+node.parent_code+'</option>');
+                                        $('#parent_code').append(all_parents_code);
+                                        document.getElementById('en_term').value = node.en_term;
+                                        document.getElementById('ar_term').value = node.ar_term;
+                                        //initialize summernote
+                                        $('.summernote').summernote();
+                                        $("#en_note").summernote('code',node.note);
+                                        $("#ar_note").summernote('code',node.ar_note);                     
+                            }
+                        });
+                    }
+                    else
+                    {
+                        $.ajax({
+                            type :'GET',
+                            url:"{{route('disease_node.view')}}",
+                            data:{
+                                id : id,
+                                parents_code : 0
+                            },
+                            success:function(res){
                                 result_view =  JSON.parse(res);
                                 var node =result_view.node;
-                                document.getElementById('code').value = node.code;
-                                document.getElementById("parent__code").style.display = "none";
-                                document.getElementById("div_parent").style.display = "block";
-                                $('#parent_code').empty();
-                                $('#parent_code').append('<option value="'+node.parent_code+'">'+node.parent_code+'</option>');
-                                $('#parent_code').append(all_parents_code);
-                                document.getElementById('en_term').value = node.en_term;
-                                document.getElementById('ar_term').value = node.ar_term;
+                                document.getElementById("div_parent").style.display = "none";
+                                document.getElementById("parent__code").style.display = "block";
+                                document.getElementById("parent__code").value = node.code;
+                                document.getElementById('code').value = "";
+                                document.getElementById('en_term').value = "";
+                                document.getElementById('ar_term').value = "";
+                                document.getElementById("parent_code").readOnly = true;
                                 //initialize summernote
                                 $('.summernote').summernote();
-                                $("#note").summernote('code',node.note);
-                                $("#ar_note").summernote('code',node.ar_note);                     
+                                    $("#en_note").summernote('code');
+                                    $("#ar_note").summernote('code');
+                            }
+                        });
+                    }
+                }}
+            //Search in code and parent code and arabic term and english term
+            function search(){
+                $.ajax({
+                    type :'GET',
+                    url:"{{route('disease_node.search')}}",
+                    data:{
+                        condition : $("#plugins4_q").val()
+                    },
+                    success:function(res){
+                        $("#example").empty();
+                        if(res){
+                            result_search =  JSON.parse(res);
+                            $("#example").append("<thead><tr style='font-weight:bold'><td>id </td><td>ParentCode/Code</td><td>English Term("+result_search[0].count+")</td><td>Arabic Term</td></tr></thead><tbody>")
+                            
+                            result_search[0].tree.forEach(function(item){
+                                $("#example").append("<tr onclick='clickOnRow("+item.id+")' style='background-color:"+item.background_color+";color:"+item.text_color+";text-decoration:"+item.under_line+";font-weight: "+item.bold+";font-style: "+item.italic+"'><td>"+item.id+"</td><td>"+item.parent_code+" / "+item.code+"</td><td dir='ltr' >"+item.en_term+"</td><td dir='rtl' style='text-align:right'>"+item.ar_term+"</td></tr>");
+                            });
+                            $("#example").append("</tbody>");
+                        } 
                     }
                 });
             }
-            else
-            {
+
+          
+            //parent_code contain parent_id
+            function save_auto(my_id,compare,code,parent_code,en_term,ar_term,en_note,ar_note,text_bold,text_italic,text_color,background_color,under_line,ar_size,en_size,copy_style) {
+                if(compare == 2){
+                    parent_id = my_id;
+                    my_id = null;
+                }
+                //ar_term=super_script(ar_term);
+                //en_term=super_script(en_term);
+                $.ajax({
+                    type :"POST",
+                    url:"{{route('disease_node.save')}}",
+                    data:{
+                        id : my_id,
+                        parent_id : parent_id,
+                        parent_code : parent_code, 
+                        code : code,
+                        en_term : en_term,
+                        ar_term : ar_term,
+                        en_note : en_note,
+                        ar_note : ar_note,
+                        bold : text_bold,
+                        italic : text_italic,
+                        color_text : text_color,
+                        color_background : background_color,
+                        under_line : under_line,
+                        ar_size :ar_size,
+                        en_size :en_size,
+                        copy_style : copy_style,
+                        _token: CSRF_TOKEN,
+                    },
+                    success:function(res){
+                        //edit
+                        console.log(res);
+                        var diminsion = JSON.parse(res);
+                        var code_width = diminsion[0].code_width;
+                        var en_width = diminsion[0].en_width;
+                        var ar_width = diminsion[0].ar_width;
+                        var type = diminsion[0].type;
+                        var new_id = diminsion[0].id;
+                        var parent_id = diminsion[0].parent_id;
+                        var new_code = code.replace(/!!/g, "");
+                        
+                        if(compare == 1)
+                        {
+                            text_bold = diminsion[0].bold;
+                            text_italic = diminsion[0].italic;
+                            background_color = diminsion[0].background_color;
+                            text_color = diminsion[0].text_color;
+                            under_line = diminsion[0].under_line;
+                            en_size = diminsion[0].en_size;
+                            ar_size = diminsion[0].ar_size;
+                            var text_ ="<div ><label class="+type+" style='font-weight: "+text_bold+";font-style: "+text_italic+"; background-color:"+background_color+";color:"+text_color+";word-wrap: break-word;text-decoration:"+under_line+";font-weight: "+text_bold+";float:left; width:"+code_width+"px;font-size:"+en_size+"px;padding: 0.0ex ;' >"+new_code+"</label><label  style='font-weight: "+text_bold+";font-style: "+text_italic+"; background-color:"+background_color+";color:"+text_color+";word-wrap: break-word;text-decoration:"+under_line+";font-weight: "+text_bold+";width:"+en_width+"px;font-size:"+en_size+"px;float:left;text-align:left;padding: 0.0ex ;margint-buttom:0.01ex;'>"+en_term+"</label><label dir='rtl' style='font-weight: "+text_bold+";font-style: "+text_italic+"; background-color:"+background_color+";color:"+text_color+";word-wrap: break-word;text-decoration:"+under_line+";font-weight: "+text_bold+";float:right; width:"+ar_width+"px;direction:rtl;text-align:right;font-size:"+ar_size+"px;padding: 0.0ex ;margint-buttom:0.01ex;' >"+ar_term+"</label></div>";
+
+                            if(parent_id == null)
+                            {
+                                console.log(parent_id);
+                                var node_tree = $('#container').jstree(true).get_node(new_id);
+                                node_tree.text = text_ ;
+                                $('#container').jstree(true).redraw_node(node_tree, false, false, false);
+                            }
+                            else
+                            {
+                                var node = $('#container').jstree(true).get_node(my_id);
+                                cut_node_id = node.id;
+                                $('#container').jstree(true).cut(node);     
+                                var parent = $('#container').jstree(true).get_node(parent_id);      
+                                parent_id =  parent.id;     
+                                $('#container').jstree(true).paste(parent,"first");
+                                
+                            }
+                        }
+                        //create
+                        else
+                        {
+                            var text_ ="<div ><label class="+type+" style='font-weight: "+text_bold+";font-style: "+text_italic+"; background-color:"+background_color+";color:"+text_color+";word-wrap: break-word;text-decoration:"+under_line+";font-weight: "+text_bold+";float:left; width:"+code_width+"px;font-size:"+en_size+"px;padding: 0.0ex ;' >"+new_code+"</label><label  style='font-weight: "+text_bold+";font-style: "+text_italic+"; background-color:"+background_color+";color:"+text_color+";word-wrap: break-word;text-decoration:"+under_line+";font-weight: "+text_bold+";width:"+en_width+"px;font-size:"+en_size+"px;float:left;text-align:left;padding: 0.0ex ;margint-buttom:0.01ex;'>"+en_term+"</label><label dir='rtl' style='font-weight: "+text_bold+";font-style: "+text_italic+"; background-color:"+background_color+";color:"+text_color+";word-wrap: break-word;text-decoration:"+under_line+";font-weight: "+text_bold+";float:right; width:"+ar_width+"px;direction:rtl;text-align:right;font-size:"+ar_size+"px;padding: 0.0ex ;margint-buttom:0.01ex;' >"+ar_term+"</label></div>";
+                              $('#container').jstree().create_node(parent_id ,  { "id" : new_id, "text" : text_ }, "first", false);              
+                        }
+                    }              
+                });
+                // in case the node after update do not contain text this i want search it so i will search agian
+                if(document.getElementById("plugins4_q").value.length != 0)
+                {
+                    search();
+                }
+            }
+            // get next node in the same level
+            function next_open_node(){
+                var tree = $ ('#container').jstree (true)
+                curr = tree.get_selected (false);
+                tree.deselect_all ();
+                //tree.open_all ();
+                var n = tree.get_next_dom (curr);
+                tree.select_node(n);
+                //foucs
+                $("#container").jstree(true).get_node(n[0].id, true).children('.jstree-anchor').focus();
+            }
+            // get next node in the next level
+            function search_deep_first_next_node(){
+                var tree = $ ('#container').jstree (true)
+                curr = tree.get_selected (false);
+                tree.deselect_all ();
+                var n = tree.get_next_dom (curr);
+                tree.open_all(n);
+                tree.select_node(n);
+                //foucs
+                $("#container").jstree(true).get_node(n[0].id, true).children('.jstree-anchor').focus();
+            }
+            // get prevoius node in the same level
+            function previous_open_node(){
+                var tree = $ ('#container'). jstree (true)
+                curr = tree.get_selected (false);
+                tree.deselect_all ();
+                var n = tree.get_prev_dom (curr);
+                tree.select_node (n);
+                //foucs
+                $("#container").jstree(true).get_node(n[0].id, true).children('.jstree-anchor').focus();     
+            }
+            // get prevoius node in the next level
+            function search_deep_first_previous_node(){
+                var tree = $ ('#container'). jstree (true)
+                curr = tree.get_selected (false);
+                tree.deselect_all ();
+                var n = tree.get_prev_dom (curr);
+                tree.open_all(n);
+                tree.select_node (n);
+                //foucs
+                $("#container").jstree(true).get_node(n[0].id, true).children('.jstree-anchor').focus();     
+            }
+            //replace string in arabic term or english term
+            function replace_word_in_ar_en_term(from , to){
+                $.ajax({
+                    type :'GET',
+                    url:"{{route('disease_term.replace')}}",
+                    data:{
+                        from :  $("#from_term").val(),
+                        to :  $("#to_term").val(),
+                    },
+                    success:function(res){
+                        console.log(res);
+                        $('#container').jstree(true).refresh();
+                    }
+                });
+            }
+            //sub and sup
+            function super_script(text){
+                var bold = /\*\*(\S(.*?\S)?)\*\*/gm;
+                var html = text.replace(bold, '<sup style="color:blue;"><i><b>$1</b></i></sup>');
+                return html;
+            }
+            //save auto button
+            $('#save_auto__').click(function() {
+                $(this).toggleClass('activated');
+                if($(this).hasClass('activated') == true)
+                    save_auto_choice = true;
+                else
+                    save_auto_choice = false;
+            });
+            //bold button
+            $('#bold_button').click(function() {
+                $(this).toggleClass('activated');
+                if($(this).hasClass('activated') == true)
+                    bold = "bold";
+                else
+                    bold = "normal";
+                autoChangeFontStyle(bold,italic,color_text,color_background,under_line,ar_size,en_size)
+            });
+            //italic button
+            $('#italic_button').click(function() {
+                $(this).toggleClass('activated');
+                if($(this).hasClass('activated') == true)
+                    italic = "italic";
+                else
+                    italic = "normal";
+                autoChangeFontStyle(bold,italic,color_text,color_background,under_line,ar_size,en_size);      
+            });
+            //underLine button
+            $('#underLine_button').click(function() {
+                $(this).toggleClass('activated');
+                if($(this).hasClass('activated') == true)
+                    under_line = "underline";
+                else
+                    under_line = "none";
+                autoChangeFontStyle(bold,italic,color_text,color_background,under_line,ar_size,en_size);
+            });
+            //increase size by 2
+            $('#up_size').click(function() {   
+                ar_size = 2 + parseInt(ar_size);
+                en_size = 2 + parseInt(en_size);
+                autoChangeFontStyle(bold,italic,color_text,color_background,under_line,ar_size,en_size);
+            });
+            //decrease size by 2
+            $('#down_size').click(function() {
+                ar_size = ar_size - 2;
+                en_size = en_size - 2;
+                autoChangeFontStyle(bold,italic,color_text,color_background,under_line,ar_size,en_size);
+            });
+            //copy style button
+            $('#copy_style_button').click(function() {
+                $(this).toggleClass('activated');
+                if($(this).hasClass('activated') == true)
+                {
+                    copy_style = true;
+                    document.getElementById("bold_button").style.display = "block";
+                    document.getElementById("italic_button").style.display = "block";
+                    document.getElementById("underLine_button").style.display = "block";
+                    document.getElementById("colorPicker_text").style.display = "block";
+                    document.getElementById("colorPicker_backgraound").style.display = "block";
+                    document.getElementById("up_size").style.display = "block";
+                    document.getElementById("down_size").style.display = "block";
+                }
+                else
+                {
+                    copy_style = false;
+                    document.getElementById("bold_button").style.display = "none";
+                    document.getElementById("italic_button").style.display = "none";
+                    document.getElementById("underLine_button").style.display = "none";
+                    document.getElementById("colorPicker_text").style.display = "none";
+                    document.getElementById("colorPicker_backgraound").style.display = "none";
+                    document.getElementById("up_size").style.display = "none";
+                    document.getElementById("down_size").style.display = "none";
+                }
+            });
+
+            function saveAotuFunction() {
+                var element = document.getElementById("save_auto__");
+                if (element.classList) { 
+                    element.classList.toggle("mystyle");
+                } 
+            }
+
+            function boldFunction() {
+                var element = document.getElementById("bold_button");
+                if (element.classList) { 
+                    element.classList.toggle("mystyle");
+                } 
+            }
+
+            function italicFunction() {
+                var element = document.getElementById("italic_button");
+                if (element.classList) { 
+                    element.classList.toggle("mystyle");
+                } 
+            }
+
+            function underLineFunction() {
+                var element = document.getElementById("underLine_button");
+                if (element.classList) { 
+                    element.classList.toggle("mystyle");
+                } 
+            }
+
+            //Copy Style from node to another node
+            function copyStyleFunction() {
+                var element = document.getElementById("copy_style_button");
+                if (element.classList) { 
+                    element.classList.toggle("mystyle");
+                }
                 $.ajax({
                     type :'GET',
                     url:"{{route('disease_node.view')}}",
@@ -615,361 +940,94 @@ label.b {
                     success:function(res){
                         result_view =  JSON.parse(res);
                         var node =result_view.node;
-                        document.getElementById("div_parent").style.display = "none";
-                        document.getElementById("parent__code").style.display = "block";
-                        document.getElementById("parent__code").value = node.code;
-                        document.getElementById('code').value = "";
-                        document.getElementById('en_term').value = "";
-                        document.getElementById('ar_term').value = "";
-                        document.getElementById("parent_code").readOnly = true;
-                        //initialize summernote
-                        $('.summernote').summernote();
-                        $("#note").summernote('code',"");
-                        $("#ar_note").summernote('code',"");
+                        bold = node.bold;
+                        italic = node.italic;
+                        color_background = node.background_color;
+                        colorPicker_backgraound.value = node.background_color;
+                        colorPicker_text.value = node.text_color; 
+                        color_text = node.text_color;
+                        under_line = node.under_line;
+                        en_size = node.en_size;
+                        ar_size = node.ar_size;
+                        bold = node.bold;
+                        italic = node.italic;
+                        color_background = node.background_color;
+                        color_text = node.text_color;
+                        under_line = node.under_line;
+                        en_size = node.en_size;
+                        ar_size = node.ar_size;
                     }
-                });
+                }); 
             }
-        }}
-
-
-        function search(){
-            $.ajax({
-                type :'GET',
-                url:"{{route('disease_node.search')}}",
-                data:{
-                    condition : $("#plugins4_q").val()
-                },
-                success:function(res){
-                    $("#example").empty();
-                    if(res){
-                        result_search =  JSON.parse(res);
-                        $("#example").append("<thead><tr style='font-weight:bold'><td>id </td><td>ParentCode/Code</td><td>English Term("+result_search[0].count+")</td><td>Arabic Term</td></tr></thead><tbody>")
-                        
-                        result_search[0].tree.forEach(function(item){
-                            $("#example").append("<tr onclick='clickOnRow("+item.id+")' style='background-color:"+item.background_color+";color:"+item.text_color+";text-decoration:"+item.under_line+";font-weight: "+item.bold+";font-style: "+item.italic+"'><td>"+item.id+"</td><td>"+item.parent_code+" / "+item.code+"</td><td dir='ltr' >"+item.en_term+"</td><td dir='rtl' style='text-align:right'>"+item.ar_term+"</td></tr>");
-                        });
-                        $("#example").append("</tbody>");
-                    } 
-                }
-            });
-        }
-    //parent_code contain parent_id
-        function save_auto(id,compare,code,parent_code,en_term,ar_term,note,ar_note,text_bold,text_italic,text_color,background_color,under_line,ar_size,en_size) {
-            console.log(parent_code);
-            console.log(background_color);
-     
-            ar_term=super_script(ar_term);
-            en_term=super_script(en_term);
-            $.ajax({
-                type :'GET',
-                url:"{{route('disease_node.save')}}",
-                data:{
-                    id : id,
-                    parent_id : parent_id,
-                    parent_code : parent_code, 
-                    code : code,
-                    en_term : en_term,
-                    ar_term : ar_term,
-                    note : note,
-                    ar_note : ar_note,
-                    bold : text_bold,
-                    italic : text_italic,
-                    color_text : text_color,
-                    color_background : background_color,
-                    under_line : under_line,
-                    ar_size :ar_size,
-                    en_size :en_size,
-                },
-                success:function(res){
-                    //edit
-                    console.log(res);
-                    var diminsion = JSON.parse(res);
-                    var code_width = diminsion[0].code_width;
-                    var en_width = diminsion[0].en_width;
-                    var ar_width = diminsion[0].ar_width;
-                    var type = diminsion[0].type;
-                    var new_id = diminsion[0].id;
-                    var parent_id = diminsion[0].parent_id;
-                    var new_code = code.replace(/!!/g, "");
-                    var text_ ="<div ><label class="+type+" style='font-weight: "+text_bold+";font-style: "+text_italic+"; background-color:"+background_color+";color:"+text_color+";word-wrap: break-word;text-decoration:"+under_line+";font-weight: "+text_bold+";float:left; width:"+code_width+"px;font-size:"+en_size+"px;padding: 0.0ex ;' >"+new_code+"</label><label  style='font-weight: "+text_bold+";font-style: "+text_italic+"; background-color:"+background_color+";color:"+text_color+";word-wrap: break-word;text-decoration:"+under_line+";font-weight: "+text_bold+";width:"+en_width+"px;font-size:"+en_size+"px;float:left;text-align:left;padding: 0.0ex ;margint-buttom:0.01ex;'>"+en_term+"</label><label dir='rtl' style='font-weight: "+text_bold+";font-style: "+text_italic+"; background-color:"+background_color+";color:"+text_color+";word-wrap: break-word;text-decoration:"+under_line+";font-weight: "+text_bold+";float:right; width:"+ar_width+"px;direction:rtl;text-align:right;font-size:"+ar_size+"px;padding: 0.0ex ;margint-buttom:0.01ex;' >"+ar_term+"</label></div>";
-                    if(compare == 1)
-                    { 
-                        if(parent_id == 0)
-                        {
-                            console.log(parent_id);
-                            var node_tree = $('#container').jstree(true).get_node(new_id);
-                            node_tree.text = text_ ;
-                            $('#container').jstree(true).redraw_node(node_tree, false, false, false);
-                        }
-                        else
-                        {
-                            console.log(parent_id);
-                            $('#container').jstree(true).refresh();
-                        }
-                    }
-                    //create
-                    else
-                    {
-                          $('#container').jstree().create_node(parent_id ,  { "id" : new_id, "text" : text_ }, "first", false);              
-                    }
-                }              
-            });
-            // in case the node after update do not contain text this i want search it so i will search agian
-            if(document.getElementById("plugins4_q").value.length != 0)
-            {
-                search();
-            }
-        }
-
-        function next_open_node(){
-            var tree = $ ('#container').jstree (true)
-            curr = tree.get_selected (false);
-            tree.deselect_all ();
-            //tree.open_all ();
-            var n = tree.get_next_dom (curr);
-            tree.select_node(n);
-            //foucs
-            $("#container").jstree(true).get_node(n[0].id, true).children('.jstree-anchor').focus();
-        }
-
-        function search_deep_first_next_node(){
-            var tree = $ ('#container').jstree (true)
-            curr = tree.get_selected (false);
-            tree.deselect_all ();
-            var n = tree.get_next_dom (curr);
-            tree.open_all(n);
-            tree.select_node(n);
-            //foucs
-            $("#container").jstree(true).get_node(n[0].id, true).children('.jstree-anchor').focus();
-        }
-
-        function previous_open_node(){
-            var tree = $ ('#container'). jstree (true)
-            curr = tree.get_selected (false);
-            tree.deselect_all ();
-            var n = tree.get_prev_dom (curr);
-            tree.select_node (n);
-            //foucs
-            $("#container").jstree(true).get_node(n[0].id, true).children('.jstree-anchor').focus();     
-        }
-
-        function search_deep_first_previous_node(){
-            var tree = $ ('#container'). jstree (true)
-            curr = tree.get_selected (false);
-            tree.deselect_all ();
-            var n = tree.get_prev_dom (curr);
-            tree.open_all(n);
-            tree.select_node (n);
-            //foucs
-            $("#container").jstree(true).get_node(n[0].id, true).children('.jstree-anchor').focus();     
-        }
-
-        function replace_word_in_ar_en_term(from , to){
-            $.ajax({
-                type :'GET',
-                url:"{{route('disease_term.replace')}}",
-                data:{
-                    from :  $("#from_term").val(),
-                    to :  $("#to_term").val(),
-                },
-                success:function(res){
-                    console.log(res);
-                    $('#container').jstree(true).refresh();
-                }
-            });
-        }
-
-        function super_script(text){
-            var bold = /\*\*(\S(.*?\S)?)\*\*/gm;
-            var html = text.replace(bold, '<sup style="color:blue;"><i><b>$1</b></i></sup>');
-            return html;
-        }
-
-        $('#save_auto__').click(function() {
-            $(this).toggleClass('activated');
-            if($(this).hasClass('activated') == true)
-                save_auto_choice = true;
-            else
-                save_auto_choice = false;
-        });
-
-        $('#bold_button').click(function() {
-            $(this).toggleClass('activated');
-            if($(this).hasClass('activated') == true)
-                bold = "bold";
-            else
-                bold = "normal";
-            autoChangeFontStyle(bold,italic,color_text,color_background,under_line,ar_size,en_size)
-        });
-
-        $('#italic_button').click(function() {
-            $(this).toggleClass('activated');
-            if($(this).hasClass('activated') == true)
-                italic = "italic";
-            else
-                italic = "normal";
-            autoChangeFontStyle(bold,italic,color_text,color_background,under_line,ar_size,en_size);      
-        });
-        $('#underLine_button').click(function() {
-            $(this).toggleClass('activated');
-            if($(this).hasClass('activated') == true)
-                under_line = "underline";
-            else
-                under_line = "none";
-            autoChangeFontStyle(bold,italic,color_text,color_background,under_line,ar_size,en_size);
-        });
-
-        $('#up_size').click(function() {   
-            ar_size = 2 + parseInt(ar_size);
-            en_size = 2 + parseInt(en_size);
-            autoChangeFontStyle(bold,italic,color_text,color_background,under_line,ar_size,en_size);
-        });
-
-        $('#down_size').click(function() {
-            ar_size = ar_size - 2;
-            en_size = en_size - 2;
-            autoChangeFontStyle(bold,italic,color_text,color_background,under_line,ar_size,en_size);
-        });
-
-        $('#copy_style_button').click(function() {
-            $(this).toggleClass('activated');
-            if($(this).hasClass('activated') == true)
-            {
-                copy_style = true;
-                document.getElementById("bold_button").style.display = "block";
-                document.getElementById("italic_button").style.display = "block";
-                document.getElementById("underLine_button").style.display = "block";
-                document.getElementById("colorPicker_text").style.display = "block";
-                document.getElementById("colorPicker_backgraound").style.display = "block";
-                document.getElementById("up_size").style.display = "block";
-                document.getElementById("down_size").style.display = "block";
-            }
-            else
-            {
-                copy_style = false;
-                document.getElementById("bold_button").style.display = "none";
-                document.getElementById("italic_button").style.display = "none";
-                document.getElementById("underLine_button").style.display = "none";
-                document.getElementById("colorPicker_text").style.display = "none";
-                document.getElementById("colorPicker_backgraound").style.display = "none";
-                document.getElementById("up_size").style.display = "none";
-                document.getElementById("down_size").style.display = "none";
-            }
-        });
-
-        function saveAotuFunction() {
-            var element = document.getElementById("save_auto__");
-            if (element.classList) { 
-                element.classList.toggle("mystyle");
-            } 
-        }
-
-        function boldFunction() {
-            var element = document.getElementById("bold_button");
-            if (element.classList) { 
-                element.classList.toggle("mystyle");
-            } 
-        }
-
-        function italicFunction() {
-            var element = document.getElementById("italic_button");
-            if (element.classList) { 
-                element.classList.toggle("mystyle");
-            } 
-        }
-
-        function underLineFunction() {
-            var element = document.getElementById("underLine_button");
-            if (element.classList) { 
-                element.classList.toggle("mystyle");
-            } 
-        }
-
-
-        function copyStyleFunction() {
-            var element = document.getElementById("copy_style_button");
-            if (element.classList) { 
-                element.classList.toggle("mystyle");
-            }
-            $.ajax({
-                type :'GET',
-                url:"{{route('disease_node.view')}}",
-                data:{
-                    id : id,
-                    parents_code : 0
-                },
-                success:function(res){
-                    result_view =  JSON.parse(res);
-                    var node =result_view.node;
-                    bold = node.bold;
-                    italic = node.italic;
-                    color_background = node.background_color;
-                    colorPicker_backgraound.value = node.background_color;
-                    colorPicker_text.value = node.text_color; 
-                    color_text = node.text_color;
-                    under_line = node.under_line;
-                    en_size = node.en_size;
-                    ar_size = node.ar_size;
-                    bold = node.bold;
-                    italic = node.italic;
-                    color_background = node.background_color;
-                    color_text = node.text_color;
-                    under_line = node.under_line;
-                    en_size = node.en_size;
-                    ar_size = node.ar_size;
-                }
-            }); 
-        }
-
-        function autoChangeFontStyle(text_bold,text_italic,text_color,background_color,under_line,ar_size,en_size){
-            $.ajax({
-                type :'GET',
-                url:"{{route('disease_node.view')}}",
-                data:{
-                    id : id ,
-                    parents_code : 0
-                },
-                success:function(res){
-                    result_view =  JSON.parse(res);
-                    var node =result_view.node;
-                    var code_width = result_view.code_width;
-                    var ar_width = result_view.ar_width;
-                    var en_width = result_view.en_width;
-                    var type = result_view.type;
-                    var new_code = node.code.replace(/!!/g, "");
-                    var text_ ="<div><label class="+type+" style='font-weight: "+text_bold+";font-style: "+text_italic+"; background-color:"+background_color+";color:"+text_color+";word-wrap: break-word;text-decoration:"+under_line+";font-weight: "+text_bold+";float:left; width:"+code_width+"px;font-size:"+en_size+"px;padding: 0.0ex ;' >"+new_code+"</label><label   style='font-weight: "+text_bold+";font-style: "+text_italic+"; background-color:"+background_color+";color:"+text_color+";word-wrap: break-word;text-decoration:"+under_line+";font-weight: "+text_bold+";float:left;width:"+en_width+"px;text-align:left;font-size:"+en_size+"px;padding: 0.0ex ;margint-buttom:0.01ex;'>"+node.en_term+"</label><label dir='rtl' style='font-weight: "+text_bold+";font-style: "+text_italic+"; background-color:"+background_color+";color:"+text_color+";text-align:right;word-wrap: break-word;text-decoration:"+under_line+";font-weight: "+text_bold+";width:"+ar_width+"px;font-size:"+ar_size+"px;padding: 0.0ex ;margint-buttom:0.01ex;' >"+node.ar_term+"</label></div>";
-                    var node_tree = $('#container').jstree(true).get_node(node.id);    
-                    node_tree.text = text_ ;
-                    $('#container').jstree(true).redraw_node(node_tree, false, false, false);
-                }
-            });
-        }
-
-        function open_all_child(){
-            if(selected_node != null)
-                $("#container").jstree(true).open_all(selected_node);
-        }
-
-        function draw_path_node(id){
-            $.ajax({
+            //change style online with save or without save 
+            function autoChangeFontStyle(text_bold,text_italic,text_color,background_color,under_line,ar_size,en_size){
+                $.ajax({
                     type :'GET',
-                    url:"{{route('get_all_parents_for_node')}}",
+                    url:"{{route('disease_node.view')}}",
                     data:{
-                        id : id,
+                        id : id ,
+                        parents_code : 0
                     },
-                    success:function(array_parents_id){
-                            console.log(array_parents_id);
-
-                            $('#container').jstree(true).load_node(array_parents_id, function () {
-                                this.select_node(id);
-                            });
+                    success:function(res){
+                        result_view =  JSON.parse(res);
+                        var node =result_view.node;
+                        var code_width = result_view.code_width;
+                        var ar_width = result_view.ar_width;
+                        var en_width = result_view.en_width;
+                        var type = result_view.type;
+                        var new_code = node.code.replace(/!!/g, "");
+                        var text_ ="<div><label class="+type+" style='font-weight: "+text_bold+";font-style: "+text_italic+"; background-color:"+background_color+";color:"+text_color+";word-wrap: break-word;text-decoration:"+under_line+";font-weight: "+text_bold+";float:left; width:"+code_width+"px;font-size:"+en_size+"px;padding: 0.0ex ;' >"+new_code+"</label><label   style='font-weight: "+text_bold+";font-style: "+text_italic+"; background-color:"+background_color+";color:"+text_color+";word-wrap: break-word;text-decoration:"+under_line+";font-weight: "+text_bold+";float:left;width:"+en_width+"px;text-align:left;font-size:"+en_size+"px;padding: 0.0ex ;margint-buttom:0.01ex;'>"+node.en_term+"</label><label dir='rtl' style='font-weight: "+text_bold+";font-style: "+text_italic+"; background-color:"+background_color+";color:"+text_color+";text-align:right;word-wrap: break-word;text-decoration:"+under_line+";font-weight: "+text_bold+";width:"+ar_width+"px;font-size:"+ar_size+"px;padding: 0.0ex ;margint-buttom:0.01ex;' >"+node.ar_term+"</label></div>";
+                        var node_tree = $('#container').jstree(true).get_node(node.id);    
+                        node_tree.text = text_ ;
+                        $('#container').jstree(true).redraw_node(node_tree, false, false, false);
                     }
                 });
-        }
+            }
+            //open all child nodes
+            function open_all_child(){
+                if(selected_node != null)
+                    $("#container").jstree(true).open_all(selected_node);
+            }
+            //open all parent of node
+            function draw_path_node(id){
+                $.ajax({
+                        type :'GET',
+                        url:"{{route('get_all_parents_for_node')}}",
+                        data:{
+                            id : id,
+                        },
+                        success:function(array_parents_id){
+                                console.log(array_parents_id);
 
-        function focus_node(id){
-            console.log("focus");
-            $("#container").jstree(true).get_node(id, true).children('.jstree-anchor').focus();
-        }
+                                $('#container').jstree(true).load_node(array_parents_id, function () {
+                                    this.select_node(id);
+                                });
+                        }
+                    });
+            }
+            //foucs node
+            function focus_node(id){
+                console.log("focus");
+                $("#container").jstree(true).get_node(id, true).children('.jstree-anchor').focus();
+            }
+            //create simple arabic term for search
+            function create_S_Ar_Term()
+            {
+                $.ajax({
+                    type:"POST",
+                    url:"{{route('diseases.s_ar_term')}}",
+                    success:function(res){
+                        console.log(res);
+                        window.alert("The Operation Completed");
+
+                    }
+                })
+            }
+            //function for use ajax
+            $.ajaxSetup({
+  headers: {
+    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+  }
+});
 </script>
 </html>

@@ -19,7 +19,7 @@ label {
   white-space: pre-wrap;
 }
 div.fixedpar {
-  /*position: fixed; 
+  /*position: fixed;  
   right: 25px;
   margin-top: 0.0px;
   background-color: #cae8ca;*/
@@ -67,9 +67,14 @@ label.a {
 label.b {
   visibility: hidden;
 }
+/*Change background colour on mouse over of all rows in table  */
+tbody tr:hover {
+  background-color: #bedcfc;
+}
 
 </style>
-<script src="{{ asset('js/alaa/jquery-3.3.1.js')}}"></script> 
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 <link href="{{asset('/assets/plugins/select2/css/select2.min.css')}}" rel="stylesheet" type="text/css"/>
 <script src="{{asset('/assets/plugins/select2/js/select2.min.js')}}"></script>
  
@@ -94,18 +99,18 @@ label.b {
     <!--NOTE-->
     <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
   <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script> 
+  <script src="https://cdn.ckeditor.com/4.11.4/standard-all/ckeditor.js"></script>
 
 <!-- choice -->
   <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
   <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
-  <script src="https://cdn.ckeditor.com/4.11.4/standard-all/ckeditor.js"></script>
 
 </head>
 <body>
 
     <div class="row sticky" style="border: 2px solid;padding: 0px;resize: none;overflow: auto;" >
             <!--        2           -->
-          <div id="top">    <!-- This div will handle all bottom bars. -->  </div>
+            <div id="top">    <!-- This div will handle all bottom bars. -->  </div>
                  <div id="summercontainer" style="margin-top: 0.0em;margin-bottom: 0.0em;">
                     <div class="row "  >
                         <div class="col-md-1 mb-0 col-sm-0" style="padding-right: 1px;">
@@ -118,7 +123,8 @@ label.b {
                             <input type= "text" name="parent__code" data-parsley-trigger="change" class="form-control" id="parent__code" readonly style="height:30px" placeholder="Code">
                             <input type= "text" name="term_id" id="term_id">
                             <input type="text" name="code" data-parsley-trigger="change" class="form-control" id="code"  style="height:30px" placeholder="Code">
-                            <input type= "text" name="style 1" id="style1" placeholder="Style 1" style="width:95px;">
+
+                             <input type= "text" name="style 1" id="style1" placeholder="Style 1" style="width:95px;">
                             <input type= "text" name="style 2" id="style2" placeholder="Style 2" style="width:95px;"> 
                             <input type= "text" name="style 3" id="style3" placeholder="Style 3" style="width:95px;"> 
                             <input type= "text" name="style 4" id="style4" placeholder="Style 4" style="width:95px;">
@@ -178,7 +184,7 @@ label.b {
                         </div>
                     </div>
                 </div>
-          <div id="bottom" >    <!-- This div will handle all bottom bars. -->  </div>
+                <div id="bottom" >    <!-- This div will handle all bottom bars. -->  </div>
                 <hr class="fixedpar" style="float:left;border-style: inset; border-width: 0.8px;margin-top: 0.0em;margin-bottom: 0.0em; width:100%;padding-bottom: 0.0px">
                 
          <!--fixedpar-->
@@ -261,8 +267,6 @@ label.b {
 
     var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
         $(document).ready(function(){ 
-                        
-            
             tree =$('#container').jstree({
         'core' : {
             "check_callback": true,
@@ -391,9 +395,8 @@ label.b {
                 ar_note = " ";
             save_auto(my_id,compare,code,parent_code,en_term,ar_term,en_note,ar_note,bold,italic,color_text,color_background,under_line,ar_size,en_size,copy_style);
         });
-         
 
-        
+               
         //cut_node
         $("#cut_node").click(function(){
             var node = $('#container').jstree(true).get_node(id);
@@ -459,9 +462,12 @@ label.b {
                     get_data=1;       
                 }
             });
-        }          
+        }  
+
+
+          
     //End Document ready
-    });
+    });           
 
             $('#eraser_search').click(function(){
                 document.getElementById("plugins4_q").value = "";
@@ -514,8 +520,39 @@ label.b {
             });
 
 
+
+    function selectedRow(){
+               //change color node you selected 
+                var index,
+                    table = document.getElementById("example");
+            
+                for(var i = 1; i < table.rows.length; i++)
+                {
+                    table.rows[i].onclick = function()
+                    {
+                         // remove the background from the previous selected row
+                        if(typeof index !== "undefined"){
+                           table.rows[index].classList.toggle("selected");
+                        }
+                        console.log(typeof index);
+                        // get the selected row index
+                        index = this.rowIndex;
+                        // add class selected to the row
+                        this.classList.toggle("selected");
+                        console.log(typeof index);
+                     };
+                } 
+                
+                
+            }
+
+
+
             function clickOnRow(id) {
+                //open all parent of node
                 draw_path_node(id);
+                
+                //deselected all
                 $('#container').jstree(true).deselect_all();
                 //$('#container').jstree(true).select_node("'"+id+"'");
                 if(compare == 1)
@@ -540,6 +577,7 @@ label.b {
                             $.each(result_view.parent_code,function(key,value){
                                 $('#parent_code').append('<option value="'+key+'">'+value+'</option>');
                             });  
+                            //initialize summernote
                             CKEDITOR.instances['en_term'].setData(node.en_term);
                             CKEDITOR.instances['ar_term'].setData(node.ar_term);
                             
@@ -573,6 +611,9 @@ label.b {
                             document.getElementById("parent__code").style.display = "block";
                             document.getElementById("parent__code").value = node.code;
                             document.getElementById("code").value = ""; 
+                            document.getElementById("en_term").value = "";
+                            document.getElementById("ar_term").value = "";
+                            //initialize summernote
                             CKEDITOR.instances['en_term'].setData("");
                             CKEDITOR.instances['ar_term'].setData("");
                             CKEDITOR.instances['en_note'].setData("");
@@ -608,10 +649,11 @@ label.b {
                                 $('#parent_code').empty();
                                 $('#parent_code').append('<option value="'+node.parent_code+'">'+node.parent_code+'</option>');
                                 $('#parent_code').append(all_parents_code);
+                                //initialize summernote
                                 CKEDITOR.instances['en_term'].setData(node.en_term);
                                 CKEDITOR.instances['ar_term'].setData(node.ar_term);
                                 CKEDITOR.instances['en_note'].setData(node.en_note);
-                                CKEDITOR.instances['ar_note'].setData(node.ar_note);                   
+                                CKEDITOR.instances['ar_note'].setData(node.ar_note);                    
                     }
                 });
             }
@@ -631,11 +673,12 @@ label.b {
                         document.getElementById("parent__code").style.display = "block";
                         document.getElementById("parent__code").value = node.code;
                         document.getElementById('code').value = "";
-                        CKEDITOR.instances['en_term'].setData("");
-                        CKEDITOR.instances['ar_term'].setData("");
                         document.getElementById("parent_code").readOnly = true;
-                        CKEDITOR.instances['en_note'].setData("");
-                        CKEDITOR.instances['ar_note'].setData("");
+                        //initialize summernote
+                            CKEDITOR.instances['en_term'].setData("");
+                            CKEDITOR.instances['ar_term'].setData("");
+                            CKEDITOR.instances['en_note'].setData("");
+                            CKEDITOR.instances['ar_note'].setData("");
                     }
                 });
             }
@@ -650,13 +693,15 @@ label.b {
                     condition : $("#plugins4_q").val()
                 },
                 success:function(res){
+                    var counter = 1;
                     $("#example").empty();
                     if(res){
                         result_search =  JSON.parse(res);
-                        $("#example").append("<thead><tr style='font-weight:bold'><td>id </td><td>ParentCode/Code</td><td>English Term("+result_search[0].count+")</td><td>Arabic Term</td></tr></thead><tbody>")
+                        $("#example").append("<thead><tr style='font-weight:bold'><td>No </td><td>id </td><td>ParentCode/Code</td><td>English Term("+result_search[0].count+")</td><td>Arabic Term</td></tr></thead><tbody>")
                         
                         result_search[0].tree.forEach(function(item){
-                            $("#example").append("<tr onclick='clickOnRow("+item.id+")' style='background-color:"+item.background_color+";color:"+item.text_color+";text-decoration:"+item.under_line+";font-weight: "+item.bold+";font-style: "+item.italic+"'><td>"+item.id+"</td><td>"+item.parent_code+" / "+item.code+"</td><td dir='ltr' >"+item.en_term+"</td><td dir='rtl' style='text-align:right'>"+item.ar_term+"</td></tr>");
+                            $("#example").append("<tr onclick='clickOnRow("+item.id+");selectedRow();' style='background-color:"+item.background_color+";color:"+item.text_color+";text-decoration:"+item.under_line+";font-weight: "+item.bold+";font-style: "+item.italic+"'><td>"+counter+"/"+result_search[0].count+"</td><td>"+item.id+"</td><td>"+item.parent_code+" / "+item.code+"</td><td dir='ltr' >"+item.en_term+"</td><td dir='rtl' style='text-align:right'>"+item.ar_term+"</td></tr>");
+                            counter++;
                         });
                         $("#example").append("</tbody>");
                     } 
@@ -713,7 +758,7 @@ label.b {
                         under_line = diminsion[0].under_line;
                         en_size = diminsion[0].en_size;
                         ar_size = diminsion[0].ar_size;
-                        var text_ ="<div ><label  style='font-weight: "+text_bold+";font-style: "+text_italic+"; background-color:"+background_color+";color:"+text_color+";word-wrap: break-word;text-decoration:"+under_line+";font-weight: "+text_bold+";width:"+en_width+"px;font-size:"+en_size+"px;float:left;text-align:left;padding: 0.0ex ;margint-buttom:0.01ex;'>"+en_term+"</label><label class="+type+" style='font-weight: "+text_bold+";font-style: "+text_italic+"; background-color:"+background_color+";color:"+text_color+";word-wrap: break-word;text-decoration:"+under_line+";font-weight: "+text_bold+";float:right; width:"+code_width+"px;font-size:"+en_size+"px;padding: 0.0ex ;' >"+new_code+"</label><label dir='rtl' style='font-weight: "+text_bold+";font-style: "+text_italic+"; background-color:"+background_color+";color:"+text_color+";word-wrap: break-word;text-decoration:"+under_line+";font-weight: "+text_bold+";float:right; width:"+ar_width+"px;direction:rtl;text-align:right;font-size:"+ar_size+"px;padding: 0.0ex ;margint-buttom:0.01ex;' >"+ar_term+"</label></div>";
+                        var text_ ="<div ><label  style='font-weight: "+text_bold+";font-style: "+text_italic+"; background-color:"+background_color+";color:"+text_color+";word-wrap: break-word;text-decoration:"+under_line+";font-weight: "+text_bold+";width:"+en_width+"px;font-size:"+en_size+"px;float:left;text-align:left;padding: 0.0ex ;margint-buttom:0.01ex;'>"+en_term+"</label><label dir='rtl' style='font-weight: "+text_bold+";font-style: "+text_italic+"; background-color:"+background_color+";color:"+text_color+";word-wrap: break-word;text-decoration:"+under_line+";font-weight: "+text_bold+";float:right; width:"+ar_width+"px;direction:rtl;text-align:right;font-size:"+ar_size+"px;padding: 0.0ex ;margint-buttom:0.01ex;' >"+ar_term+"</label></div>";
                          
                         if(parent_id == null)
                         {
@@ -735,7 +780,7 @@ label.b {
                     //create
                     else
                     {
-                        var text_ ="<div ><label  style='font-weight: "+text_bold+";font-style: "+text_italic+"; background-color:"+background_color+";color:"+text_color+";word-wrap: break-word;text-decoration:"+under_line+";font-weight: "+text_bold+";width:"+en_width+"px;font-size:"+en_size+"px;float:left;text-align:left;padding: 0.0ex ;margint-buttom:0.01ex;'>"+en_term+"</label><label class="+type+" style='font-weight: "+text_bold+";font-style: "+text_italic+"; background-color:"+background_color+";color:"+text_color+";word-wrap: break-word;text-decoration:"+under_line+";font-weight: "+text_bold+";float:right; width:"+code_width+"px;font-size:"+en_size+"px;padding: 0.0ex ;' >"+new_code+"</label><label dir='rtl' style='font-weight: "+text_bold+";font-style: "+text_italic+"; background-color:"+background_color+";color:"+text_color+";word-wrap: break-word;text-decoration:"+under_line+";font-weight: "+text_bold+";float:right; width:"+ar_width+"px;direction:rtl;text-align:right;font-size:"+ar_size+"px;padding: 0.0ex ;margint-buttom:0.01ex;' >"+ar_term+"</label></div>";
+                        var text_ ="<div ><label  style='font-weight: "+text_bold+";font-style: "+text_italic+"; background-color:"+background_color+";color:"+text_color+";word-wrap: break-word;text-decoration:"+under_line+";font-weight: "+text_bold+";width:"+en_width+"px;font-size:"+en_size+"px;float:left;text-align:left;padding: 0.0ex ;margint-buttom:0.01ex;'>"+en_term+"</label><label dir='rtl' style='font-weight: "+text_bold+";font-style: "+text_italic+"; background-color:"+background_color+";color:"+text_color+";word-wrap: break-word;text-decoration:"+under_line+";font-weight: "+text_bold+";float:right; width:"+ar_width+"px;direction:rtl;text-align:right;font-size:"+ar_size+"px;padding: 0.0ex ;margint-buttom:0.01ex;' >"+ar_term+"</label></div>";
                           $('#container').jstree().create_node(parent_id ,  { "id" : new_id, "text" : text_ }, "first", false);              
                     }
                 }              
@@ -964,7 +1009,7 @@ label.b {
                     var en_width = result_view.en_width;
                     var type = result_view.type;
                     var new_code = node.code.replace(/!!/g, "");
-                    var text_ ="<div><label   style='font-weight: "+text_bold+";font-style: "+text_italic+"; background-color:"+background_color+";color:"+text_color+";word-wrap: break-word;text-decoration:"+under_line+";font-weight: "+text_bold+";width:"+en_width+"px;float:left;text-align:left;font-size:"+en_size+"px;padding: 0.0ex ;margint:0.0ex;'>"+node.en_term+"</label><label class="+type+" style='float:right;font-weight: "+text_bold+";font-style: "+text_italic+"; background-color:"+background_color+";color:"+text_color+";word-wrap: break-word;text-decoration:"+under_line+";font-weight: "+text_bold+"; width:"+code_width+"px;font-size:"+en_size+"px;padding: 0.0ex ;margint:0.0ex;' >"+new_code+"</label><label dir='rtl' style='font-weight: "+text_bold+";font-style: "+text_italic+"; background-color:"+background_color+";color:"+text_color+";float:right;text-align:right;word-wrap: break-word;text-decoration:"+under_line+";font-weight: "+text_bold+";width:"+ar_width+"px;font-size:"+ar_size+"px;padding: 0.0ex ;margint:0.0ex;' >"+node.ar_term+"</label></div>";
+                    var text_ ="<div><label   style='font-weight: "+text_bold+";font-style: "+text_italic+"; background-color:"+background_color+";color:"+text_color+";word-wrap: break-word;text-decoration:"+under_line+";font-weight: "+text_bold+";width:"+en_width+"px;float:left;text-align:left;font-size:"+en_size+"px;padding: 0.0ex ;margint:0.0ex;'>"+node.en_term+"</label><label dir='rtl' style='font-weight: "+text_bold+";font-style: "+text_italic+"; background-color:"+background_color+";color:"+text_color+";float:right;text-align:right;word-wrap: break-word;text-decoration:"+under_line+";font-weight: "+text_bold+";width:"+ar_width+"px;font-size:"+ar_size+"px;padding: 0.0ex ;margint:0.0ex;' >"+node.ar_term+"</label></div>";
                     var node_tree = $('#container').jstree(true).get_node(node.id);    
                     node_tree.text = text_ ;
                     $('#container').jstree(true).redraw_node(node_tree, false, false, false);
@@ -1006,8 +1051,7 @@ label.b {
             }
         });
 
-
-    CKEDITOR.replace('ar_term', {
+         CKEDITOR.replace('ar_term', {
       extraPlugins: 'sharedspace,copyformatting,colorbutton,font,colordialog',
       removePlugins: 'maximize,resize',language: 'ar',
       height: 170,
@@ -1015,7 +1059,7 @@ label.b {
         top: 'top',
         bottom: 'bottom'
       },
-        toolbarGroups: [		
+        toolbarGroups: [        
                             { name: 'clipboard', groups: [ 'clipboard', 'undo' ] },
                             { name: 'document', groups: [ 'mode', 'document', 'doctools' ] },
                             { name: 'editing', groups: [ 'find', 'selection', 'spellchecker', 'editing' ] },
@@ -1033,7 +1077,6 @@ label.b {
                                   // Remove the redundant buttons from toolbar groups defined above.
                                   removeButtons: 'SelectAll'
     });
-
     CKEDITOR.replace('en_term', {
       extraPlugins: 'sharedspace,copyformatting,colorbutton,font,colordialog',
       removePlugins: 'maximize,resize',
@@ -1042,7 +1085,7 @@ label.b {
         top: 'top',
         bottom: 'bottom'
       },
-        toolbarGroups: [		
+        toolbarGroups: [        
                             { name: 'clipboard', groups: [ 'clipboard', 'undo' ] },
                             { name: 'document', groups: [ 'mode', 'document', 'doctools' ] },
                             { name: 'editing', groups: [ 'find', 'selection', 'spellchecker', 'editing' ] },
@@ -1068,7 +1111,7 @@ label.b {
         top: 'top',
         bottom: 'bottom'
       },
-        toolbarGroups: [		
+        toolbarGroups: [        
                             { name: 'clipboard', groups: [ 'clipboard', 'undo' ] },
                             { name: 'document', groups: [ 'mode', 'document', 'doctools' ] },
                             { name: 'editing', groups: [ 'find', 'selection', 'spellchecker', 'editing' ] },
@@ -1086,7 +1129,6 @@ label.b {
                                   // Remove the redundant buttons from toolbar groups defined above.
                                   removeButtons: 'SelectAll'
     });
-
     CKEDITOR.replace('en_note', {
       extraPlugins: 'sharedspace,copyformatting,colorbutton,font,colordialog',
       removePlugins: 'maximize,resize',
@@ -1095,7 +1137,7 @@ label.b {
         top: 'top',
         bottom: 'bottom'
       },
-        toolbarGroups: [		
+        toolbarGroups: [        
                             { name: 'clipboard', groups: [ 'clipboard', 'undo' ] },
                             { name: 'document', groups: [ 'mode', 'document', 'doctools' ] },
                             { name: 'editing', groups: [ 'find', 'selection', 'spellchecker', 'editing' ] },
@@ -1113,7 +1155,7 @@ label.b {
                                   // Remove the redundant buttons from toolbar groups defined above.
                                   removeButtons: 'SelectAll'
     }); 
-                                
+
     
 </script>
 </html>

@@ -160,7 +160,7 @@ body{
                             </div>
 
                             <textarea rows="2" cols="78" type="text" name="ar_term" data-parsley-trigger="change"   class="form-control" id="ar_term"
-                            dir="rtl" style="font-size:26px;height:70px;font-weight:bold;resize:none;"></textarea>
+                            dir="rtl" style="font-size:18px;height:70px;font-weight:bold;resize:none;"></textarea>
                         </div>
                     </div>
 

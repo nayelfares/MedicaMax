@@ -29,18 +29,15 @@ div.fixedpar {
     top: 185px;
     z-index: 2;
 }
-
-.note-editable{
-    height:100px ;
-    resize: none;
-}
-div.note-statusbar{
-        visibility: hidden;
+#bottom{
+         visibility:hidden;
+        height: 1px;
     }
+    
 /*    summercontainer*/    
 #summercontainer{
         position: relative;
-        height: 100%;
+        height: 350px;
         width: 1335px;
     }
 
@@ -70,18 +67,7 @@ label.a {
 label.b {
   visibility: hidden;
 }
-#cke_1_bottom{
-        visibility: hidden;
-    }
-#cke_2_bottom{
-        visibility: hidden;
-    }
-#cke_3_bottom{
-        visibility: hidden;
-    }
-#cke_4_bottom{
-        visibility: hidden;
-    }
+
 </style>
 <script src="{{ asset('js/alaa/jquery-3.3.1.js')}}"></script> 
 <link href="{{asset('/assets/plugins/select2/css/select2.min.css')}}" rel="stylesheet" type="text/css"/>
@@ -119,6 +105,7 @@ label.b {
 
     <div class="row sticky" style="border: 2px solid;padding: 0px;resize: none;overflow: auto;" >
             <!--        2           -->
+          <div id="top">    <!-- This div will handle all bottom bars. -->  </div>
                  <div id="summercontainer" style="margin-top: 0.0em;margin-bottom: 0.0em;">
                     <div class="row "  >
                         <div class="col-md-1 mb-0 col-sm-0" style="padding-right: 1px;">
@@ -131,6 +118,10 @@ label.b {
                             <input type= "text" name="parent__code" data-parsley-trigger="change" class="form-control" id="parent__code" readonly style="height:30px" placeholder="Code">
                             <input type= "text" name="term_id" id="term_id">
                             <input type="text" name="code" data-parsley-trigger="change" class="form-control" id="code"  style="height:30px" placeholder="Code">
+                            <input type= "text" name="style 1" id="style1" placeholder="Style 1" style="width:95px;">
+                            <input type= "text" name="style 2" id="style2" placeholder="Style 2" style="width:95px;"> 
+                            <input type= "text" name="style 3" id="style3" placeholder="Style 3" style="width:95px;"> 
+                            <input type= "text" name="style 4" id="style4" placeholder="Style 4" style="width:95px;">
                         </div>
                         <div class="col-md-5 mb-0 col-sm-0" style="padding: 0.0px;">
                              
@@ -187,6 +178,7 @@ label.b {
                         </div>
                     </div>
                 </div>
+          <div id="bottom" >    <!-- This div will handle all bottom bars. -->  </div>
                 <hr class="fixedpar" style="float:left;border-style: inset; border-width: 0.8px;margin-top: 0.0em;margin-bottom: 0.0em; width:100%;padding-bottom: 0.0px">
                 
          <!--fixedpar-->
@@ -1015,101 +1007,112 @@ label.b {
         });
 
 
+    CKEDITOR.replace('ar_term', {
+      extraPlugins: 'sharedspace,copyformatting,colorbutton,font,colordialog',
+      removePlugins: 'maximize,resize',language: 'ar',
+      height: 170,
+      sharedSpaces: {
+        top: 'top',
+        bottom: 'bottom'
+      },
+        toolbarGroups: [		
+                            { name: 'clipboard', groups: [ 'clipboard', 'undo' ] },
+                            { name: 'document', groups: [ 'mode', 'document', 'doctools' ] },
+                            { name: 'editing', groups: [ 'find', 'selection', 'spellchecker', 'editing' ] },
+                            { name: 'forms', groups: [ 'forms' ] },
+                            { name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ] },
+                            { name: 'paragraph', groups: [ 'list', 'indent', 'blocks', 'align', 'bidi', 'paragraph' ] },
+                            { name: 'links', groups: [ 'links' ] },
+                            { name: 'insert', groups: [ 'insert' ] },
+                            { name: 'styles', groups: [ 'styles' ] },
+                            { name: 'colors', groups: [ 'colors' ] },
+                            { name: 'tools', groups: [ 'tools' ] },
+                            { name: 'others', groups: [ 'others' ] },
+                            { name: 'about', groups: [ 'about' ] }
+                       ],
+                                  // Remove the redundant buttons from toolbar groups defined above.
+                                  removeButtons: 'SelectAll'
+    });
 
-       //initialize CKeditor for English Term
-                                    CKEDITOR.replace('en_term', {
-                                  // Define the toolbar groups as it is a more accessible solution.
-                                    height: 70,width:565,extraPlugins: 'copyformatting,colorbutton',
-                                  toolbarGroups: [		
-                                    { name: 'document', groups: [ 'mode', 'document', 'doctools' ] },
-                                    { name: 'clipboard', groups: [ 'clipboard', 'undo' ] },
-                                    { name: 'editing', groups: [ 'find', 'selection', 'spellchecker', 'editing' ] },
-                                    { name: 'forms', groups: [ 'forms' ] },
-                                    { name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ] },
-                                    { name: 'paragraph', groups: [ 'list', 'indent', 'blocks', 'align', 'bidi', 'paragraph' ] },
-                                    { name: 'links', groups: [ 'links' ] },
-                                    { name: 'insert', groups: [ 'insert' ] },
-                                    
-                                    { name: 'styles', groups: [ 'styles' ] },
-                                    { name: 'colors', groups: [ 'colors' ] },
-                                    { name: 'tools', groups: [ 'tools' ] },
-                                    { name: 'others', groups: [ 'others' ] },
-                                    { name: 'about', groups: [ 'about' ] }
-                                  ],
+    CKEDITOR.replace('en_term', {
+      extraPlugins: 'sharedspace,copyformatting,colorbutton,font,colordialog',
+      removePlugins: 'maximize,resize',
+      height: 170,
+      sharedSpaces: {
+        top: 'top',
+        bottom: 'bottom'
+      },
+        toolbarGroups: [		
+                            { name: 'clipboard', groups: [ 'clipboard', 'undo' ] },
+                            { name: 'document', groups: [ 'mode', 'document', 'doctools' ] },
+                            { name: 'editing', groups: [ 'find', 'selection', 'spellchecker', 'editing' ] },
+                            { name: 'forms', groups: [ 'forms' ] },
+                            { name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ] },
+                            { name: 'paragraph', groups: [ 'list', 'indent', 'blocks', 'align', 'bidi', 'paragraph' ] },
+                            { name: 'links', groups: [ 'links' ] },
+                            { name: 'insert', groups: [ 'insert' ] },
+                            { name: 'styles', groups: [ 'styles' ] },
+                            { name: 'colors', groups: [ 'colors' ] },
+                            { name: 'tools', groups: [ 'tools' ] },
+                            { name: 'others', groups: [ 'others' ] },
+                            { name: 'about', groups: [ 'about' ] }
+                       ],
                                   // Remove the redundant buttons from toolbar groups defined above.
-                                  removeButtons: 'Iframe,PageBreak,SpecialChar,Smiley,HorizontalRule,Table,Flash,Image,Link,Unlink,Anchor,Source,Save,NewPage,Preview,Print,Templates,PasteFromWord,Find,Replace,Form,Checkbox,Radio,TextField,Textarea,Select,Button,HiddenField,ImageButton,ShowBlocks,About'
-                                });
-    
-    //initialize CKeditor for Arabic Term
-                                    CKEDITOR.replace('ar_term', {
-                                  // Define the toolbar groups as it is a more accessible solution.
-                                    height: 70,width:665,extraPlugins: 'copyformatting,colorbutton',language: 'ar',
-                                  toolbarGroups: [		
-                                    { name: 'document', groups: [ 'mode', 'document', 'doctools' ] },
-                                    { name: 'clipboard', groups: [ 'clipboard', 'undo' ] },
-                                    { name: 'editing', groups: [ 'find', 'selection', 'spellchecker', 'editing' ] },
-                                    { name: 'forms', groups: [ 'forms' ] },
-                                    { name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ] },
-                                    { name: 'paragraph', groups: [ 'list', 'indent', 'blocks', 'align', 'bidi', 'paragraph' ] },
-                                    { name: 'links', groups: [ 'links' ] },
-                                    { name: 'insert', groups: [ 'insert' ] },
-                                    
-                                    { name: 'styles', groups: [ 'styles' ] },
-                                    { name: 'colors', groups: [ 'colors' ] },
-                                    { name: 'tools', groups: [ 'tools' ] },
-                                    { name: 'others', groups: [ 'others' ] },
-                                    { name: 'about', groups: [ 'about' ] }
-                                  ],
+                                  removeButtons: 'SelectAll'
+    });
+    CKEDITOR.replace('ar_note', {
+      extraPlugins: 'sharedspace,copyformatting,colorbutton,font,colordialog',
+      removePlugins: 'maximize,resize',language: 'ar',
+      height: 140,
+      sharedSpaces: {
+        top: 'top',
+        bottom: 'bottom'
+      },
+        toolbarGroups: [		
+                            { name: 'clipboard', groups: [ 'clipboard', 'undo' ] },
+                            { name: 'document', groups: [ 'mode', 'document', 'doctools' ] },
+                            { name: 'editing', groups: [ 'find', 'selection', 'spellchecker', 'editing' ] },
+                            { name: 'forms', groups: [ 'forms' ] },
+                            { name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ] },
+                            { name: 'paragraph', groups: [ 'list', 'indent', 'blocks', 'align', 'bidi', 'paragraph' ] },
+                            { name: 'links', groups: [ 'links' ] },
+                            { name: 'insert', groups: [ 'insert' ] },
+                            { name: 'styles', groups: [ 'styles' ] },
+                            { name: 'colors', groups: [ 'colors' ] },
+                            { name: 'tools', groups: [ 'tools' ] },
+                            { name: 'others', groups: [ 'others' ] },
+                            { name: 'about', groups: [ 'about' ] }
+                       ],
                                   // Remove the redundant buttons from toolbar groups defined above.
-                                  removeButtons: 'Iframe,PageBreak,SpecialChar,Smiley,HorizontalRule,Table,Flash,Image,Link,Unlink,Anchor,Source,Save,NewPage,Preview,Print,Templates,PasteFromWord,Find,Replace,Form,Checkbox,Radio,TextField,Textarea,Select,Button,HiddenField,ImageButton,ShowBlocks,About'
-                                });
+                                  removeButtons: 'SelectAll'
+    });
 
-
-        //initialize CKeditor for English Note
-                                   CKEDITOR.replace('en_note', {
-                                  // Define the toolbar groups as it is a more accessible solution.
-                                    height: 90,width:665,extraPlugins: 'copyformatting,colorbutton',language: 'en',
-                                  toolbarGroups: [		
-                                    { name: 'clipboard', groups: [ 'clipboard', 'undo' ] },
-                                    { name: 'document', groups: [ 'mode', 'document', 'doctools' ] },
-                                    { name: 'editing', groups: [ 'find', 'selection', 'spellchecker', 'editing' ] },
-                                    { name: 'forms', groups: [ 'forms' ] },
-                                    { name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ] },
-                                    { name: 'paragraph', groups: [ 'list', 'indent', 'blocks', 'align', 'bidi', 'paragraph' ] },
-                                    { name: 'links', groups: [ 'links' ] },
-                                    { name: 'insert', groups: [ 'insert' ] },
-                                    { name: 'styles', groups: [ 'styles' ] },
-                                    { name: 'colors', groups: [ 'colors' ] },
-                                    { name: 'tools', groups: [ 'tools' ] },
-                                    { name: 'others', groups: [ 'others' ] },
-                                    { name: 'about', groups: [ 'about' ] }
-                                  ],
+    CKEDITOR.replace('en_note', {
+      extraPlugins: 'sharedspace,copyformatting,colorbutton,font,colordialog',
+      removePlugins: 'maximize,resize',
+      height: 140,
+      sharedSpaces: {
+        top: 'top',
+        bottom: 'bottom'
+      },
+        toolbarGroups: [		
+                            { name: 'clipboard', groups: [ 'clipboard', 'undo' ] },
+                            { name: 'document', groups: [ 'mode', 'document', 'doctools' ] },
+                            { name: 'editing', groups: [ 'find', 'selection', 'spellchecker', 'editing' ] },
+                            { name: 'forms', groups: [ 'forms' ] },
+                            { name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ] },
+                            { name: 'paragraph', groups: [ 'list', 'indent', 'blocks', 'align', 'bidi', 'paragraph' ] },
+                            { name: 'links', groups: [ 'links' ] },
+                            { name: 'insert', groups: [ 'insert' ] },
+                            { name: 'styles', groups: [ 'styles' ] },
+                            { name: 'colors', groups: [ 'colors' ] },
+                            { name: 'tools', groups: [ 'tools' ] },
+                            { name: 'others', groups: [ 'others' ] },
+                            { name: 'about', groups: [ 'about' ] }
+                       ],
                                   // Remove the redundant buttons from toolbar groups defined above.
-                                  removeButtons: 'Iframe,PageBreak,SpecialChar,Smiley,HorizontalRule,Flash,Unlink,Anchor,Source,Save,NewPage,Preview,Print,Templates,PasteFromWord,Find,Replace,Form,Checkbox,Radio,TextField,Textarea,Select,Button,HiddenField,ImageButton,ShowBlocks,About'
-                                });
-    
-    //initialize CKeditor for Arabic note
-                                    CKEDITOR.replace('ar_note', {
-                                  // Define the toolbar groups as it is a more accessible solution.
-                                    height: 90,width:665,extraPlugins: 'copyformatting,colorbutton',language: 'ar',
-                                  toolbarGroups: [		
-                                    { name: 'clipboard', groups: [ 'clipboard', 'undo' ] },
-                                    { name: 'document', groups: [ 'mode', 'document', 'doctools' ] },
-                                    { name: 'editing', groups: [ 'find', 'selection', 'spellchecker', 'editing' ] },
-                                    { name: 'forms', groups: [ 'forms' ] },
-                                    { name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ] },
-                                    { name: 'paragraph', groups: [ 'list', 'indent', 'blocks', 'align', 'bidi', 'paragraph' ] },
-                                    { name: 'links', groups: [ 'links' ] },
-                                    { name: 'insert', groups: [ 'insert' ] },
-                                    { name: 'styles', groups: [ 'styles' ] },
-                                    { name: 'colors', groups: [ 'colors' ] },
-                                    { name: 'tools', groups: [ 'tools' ] },
-                                    { name: 'others', groups: [ 'others' ] },
-                                    { name: 'about', groups: [ 'about' ] }
-                                  ],
-                                  // Remove the redundant buttons from toolbar groups defined above.
-                                  removeButtons: 'Iframe,PageBreak,SpecialChar,Smiley,HorizontalRule,Flash,Unlink,Anchor,Source,Save,NewPage,Preview,Print,Templates,PasteFromWord,Find,Replace,Form,Checkbox,Radio,TextField,Textarea,Select,Button,HiddenField,ImageButton,ShowBlocks,About'
-                                });
+                                  removeButtons: 'SelectAll'
+    }); 
                                 
     
 </script>

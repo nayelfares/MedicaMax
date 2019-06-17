@@ -72,6 +72,11 @@ tbody tr:hover {
   background-color: #bedcfc;
 }
 
+label.solid {border-style: solid; border-width: 5px;}
+div.groove {border-style: groove;}
+div.ridge {border-style: ridge;}
+div.none {border-style: none;}
+
 </style>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
@@ -213,6 +218,7 @@ tbody tr:hover {
                     <button id="bold_button" name="bold_button" style=";display :none" onclick="boldFunction()" ><i class="fa fa-bold bigfonts" aria-hidden="true" ></i></button>
                     <button id="italic_button" name="italic_button" style=";display :none" onclick="italicFunction()"><i class="fa fa-italic bigfonts" aria-hidden="true" ></i></button>
                     <button id="underLine_button" name="underLine_button" style=";display :none" onclick="underLineFunction()" ><i class="fa fa-underline bigfonts" aria-hidden="true"></i></button>
+                    <button id="borderStyle_button" name="borderStyle_button" style=";display :none" onclick="borderStyleFunction()" ><i class="fa fa-square-o bigfonts" aria-hidden="true"></i></button>
                     <button id="up_size" name="up_size" style=";display :none" class="btn btn-outline-success btn-sm" ><i class="fa fa-sort-up bigfonts" aria-hidden="true"></i></button>
                     <button id="down_size" name="down_size" style=";display :none" class="btn btn-outline-success btn-sm" ><i class="fa fa-sort-desc bigfonts" aria-hidden="true"></i></button>  
                 </div>
@@ -254,6 +260,7 @@ tbody tr:hover {
     var italic = "normal";
     var under_line = "none";
     var copy_style = false;
+    var border_style = "none";
     var ar_size=18; 
     var en_size=16;
     var type ;
@@ -337,7 +344,7 @@ tbody tr:hover {
                 if(copy_style == true)
                 {
                     
-                    autoChangeFontStyle(bold,italic,color_text,color_background,under_line,ar_size,en_size);
+                    autoChangeFontStyle(bold,italic,color_text,color_background,under_line,ar_size,en_size,border_style);
                 }
             }
         });
@@ -427,18 +434,18 @@ tbody tr:hover {
         }, false);
         colorPicker_text.addEventListener("change", function(event) {
             color_text = colorPicker_text.value;     
-            autoChangeFontStyle(bold,italic,color_text,color_background,under_line,ar_size,en_size);
+            autoChangeFontStyle(bold,italic,color_text,color_background,under_line,ar_size,en_size,border_style);
         }, false);
 
        let colorPicker_backgraound = document.getElementById("colorPicker_backgraound");
         colorPicker_backgraound.addEventListener("input", function(event) {
             color_background = colorPicker_backgraound.value;
-            autoChangeFontStyle(bold,italic,color_text,color_background,under_line,ar_size,en_size);
+            autoChangeFontStyle(bold,italic,color_text,color_background,under_line,ar_size,en_size,border_style);
         }, false);
 
         colorPicker_backgraound.addEventListener("change", function(event) {
             color_background = colorPicker_backgraound.value;
-            autoChangeFontStyle(bold,italic,color_text,color_background,under_line,ar_size,en_size);
+            autoChangeFontStyle(bold,italic,color_text,color_background,under_line,ar_size,en_size,border_style);
         }, false);
 
         document.getElementById("parent__code").style.display = "none";
@@ -611,8 +618,6 @@ tbody tr:hover {
                             document.getElementById("parent__code").style.display = "block";
                             document.getElementById("parent__code").value = node.code;
                             document.getElementById("code").value = ""; 
-                            document.getElementById("en_term").value = "";
-                            document.getElementById("ar_term").value = "";
                             //initialize summernote
                             CKEDITOR.instances['en_term'].setData("");
                             CKEDITOR.instances['ar_term'].setData("");
@@ -879,7 +884,7 @@ tbody tr:hover {
                 italic = "italic";
             else
                 italic = "normal";
-            autoChangeFontStyle(bold,italic,color_text,color_background,under_line,ar_size,en_size);      
+            autoChangeFontStyle(bold,italic,color_text,color_background,under_line,ar_size,en_size,border_style);      
         });
         $('#underLine_button').click(function() {
             $(this).toggleClass('activated');
@@ -887,19 +892,28 @@ tbody tr:hover {
                 under_line = "underline";
             else
                 under_line = "none";
-            autoChangeFontStyle(bold,italic,color_text,color_background,under_line,ar_size,en_size);
+            autoChangeFontStyle(bold,italic,color_text,color_background,under_line,ar_size,en_size,border_style);
         });
 
+
+        $('#borderStyle_button').click(function() {
+            $(this).toggleClass('activated');
+            if($(this).hasClass('activated') == true)
+                border_style = "solid";
+            else
+                border_style = "none";
+            autoChangeFontStyle(bold,italic,color_text,color_background,under_line,ar_size,en_size,border_style);
+        });
         $('#up_size').click(function() {   
             ar_size = 2 + parseInt(ar_size);
             en_size = 2 + parseInt(en_size);
-            autoChangeFontStyle(bold,italic,color_text,color_background,under_line,ar_size,en_size);
+            autoChangeFontStyle(bold,italic,color_text,color_background,under_line,ar_size,en_size,border_style);
         });
 
         $('#down_size').click(function() {
             ar_size = ar_size - 2;
             en_size = en_size - 2;
-            autoChangeFontStyle(bold,italic,color_text,color_background,under_line,ar_size,en_size);
+            autoChangeFontStyle(bold,italic,color_text,color_background,under_line,ar_size,en_size,border_style);
         });
 
         $('#copy_style_button').click(function() {
@@ -910,6 +924,7 @@ tbody tr:hover {
                 document.getElementById("bold_button").style.display = "block";
                 document.getElementById("italic_button").style.display = "block";
                 document.getElementById("underLine_button").style.display = "block";
+                document.getElementById("borderStyle_button").style.display = "block";
                 document.getElementById("colorPicker_text").style.display = "block";
                 document.getElementById("colorPicker_backgraound").style.display = "block";
                 document.getElementById("up_size").style.display = "block";
@@ -921,6 +936,7 @@ tbody tr:hover {
                 document.getElementById("bold_button").style.display = "none";
                 document.getElementById("italic_button").style.display = "none";
                 document.getElementById("underLine_button").style.display = "none";
+                document.getElementById("borderStyle_button").style.display = "none";
                 document.getElementById("colorPicker_text").style.display = "none";
                 document.getElementById("colorPicker_backgraound").style.display = "none";
                 document.getElementById("up_size").style.display = "none";
@@ -951,6 +967,13 @@ tbody tr:hover {
 
         function underLineFunction() {
             var element = document.getElementById("underLine_button");
+            if (element.classList) { 
+                element.classList.toggle("mystyle");
+            } 
+        }
+
+        function borderStyleFunction(){
+            var element = document.getElementById("borderStyle_button");
             if (element.classList) { 
                 element.classList.toggle("mystyle");
             } 
@@ -993,7 +1016,7 @@ tbody tr:hover {
             }); 
         }
 
-        function autoChangeFontStyle(text_bold,text_italic,text_color,background_color,under_line,ar_size,en_size){
+        function autoChangeFontStyle(text_bold,text_italic,text_color,background_color,under_line,ar_size,en_size,border_style){
             $.ajax({
                 type :'GET',
                 url:"{{route('dif_dia_node.view')}}",
@@ -1009,7 +1032,7 @@ tbody tr:hover {
                     var en_width = result_view.en_width;
                     var type = result_view.type;
                     var new_code = node.code.replace(/!!/g, "");
-                    var text_ ="<div><label   style='font-weight: "+text_bold+";font-style: "+text_italic+"; background-color:"+background_color+";color:"+text_color+";word-wrap: break-word;text-decoration:"+under_line+";font-weight: "+text_bold+";width:"+en_width+"px;float:left;text-align:left;font-size:"+en_size+"px;padding: 0.0ex ;margint:0.0ex;'>"+node.en_term+"</label><label dir='rtl' style='font-weight: "+text_bold+";font-style: "+text_italic+"; background-color:"+background_color+";color:"+text_color+";float:right;text-align:right;word-wrap: break-word;text-decoration:"+under_line+";font-weight: "+text_bold+";width:"+ar_width+"px;font-size:"+ar_size+"px;padding: 0.0ex ;margint:0.0ex;' >"+node.ar_term+"</label></div>";
+                    var text_ ="<div><label  class="+border_style+" style=' font-weight: "+text_bold+";font-style: "+text_italic+"; background-color:"+background_color+";color:"+text_color+";word-wrap: break-word;text-decoration:"+under_line+";font-weight: "+text_bold+";width:"+en_width+"px;float:left;text-align:left;font-size:"+en_size+"px;padding: 0.0ex ;margint:0.0ex;'>"+node.en_term+"</label><label dir='rtl' style='font-weight: "+text_bold+";font-style: "+text_italic+"; background-color:"+background_color+";color:"+text_color+";float:right;text-align:right;word-wrap: break-word;text-decoration:"+under_line+";font-weight: "+text_bold+";width:"+ar_width+"px;font-size:"+ar_size+"px;padding: 0.0ex ;margint:0.0ex;' >"+node.ar_term+"</label></div>";
                     var node_tree = $('#container').jstree(true).get_node(node.id);    
                     node_tree.text = text_ ;
                     $('#container').jstree(true).redraw_node(node_tree, false, false, false);
@@ -1055,6 +1078,7 @@ tbody tr:hover {
       extraPlugins: 'sharedspace,copyformatting,colorbutton,font,colordialog',
       removePlugins: 'maximize,resize',language: 'ar',
       height: 170,
+      contentsLangDirection : 'rtl',
       sharedSpaces: {
         top: 'top',
         bottom: 'bottom'
@@ -1078,7 +1102,7 @@ tbody tr:hover {
                                   removeButtons: 'SelectAll'
     });
     CKEDITOR.replace('en_term', {
-      extraPlugins: 'sharedspace,copyformatting,colorbutton,font,colordialog',
+      extraPlugins: 'sharedspace,copyformatting,colorbutton,font,colordialog,justify',
       removePlugins: 'maximize,resize',
       height: 170,
       sharedSpaces: {
@@ -1104,9 +1128,10 @@ tbody tr:hover {
                                   removeButtons: 'SelectAll'
     });
     CKEDITOR.replace('ar_note', {
-      extraPlugins: 'sharedspace,copyformatting,colorbutton,font,colordialog',
-      removePlugins: 'maximize,resize',language: 'ar',
+      extraPlugins: 'sharedspace,copyformatting,colorbutton,font,colordialog,justify',
+      removePlugins: 'maximize,resize',
       height: 140,
+      contentsLangDirection : 'rtl',
       sharedSpaces: {
         top: 'top',
         bottom: 'bottom'
@@ -1130,7 +1155,7 @@ tbody tr:hover {
                                   removeButtons: 'SelectAll'
     });
     CKEDITOR.replace('en_note', {
-      extraPlugins: 'sharedspace,copyformatting,colorbutton,font,colordialog',
+      extraPlugins: 'sharedspace,copyformatting,colorbutton,font,colordialog,justify',
       removePlugins: 'maximize,resize',
       height: 140,
       sharedSpaces: {

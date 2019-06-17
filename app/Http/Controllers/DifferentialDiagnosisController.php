@@ -61,7 +61,7 @@ class DifferentialDiagnosisController extends Controller
                 "text" => "
                     <div >
                         <label  style='font-weight: ".$dif_dia->bold.";font-style: ".$dif_dia->italic.";background-color:".$dif_dia->background_color.";background-color:".$dif_dia->background_color.";float:left;text-align: left; text-decoration:".$dif_dia->under_line.";color:".$dif_dia->text_color.";word-wrap: break-word;font-weight: ".$dif_dia->bold.";width:".$en_width."px;font-size:".$dif_dia->en_size."px;padding: 0.0ex ;margint-buttom:0.01ex;'>".$dif_dia->en_term."</label>
-                        <label class=".$type." style='font-weight: ".$dif_dia->bold.";font-style: ".$dif_dia->italic.";background-color:".$dif_dia->background_color.";background-color:".$dif_dia->background_color.";text-decoration:".$dif_dia->under_line.";color:".$dif_dia->text_color.";word-wrap: break-word;font-weight: ".$dif_dia->bold.";float:right; width:".$code_width."px;font-size:".$dif_dia->en_size."px;padding: 0.0ex ;' >".$dif_dia->code."</label>
+                        
                         <label dir='rtl' style='font-weight: ".$dif_dia->bold.";font-style: ".$dif_dia->italic.";background-color:".$dif_dia->background_color.";background-color:".$dif_dia->background_color.";text-decoration:".$dif_dia->under_line.";color:".$dif_dia->text_color.";word-wrap: break-word;font-weight: ".$dif_dia->bold.";float:right; width:".$ar_width."px;text-align:right;font-size:".$dif_dia->ar_size."px;padding: 0.0ex ;margint-buttom:0.01ex;' >".$dif_dia->ar_term."</label>
                         
                     </div>"
@@ -189,38 +189,10 @@ class DifferentialDiagnosisController extends Controller
             }
             //note
             $en_detail=$request->en_note;
-            /*$dom = new \domdocument();
-            $dom->loadHtml($detail, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
-            $images = $dom->getelementsbytagname('img');
-            foreach($images as $k => $img){
-                $data = $img->getattribute('src');
-                list($type, $data) = explode(';', $data);
-                list(, $data)      = explode(',', $data);
-                $data = base64_decode($data);
-                $image_name= time().$k.'.png';
-                $path = public_path() .'/'. $image_name;
-                file_put_contents($path, $data);
-                $img->removeattribute('src');
-                $img->setattribute('src', $image_name);
-            }
-            $en_detail = $dom->savehtml();*/
+            
             //ar_note
             $ar_detail=$request->ar_note;
-            /*$ar_dom = new \domdocument();
-            $ar_dom->loadHtml($ar_detail, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
-            $ar_images = $ar_dom->getelementsbytagname('img');
-            foreach($ar_images as $ar_k => $ar_img){
-                $ar_data = $ar_img->getattribute('src');
-                list($ar_type, $ar_data) = explode(';', $ar_data);
-                list(, $ar_data)      = explode(',', $ar_data);
-                $ar_data = base64_decode($ar_data);
-                $ar_image_name= time().$ar_k.'.png';
-                $ar_path = public_path() .'/'. $ar_image_name;
-                file_put_contents($ar_path, $ar_data);
-                $ar_img->removeattribute('src');
-                $ar_img->setattribute('src', $ar_image_name);
-            }
-            $ar_detail = $ar_dom->savehtml();*/
+            
             //simple arabic term
             $re = '/\w|\s/um';
             preg_match_all($re, $request->ar_term, $matches, PREG_SET_ORDER, 0);

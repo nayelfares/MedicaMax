@@ -1087,7 +1087,7 @@ div.none {border-style: none;}
     
     
       CKEDITOR.replace('ar_term', {
-              extraPlugins: 'sharedspace,copyformatting,colorbutton,font,colordialog,justify,find,embed,widget',
+              extraPlugins: 'sharedspace,copyformatting,colorbutton,font,colordialog,justify,find',
               removePlugins: 'resize',
               height: 170,
               enterMode : CKEDITOR.ENTER_BR,
@@ -1115,7 +1115,7 @@ div.none {border-style: none;}
                                           removeButtons: 'SelectAll'
         });
         CKEDITOR.replace('en_term', {
-              extraPlugins: 'sharedspace,copyformatting,colorbutton,font,colordialog,justify,find,embed,widget',
+              extraPlugins: 'sharedspace,copyformatting,colorbutton,font,colordialog,justify,find',
               removePlugins: 'resize',
               height: 170,
               enterMode : CKEDITOR.ENTER_BR,
@@ -1142,7 +1142,7 @@ div.none {border-style: none;}
                                           removeButtons: 'SelectAll'
         });
         CKEDITOR.replace('ar_note', {
-              extraPlugins: 'sharedspace,copyformatting,colorbutton,font,colordialog,justify,find,embed,widget',
+              extraPlugins: 'sharedspace,copyformatting,colorbutton,font,colordialog,justify,find',
               removePlugins: 'resize',
               height: 140,
               enterMode : CKEDITOR.ENTER_BR,
@@ -1170,7 +1170,7 @@ div.none {border-style: none;}
                                       removeButtons: 'SelectAll'
         });
         CKEDITOR.replace('en_note', {
-              extraPlugins: 'sharedspace,copyformatting,colorbutton,font,colordialog,justify,find,embed,widget',
+              extraPlugins: 'sharedspace,copyformatting,colorbutton,font,colordialog,justify,find',
               removePlugins: 'resize',
               height: 140,
               enterMode : CKEDITOR.ENTER_BR,

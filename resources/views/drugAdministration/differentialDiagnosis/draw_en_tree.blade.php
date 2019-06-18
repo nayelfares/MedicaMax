@@ -76,6 +76,8 @@ div.groove {border-style: groove;}
 div.ridge {border-style: ridge;}
 div.none {border-style: none;}
 
+.selected{background-color: red; }
+
 </style>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
@@ -529,7 +531,8 @@ div.none {border-style: none;}
 
     function selectedRow(){
                //change color node you selected 
-                var index,
+               console.log("color");
+                var index;
                     table = document.getElementById("example");
             
                 for(var i = 1; i < table.rows.length; i++)
@@ -540,12 +543,11 @@ div.none {border-style: none;}
                         if(typeof index !== "undefined"){
                            table.rows[index].classList.toggle("selected");
                         }
-                        console.log(typeof index);
                         // get the selected row index
                         index = this.rowIndex;
                         // add class selected to the row
                         this.classList.toggle("selected");
-                        console.log(typeof index);
+
                      };
                 } 
                 
@@ -762,7 +764,7 @@ div.none {border-style: none;}
                         under_line = diminsion[0].under_line;
                         en_size = diminsion[0].en_size;
                         ar_size = diminsion[0].ar_size;
-                        var text_ ="<div ><label  style='font-weight: "+text_bold+";font-style: "+text_italic+"; background-color:"+background_color+";color:"+text_color+";word-wrap: break-word;text-decoration:"+under_line+";font-weight: "+text_bold+";width:"+en_width+"px;font-size:"+en_size+"px;float:left;text-align:left;padding: 0.0ex ;margint-buttom:0.01ex;'>"+en_term+"</label><label dir='rtl' style='font-weight: "+text_bold+";font-style: "+text_italic+"; background-color:"+background_color+";color:"+text_color+";word-wrap: break-word;text-decoration:"+under_line+";font-weight: "+text_bold+";float:right; width:"+ar_width+"px;direction:rtl;text-align:right;font-size:"+ar_size+"px;padding: 0.0ex ;margint-buttom:0.01ex;' >"+ar_term+"</label></div>";
+                        var text_ ="<div ><label  style='font-weight: "+text_bold+";font-style: "+text_italic+"; background-color:"+background_color+";color:"+text_color+";word-wrap: break-word;text-decoration:"+under_line+";font-weight: "+text_bold+";width:"+en_width+"px;font-size:"+en_size+"px;float:left;text-align:left;padding: 0.0ex ;margint-buttom:0.01ex;'>"+en_term+"</label><label style='float:left; width:35px; '></label><label dir='rtl' style='font-weight: "+text_bold+";font-style: "+text_italic+"; background-color:"+background_color+";color:"+text_color+";word-wrap: break-word;text-decoration:"+under_line+";font-weight: "+text_bold+";float:right; width:"+ar_width+"px;direction:rtl;text-align:right;font-size:"+ar_size+"px;padding: 0.0ex ;margint-buttom:0.01ex;' >"+ar_term+"</label></div>";
                          
                         if(parent_id == null)
                         {
@@ -784,7 +786,7 @@ div.none {border-style: none;}
                     //create
                     else
                     {
-                        var text_ ="<div ><label  style='font-weight: "+text_bold+";font-style: "+text_italic+"; background-color:"+background_color+";color:"+text_color+";word-wrap: break-word;text-decoration:"+under_line+";font-weight: "+text_bold+";width:"+en_width+"px;font-size:"+en_size+"px;float:left;text-align:left;padding: 0.0ex ;margint-buttom:0.01ex;'>"+en_term+"</label><label dir='rtl' style='font-weight: "+text_bold+";font-style: "+text_italic+"; background-color:"+background_color+";color:"+text_color+";word-wrap: break-word;text-decoration:"+under_line+";font-weight: "+text_bold+";float:right; width:"+ar_width+"px;direction:rtl;text-align:right;font-size:"+ar_size+"px;padding: 0.0ex ;margint-buttom:0.01ex;' >"+ar_term+"</label></div>";
+                        var text_ ="<div ><label  style='font-weight: "+text_bold+";font-style: "+text_italic+"; background-color:"+background_color+";color:"+text_color+";word-wrap: break-word;text-decoration:"+under_line+";font-weight: "+text_bold+";width:"+en_width+"px;font-size:"+en_size+"px;float:left;text-align:left;padding: 0.0ex ;margint-buttom:0.01ex;'>"+en_term+"</label><label style='float:left; width:35px; '></label><label dir='rtl' style='font-weight: "+text_bold+";font-style: "+text_italic+"; background-color:"+background_color+";color:"+text_color+";word-wrap: break-word;text-decoration:"+under_line+";font-weight: "+text_bold+";float:right; width:"+ar_width+"px;direction:rtl;text-align:right;font-size:"+ar_size+"px;padding: 0.0ex ;margint-buttom:0.01ex;' >"+ar_term+"</label></div>";
                           $('#container').jstree().create_node(parent_id ,  { "id" : new_id, "text" : text_ }, "first", false);              
                     }
                 }              
@@ -1031,7 +1033,7 @@ div.none {border-style: none;}
                     var en_width = result_view.en_width;
                     var type = result_view.type;
                     var new_code = node.code.replace(/!!/g, "");
-                    var text_ ="<div><label class="+border_style+"> <label   style=' font-weight: "+text_bold+";font-style: "+text_italic+"; background-color:"+background_color+";color:"+text_color+";word-wrap: break-word;text-decoration:"+under_line+";font-weight: "+text_bold+";width:"+en_width+"px;float:left;text-align:left;font-size:"+en_size+"px;padding: 0.0ex ;margint:0.0ex;'>"+node.en_term+"</label><label dir='rtl' style='font-weight: "+text_bold+";font-style: "+text_italic+"; background-color:"+background_color+";color:"+text_color+";float:right;text-align:right;word-wrap: break-word;text-decoration:"+under_line+";font-weight: "+text_bold+";width:"+ar_width+"px;font-size:"+ar_size+"px;padding: 0.0ex ;margint:0.0ex;' >"+node.ar_term+"</label></label></div>";
+                    var text_ ="<div><label class="+border_style+"> <label   style=' font-weight: "+text_bold+";font-style: "+text_italic+"; background-color:"+background_color+";color:"+text_color+";word-wrap: break-word;text-decoration:"+under_line+";font-weight: "+text_bold+";width:"+en_width+"px;float:left;text-align:left;font-size:"+en_size+"px;padding: 0.0ex ;margint:0.0ex;'>"+node.en_term+"</label><label style='float:left; width:35px; '></label><label dir='rtl' style='font-weight: "+text_bold+";font-style: "+text_italic+"; background-color:"+background_color+";color:"+text_color+";float:right;text-align:right;word-wrap: break-word;text-decoration:"+under_line+";font-weight: "+text_bold+";width:"+ar_width+"px;font-size:"+ar_size+"px;padding: 0.0ex ;margint:0.0ex;' >"+node.ar_term+"</label></label></div>";
                     var node_tree = $('#container').jstree(true).get_node(node.id);    
                     node_tree.text = text_ ;
                     $('#container').jstree(true).redraw_node(node_tree, false, false, false);

@@ -1075,112 +1075,128 @@ div.none {border-style: none;}
             }
         });
 
-         CKEDITOR.replace('ar_term', {
-      extraPlugins: 'sharedspace,copyformatting,colorbutton,font,colordialog,justify',
-      removePlugins: 'maximize,resize',
-      height: 170,
-      contentsLangDirection : 'rtl',
-      sharedSpaces: {
-        top: 'top',
-        bottom: 'bottom'
-      },
-        toolbarGroups: [        
-                            { name: 'clipboard', groups: [ 'clipboard', 'undo' ] },
-                            { name: 'document', groups: [ 'mode', 'document', 'doctools' ] },
-                            { name: 'editing', groups: [ 'find', 'selection', 'spellchecker', 'editing' ] },
-                            { name: 'forms', groups: [ 'forms' ] },
-                            { name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ] },
-                            { name: 'paragraph', groups: [ 'list', 'indent', 'blocks', 'align', 'bidi', 'paragraph' ] },
-                            { name: 'links', groups: [ 'links' ] },
-                            { name: 'insert', groups: [ 'insert' ] },
-                            { name: 'styles', groups: [ 'styles' ] },
-                            { name: 'colors', groups: [ 'colors' ] },
-                            { name: 'tools', groups: [ 'tools' ] },
-                            { name: 'others', groups: [ 'others' ] },
-                            { name: 'about', groups: [ 'about' ] }
-                       ],
-                                  // Remove the redundant buttons from toolbar groups defined above.
-                                  removeButtons: 'SelectAll'
-    });
-    CKEDITOR.replace('en_term', {
-      extraPlugins: 'sharedspace,copyformatting,colorbutton,font,colordialog,justify',
-      removePlugins: 'maximize,resize',
-      height: 170,
-      sharedSpaces: {
-        top: 'top',
-        bottom: 'bottom'
-      },
-        toolbarGroups: [        
-                            { name: 'clipboard', groups: [ 'clipboard', 'undo' ] },
-                            { name: 'document', groups: [ 'mode', 'document', 'doctools' ] },
-                            { name: 'editing', groups: [ 'find', 'selection', 'spellchecker', 'editing' ] },
-                            { name: 'forms', groups: [ 'forms' ] },
-                            { name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ] },
-                            { name: 'paragraph', groups: [ 'list', 'indent', 'blocks', 'align', 'bidi', 'paragraph' ] },
-                            { name: 'links', groups: [ 'links' ] },
-                            { name: 'insert', groups: [ 'insert' ] },
-                            { name: 'styles', groups: [ 'styles' ] },
-                            { name: 'colors', groups: [ 'colors' ] },
-                            { name: 'tools', groups: [ 'tools' ] },
-                            { name: 'others', groups: [ 'others' ] },
-                            { name: 'about', groups: [ 'about' ] }
-                       ],
-                                  // Remove the redundant buttons from toolbar groups defined above.
-                                  removeButtons: 'SelectAll'
-    });
-    CKEDITOR.replace('ar_note', {
-      extraPlugins: 'sharedspace,copyformatting,colorbutton,font,colordialog,justify',
-      removePlugins: 'maximize,resize',
-      height: 140,
-      contentsLangDirection : 'rtl',
-      sharedSpaces: {
-        top: 'top',
-        bottom: 'bottom'
-      },
-        toolbarGroups: [        
-                            { name: 'clipboard', groups: [ 'clipboard', 'undo' ] },
-                            { name: 'document', groups: [ 'mode', 'document', 'doctools' ] },
-                            { name: 'editing', groups: [ 'find', 'selection', 'spellchecker', 'editing' ] },
-                            { name: 'forms', groups: [ 'forms' ] },
-                            { name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ] },
-                            { name: 'paragraph', groups: [ 'list', 'indent', 'blocks', 'align', 'bidi', 'paragraph' ] },
-                            { name: 'links', groups: [ 'links' ] },
-                            { name: 'insert', groups: [ 'insert' ] },
-                            { name: 'styles', groups: [ 'styles' ] },
-                            { name: 'colors', groups: [ 'colors' ] },
-                            { name: 'tools', groups: [ 'tools' ] },
-                            { name: 'others', groups: [ 'others' ] },
-                            { name: 'about', groups: [ 'about' ] }
-                       ],
-                                  // Remove the redundant buttons from toolbar groups defined above.
-                                  removeButtons: 'SelectAll'
-    });
-    CKEDITOR.replace('en_note', {
-      extraPlugins: 'sharedspace,copyformatting,colorbutton,font,colordialog,justify',
-      removePlugins: 'maximize,resize',
-      height: 140,
-      sharedSpaces: {
-        top: 'top',
-        bottom: 'bottom'
-      },
-        toolbarGroups: [        
-                            { name: 'clipboard', groups: [ 'clipboard', 'undo' ] },
-                            { name: 'document', groups: [ 'mode', 'document', 'doctools' ] },
-                            { name: 'editing', groups: [ 'find', 'selection', 'spellchecker', 'editing' ] },
-                            { name: 'forms', groups: [ 'forms' ] },
-                            { name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ] },
-                            { name: 'paragraph', groups: [ 'list', 'indent', 'blocks', 'align', 'bidi', 'paragraph' ] },
-                            { name: 'links', groups: [ 'links' ] },
-                            { name: 'insert', groups: [ 'insert' ] },
-                            { name: 'styles', groups: [ 'styles' ] },
-                            { name: 'colors', groups: [ 'colors' ] },
-                            { name: 'tools', groups: [ 'tools' ] },
-                            { name: 'others', groups: [ 'others' ] },
-                            { name: 'about', groups: [ 'about' ] }
-                       ],
-                                  // Remove the redundant buttons from toolbar groups defined above.
-                                  removeButtons: 'SelectAll'
-    }); 
+   /***********************************************************/
+    
+    /***********************************************************/
+    
+    
+    
+    
+    
+    
+    
+    
+      CKEDITOR.replace('ar_term', {
+              extraPlugins: 'sharedspace,copyformatting,colorbutton,font,colordialog,justify,find,embed,widget',
+              removePlugins: 'resize',
+              height: 170,
+              enterMode : CKEDITOR.ENTER_BR,
+              contentsLangDirection : 'rtl',
+              sharedSpaces: {
+                top: 'top',
+                bottom: 'bottom'
+              },
+                toolbarGroups: [        
+                                    { name: 'clipboard', groups: [ 'clipboard', 'undo' ] },
+                                    { name: 'document', groups: [ 'mode', 'document', 'doctools' ] },
+                                    { name: 'editing', groups: [ 'find', 'selection', 'spellchecker', 'editing' ] },
+                                    { name: 'forms', groups: [ 'forms' ] },
+                                    { name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ] },
+                                    { name: 'paragraph', groups: [ 'list', 'indent', 'blocks', 'align', 'bidi', 'paragraph' ] },
+                                    { name: 'links', groups: [ 'links' ] },
+                                    { name: 'insert', groups: [ 'insert' ] },
+                                    { name: 'styles', groups: [ 'styles' ] },
+                                    { name: 'colors', groups: [ 'colors' ] },
+                                    { name: 'tools', groups: [ 'tools' ] },
+                                    { name: 'others', groups: [ 'others' ] },
+                                    { name: 'about', groups: [ 'about' ] }
+                               ],
+                                          // Remove the redundant buttons from toolbar groups defined above.
+                                          removeButtons: 'SelectAll'
+        });
+        CKEDITOR.replace('en_term', {
+              extraPlugins: 'sharedspace,copyformatting,colorbutton,font,colordialog,justify,find,embed,widget',
+              removePlugins: 'resize',
+              height: 170,
+              enterMode : CKEDITOR.ENTER_BR,
+              sharedSpaces: {
+                top: 'top',
+                bottom: 'bottom'
+              },
+                toolbarGroups: [        
+                                    { name: 'clipboard', groups: [ 'clipboard', 'undo' ] },
+                                    { name: 'document', groups: [ 'mode', 'document', 'doctools' ] },
+                                    { name: 'editing', groups: [ 'find', 'selection', 'spellchecker', 'editing' ] },
+                                    { name: 'forms', groups: [ 'forms' ] },
+                                    { name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ] },
+                                    { name: 'paragraph', groups: [ 'list', 'indent', 'blocks', 'align', 'bidi', 'paragraph' ] },
+                                    { name: 'links', groups: [ 'links' ] },
+                                    { name: 'insert', groups: [ 'insert' ] },
+                                    { name: 'styles', groups: [ 'styles' ] },
+                                    { name: 'colors', groups: [ 'colors' ] },
+                                    { name: 'tools', groups: [ 'tools' ] },
+                                    { name: 'others', groups: [ 'others' ] },
+                                    { name: 'about', groups: [ 'about' ] }
+                               ],
+                                          // Remove the redundant buttons from toolbar groups defined above.
+                                          removeButtons: 'SelectAll'
+        });
+        CKEDITOR.replace('ar_note', {
+              extraPlugins: 'sharedspace,copyformatting,colorbutton,font,colordialog,justify,find,embed,widget',
+              removePlugins: 'resize',
+              height: 140,
+              enterMode : CKEDITOR.ENTER_BR,
+              contentsLangDirection : 'rtl',
+              sharedSpaces: {
+                top: 'top',
+                bottom: 'bottom'
+              },
+                toolbarGroups: [        
+                                    { name: 'clipboard', groups: [ 'clipboard', 'undo' ] },
+                                    { name: 'document', groups: [ 'mode', 'document', 'doctools' ] },
+                                    { name: 'editing', groups: [ 'find', 'selection', 'spellchecker', 'editing' ] },
+                                    { name: 'forms', groups: [ 'forms' ] },
+                                    { name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ] },
+                                    { name: 'paragraph', groups: [ 'list', 'indent', 'blocks', 'align', 'bidi', 'paragraph' ] },
+                                    { name: 'links', groups: [ 'links' ] },
+                                    { name: 'insert', groups: [ 'insert' ] },
+                                    { name: 'styles', groups: [ 'styles' ] },
+                                    { name: 'colors', groups: [ 'colors' ] },
+                                    { name: 'tools', groups: [ 'tools' ] },
+                                    { name: 'others', groups: [ 'others' ] },
+                                    { name: 'about', groups: [ 'about' ] }
+                               ],
+                                          // Remove the redundant buttons from toolbar groups defined above.
+                                      removeButtons: 'SelectAll'
+        });
+        CKEDITOR.replace('en_note', {
+              extraPlugins: 'sharedspace,copyformatting,colorbutton,font,colordialog,justify,find,embed,widget',
+              removePlugins: 'resize',
+              height: 140,
+              enterMode : CKEDITOR.ENTER_BR,
+              sharedSpaces: {
+                top: 'top',
+                bottom: 'bottom'
+              },
+                toolbarGroups: [        
+                                    { name: 'clipboard', groups: [ 'clipboard', 'undo' ] },
+                                    { name: 'document', groups: [ 'mode', 'document', 'doctools' ] },
+                                    { name: 'editing', groups: [ 'find', 'selection', 'spellchecker', 'editing' ] },
+                                    { name: 'forms', groups: [ 'forms' ] },
+                                    { name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ] },
+                                    { name: 'paragraph', groups: [ 'list', 'indent', 'blocks', 'align', 'bidi', 'paragraph' ] },
+                                    { name: 'links', groups: [ 'links' ] },
+                                    { name: 'insert', groups: [ 'insert' ] },
+                                    { name: 'styles', groups: [ 'styles' ] },
+                                    { name: 'colors', groups: [ 'colors' ] },
+                                    { name: 'tools', groups: [ 'tools' ] },
+                                    { name: 'others', groups: [ 'others' ] },
+                                    { name: 'about', groups: [ 'about' ] }
+                               ],
+                                          // Remove the redundant buttons from toolbar groups defined above.
+                                          removeButtons: 'SelectAll'
+        }); 
+
 
     
 </script>

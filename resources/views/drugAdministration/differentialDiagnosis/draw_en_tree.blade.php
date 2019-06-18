@@ -31,7 +31,6 @@ div.fixedpar {
 }
 #bottom{
          visibility:hidden;
-        height: 1px;
     }
     
 /*    summercontainer*/    
@@ -72,7 +71,7 @@ tbody tr:hover {
   background-color: #bedcfc;
 }
 
-label.solid {border-style: solid; border-width: 5px;}
+label.solid {border-style: solid; border-width: 0.5px;}
 div.groove {border-style: groove;}
 div.ridge {border-style: ridge;}
 div.none {border-style: none;}
@@ -179,13 +178,13 @@ div.none {border-style: none;}
                     </div>
 
 
-                    <div class="row" style="margin-top: 0.0em;margin-bottom: 0.0em;height:195px;">
+                    <div class="row" style="margin-top: 0.0em;margin-bottom: 0.0em;height:160px;">
                     {{ csrf_field() }}
                         <div class="col-md-6 mb-0 col-sm-0"  style="padding-right: 0.1px;margin-top: 0.0em;margin-bottom: 0.0em;">
-                            <textarea id="en_note" name="en_note" class="summernote"> </textarea>
+                            <textarea id="en_note" name="en_note" > </textarea>
                         </div>
                         <div class="col-md-6 mb-0 col-sm-0" style="padding-left: 0.0px;margin-top: 0.0em;margin-bottom: 0.0em;text-align:right;">
-                            <textarea id="ar_note" name="ar_note" class="summernote" > </textarea>
+                            <textarea id="ar_note" name="ar_note"  > </textarea>
                         </div>
                     </div>
                 </div>
@@ -1032,7 +1031,7 @@ div.none {border-style: none;}
                     var en_width = result_view.en_width;
                     var type = result_view.type;
                     var new_code = node.code.replace(/!!/g, "");
-                    var text_ ="<div><label  class="+border_style+" style=' font-weight: "+text_bold+";font-style: "+text_italic+"; background-color:"+background_color+";color:"+text_color+";word-wrap: break-word;text-decoration:"+under_line+";font-weight: "+text_bold+";width:"+en_width+"px;float:left;text-align:left;font-size:"+en_size+"px;padding: 0.0ex ;margint:0.0ex;'>"+node.en_term+"</label><label dir='rtl' style='font-weight: "+text_bold+";font-style: "+text_italic+"; background-color:"+background_color+";color:"+text_color+";float:right;text-align:right;word-wrap: break-word;text-decoration:"+under_line+";font-weight: "+text_bold+";width:"+ar_width+"px;font-size:"+ar_size+"px;padding: 0.0ex ;margint:0.0ex;' >"+node.ar_term+"</label></div>";
+                    var text_ ="<div><label class="+border_style+"> <label   style=' font-weight: "+text_bold+";font-style: "+text_italic+"; background-color:"+background_color+";color:"+text_color+";word-wrap: break-word;text-decoration:"+under_line+";font-weight: "+text_bold+";width:"+en_width+"px;float:left;text-align:left;font-size:"+en_size+"px;padding: 0.0ex ;margint:0.0ex;'>"+node.en_term+"</label><label dir='rtl' style='font-weight: "+text_bold+";font-style: "+text_italic+"; background-color:"+background_color+";color:"+text_color+";float:right;text-align:right;word-wrap: break-word;text-decoration:"+under_line+";font-weight: "+text_bold+";width:"+ar_width+"px;font-size:"+ar_size+"px;padding: 0.0ex ;margint:0.0ex;' >"+node.ar_term+"</label></label></div>";
                     var node_tree = $('#container').jstree(true).get_node(node.id);    
                     node_tree.text = text_ ;
                     $('#container').jstree(true).redraw_node(node_tree, false, false, false);
@@ -1075,8 +1074,8 @@ div.none {border-style: none;}
         });
 
          CKEDITOR.replace('ar_term', {
-      extraPlugins: 'sharedspace,copyformatting,colorbutton,font,colordialog',
-      removePlugins: 'maximize,resize',language: 'ar',
+      extraPlugins: 'sharedspace,copyformatting,colorbutton,font,colordialog,justify',
+      removePlugins: 'maximize,resize',
       height: 170,
       contentsLangDirection : 'rtl',
       sharedSpaces: {

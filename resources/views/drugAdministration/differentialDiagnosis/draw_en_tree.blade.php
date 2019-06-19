@@ -105,7 +105,7 @@ div.none {border-style: none;}
     <!--NOTE-->
     <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
   <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script> 
-  <script src="https://cdn.ckeditor.com/4.11.4/standard-all/ckeditor.js"></script>
+   <script src="{{asset('/assets/js/ckeditor/ckeditor.js')}}"></script>
 
 <!-- choice -->
   <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
@@ -589,8 +589,8 @@ div.none {border-style: none;}
                             CKEDITOR.instances['en_term'].setData(node.en_term);
                             CKEDITOR.instances['ar_term'].setData(node.ar_term);
                             
-                            CKEDITOR.instances['en_note'].setData(res.en_note);
-                            CKEDITOR.instances['ar_note'].setData(res.ar_note);
+                            CKEDITOR.instances['en_note'].setData(node.en_note);
+                            CKEDITOR.instances['ar_note'].setData(node.ar_note);
                             
                             var searchResult = $("#container").jstree('search', id);
                             $(searchResult).find('.jstree-search').focus();
@@ -755,6 +755,11 @@ div.none {border-style: none;}
                     var new_id = diminsion[0].id;
                     var parent_id = diminsion[0].parent_id;
                     var new_code = code.replace(/!!/g, "");
+                    var new_en_term = diminsion[0].en_term;
+                    var new_ar_term = diminsion[0].ar_term;
+                    var new_en_note = diminsion[0].en_note;
+                    var new_ar_note = diminsion[0].ar_note;
+
                     if(compare == 1)
                     {
                         text_bold = diminsion[0].bold;
@@ -764,7 +769,7 @@ div.none {border-style: none;}
                         under_line = diminsion[0].under_line;
                         en_size = diminsion[0].en_size;
                         ar_size = diminsion[0].ar_size;
-                        var text_ ="<div ><label  style='font-weight: "+text_bold+";font-style: "+text_italic+"; background-color:"+background_color+";color:"+text_color+";word-wrap: break-word;text-decoration:"+under_line+";font-weight: "+text_bold+";width:"+en_width+"px;font-size:"+en_size+"px;float:left;text-align:left;padding: 0.0ex ;margint-buttom:0.01ex;'>"+en_term+"</label><label style='float:left; width:35px; '></label><label dir='rtl' style='font-weight: "+text_bold+";font-style: "+text_italic+"; background-color:"+background_color+";color:"+text_color+";word-wrap: break-word;text-decoration:"+under_line+";font-weight: "+text_bold+";float:right; width:"+ar_width+"px;direction:rtl;text-align:right;font-size:"+ar_size+"px;padding: 0.0ex ;margint-buttom:0.01ex;' >"+ar_term+"</label></div>";
+                        var text_ ="<div ><label  style='font-weight: "+text_bold+";font-style: "+text_italic+"; background-color:"+background_color+";color:"+text_color+";word-wrap: break-word;text-decoration:"+under_line+";font-weight: "+text_bold+";width:"+en_width+"px;font-size:"+en_size+"px;float:left;text-align:left;padding: 0.0ex ;margint-buttom:0.01ex;'>"+new_en_term+"</label><label style='float:left; width:35px; '></label><label dir='rtl' style='font-weight: "+text_bold+";font-style: "+text_italic+"; background-color:"+background_color+";color:"+text_color+";word-wrap: break-word;text-decoration:"+under_line+";font-weight: "+text_bold+";float:right; width:"+ar_width+"px;direction:rtl;text-align:right;font-size:"+ar_size+"px;padding: 0.0ex ;margint-buttom:0.01ex;' >"+new_ar_term+"</label></div>";
                          
                         if(parent_id == null)
                         {
@@ -786,7 +791,7 @@ div.none {border-style: none;}
                     //create
                     else
                     {
-                        var text_ ="<div ><label  style='font-weight: "+text_bold+";font-style: "+text_italic+"; background-color:"+background_color+";color:"+text_color+";word-wrap: break-word;text-decoration:"+under_line+";font-weight: "+text_bold+";width:"+en_width+"px;font-size:"+en_size+"px;float:left;text-align:left;padding: 0.0ex ;margint-buttom:0.01ex;'>"+en_term+"</label><label style='float:left; width:35px; '></label><label dir='rtl' style='font-weight: "+text_bold+";font-style: "+text_italic+"; background-color:"+background_color+";color:"+text_color+";word-wrap: break-word;text-decoration:"+under_line+";font-weight: "+text_bold+";float:right; width:"+ar_width+"px;direction:rtl;text-align:right;font-size:"+ar_size+"px;padding: 0.0ex ;margint-buttom:0.01ex;' >"+ar_term+"</label></div>";
+                        var text_ ="<div ><label  style='font-weight: "+text_bold+";font-style: "+text_italic+"; background-color:"+background_color+";color:"+text_color+";word-wrap: break-word;text-decoration:"+under_line+";font-weight: "+text_bold+";width:"+en_width+"px;font-size:"+en_size+"px;float:left;text-align:left;padding: 0.0ex ;margint-buttom:0.01ex;'>"+new_en_term+"</label><label style='float:left; width:35px; '></label><label dir='rtl' style='font-weight: "+text_bold+";font-style: "+text_italic+"; background-color:"+background_color+";color:"+text_color+";word-wrap: break-word;text-decoration:"+under_line+";font-weight: "+text_bold+";float:right; width:"+ar_width+"px;direction:rtl;text-align:right;font-size:"+ar_size+"px;padding: 0.0ex ;margint-buttom:0.01ex;' >"+new_ar_term+"</label></div>";
                           $('#container').jstree().create_node(parent_id ,  { "id" : new_id, "text" : text_ }, "first", false);              
                     }
                 }              
@@ -1075,7 +1080,7 @@ div.none {border-style: none;}
             }
         });
 
-   /***********************************************************/
+    /***********************************************************/
     
     /***********************************************************/
     
@@ -1085,118 +1090,23 @@ div.none {border-style: none;}
     
     
     
+ CKEDITOR.config.uiColor = '#cae8ca';  
+
     
       CKEDITOR.replace('ar_term', {
-              extraPlugins: 'sharedspace,copyformatting,colorbutton,font,colordialog,justify,find',
-              removePlugins: 'resize',
               height: 170,
-              enterMode : CKEDITOR.ENTER_BR,
-              contentsLangDirection : 'rtl',
-              sharedSpaces: {
-                top: 'top',
-                bottom: 'bottom'
-              },
-                toolbarGroups: [        
-                                    { name: 'clipboard', groups: [ 'clipboard', 'undo' ] },
-                                    { name: 'document', groups: [ 'mode', 'document', 'doctools' ] },
-                                    { name: 'editing', groups: [ 'find', 'selection', 'spellchecker', 'editing' ] },
-                                    { name: 'forms', groups: [ 'forms' ] },
-                                    { name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ] },
-                                    { name: 'paragraph', groups: [ 'list', 'indent', 'blocks', 'align', 'bidi', 'paragraph' ] },
-                                    { name: 'links', groups: [ 'links' ] },
-                                    { name: 'insert', groups: [ 'insert' ] },
-                                    { name: 'styles', groups: [ 'styles' ] },
-                                    { name: 'colors', groups: [ 'colors' ] },
-                                    { name: 'tools', groups: [ 'tools' ] },
-                                    { name: 'others', groups: [ 'others' ] },
-                                    { name: 'about', groups: [ 'about' ] }
-                               ],
-                                          // Remove the redundant buttons from toolbar groups defined above.
-                                          removeButtons: 'SelectAll'
-        });
+              contentsLangDirection : 'rtl'
+      });
         CKEDITOR.replace('en_term', {
-              extraPlugins: 'sharedspace,copyformatting,colorbutton,font,colordialog,justify,find',
-              removePlugins: 'resize',
               height: 170,
-              enterMode : CKEDITOR.ENTER_BR,
-              sharedSpaces: {
-                top: 'top',
-                bottom: 'bottom'
-              },
-                toolbarGroups: [        
-                                    { name: 'clipboard', groups: [ 'clipboard', 'undo' ] },
-                                    { name: 'document', groups: [ 'mode', 'document', 'doctools' ] },
-                                    { name: 'editing', groups: [ 'find', 'selection', 'spellchecker', 'editing' ] },
-                                    { name: 'forms', groups: [ 'forms' ] },
-                                    { name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ] },
-                                    { name: 'paragraph', groups: [ 'list', 'indent', 'blocks', 'align', 'bidi', 'paragraph' ] },
-                                    { name: 'links', groups: [ 'links' ] },
-                                    { name: 'insert', groups: [ 'insert' ] },
-                                    { name: 'styles', groups: [ 'styles' ] },
-                                    { name: 'colors', groups: [ 'colors' ] },
-                                    { name: 'tools', groups: [ 'tools' ] },
-                                    { name: 'others', groups: [ 'others' ] },
-                                    { name: 'about', groups: [ 'about' ] }
-                               ],
-                                          // Remove the redundant buttons from toolbar groups defined above.
-                                          removeButtons: 'SelectAll'
-        });
+      });
         CKEDITOR.replace('ar_note', {
-              extraPlugins: 'sharedspace,copyformatting,colorbutton,font,colordialog,justify,find',
-              removePlugins: 'resize',
               height: 140,
-              enterMode : CKEDITOR.ENTER_BR,
-              contentsLangDirection : 'rtl',
-              sharedSpaces: {
-                top: 'top',
-                bottom: 'bottom'
-              },
-                toolbarGroups: [        
-                                    { name: 'clipboard', groups: [ 'clipboard', 'undo' ] },
-                                    { name: 'document', groups: [ 'mode', 'document', 'doctools' ] },
-                                    { name: 'editing', groups: [ 'find', 'selection', 'spellchecker', 'editing' ] },
-                                    { name: 'forms', groups: [ 'forms' ] },
-                                    { name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ] },
-                                    { name: 'paragraph', groups: [ 'list', 'indent', 'blocks', 'align', 'bidi', 'paragraph' ] },
-                                    { name: 'links', groups: [ 'links' ] },
-                                    { name: 'insert', groups: [ 'insert' ] },
-                                    { name: 'styles', groups: [ 'styles' ] },
-                                    { name: 'colors', groups: [ 'colors' ] },
-                                    { name: 'tools', groups: [ 'tools' ] },
-                                    { name: 'others', groups: [ 'others' ] },
-                                    { name: 'about', groups: [ 'about' ] }
-                               ],
-                                          // Remove the redundant buttons from toolbar groups defined above.
-                                      removeButtons: 'SelectAll'
-        });
+              contentsLangDirection : 'rtl'
+      });
         CKEDITOR.replace('en_note', {
-              extraPlugins: 'sharedspace,copyformatting,colorbutton,font,colordialog,justify,find',
-              removePlugins: 'resize',
               height: 140,
-              enterMode : CKEDITOR.ENTER_BR,
-              sharedSpaces: {
-                top: 'top',
-                bottom: 'bottom'
-              },
-                toolbarGroups: [        
-                                    { name: 'clipboard', groups: [ 'clipboard', 'undo' ] },
-                                    { name: 'document', groups: [ 'mode', 'document', 'doctools' ] },
-                                    { name: 'editing', groups: [ 'find', 'selection', 'spellchecker', 'editing' ] },
-                                    { name: 'forms', groups: [ 'forms' ] },
-                                    { name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ] },
-                                    { name: 'paragraph', groups: [ 'list', 'indent', 'blocks', 'align', 'bidi', 'paragraph' ] },
-                                    { name: 'links', groups: [ 'links' ] },
-                                    { name: 'insert', groups: [ 'insert' ] },
-                                    { name: 'styles', groups: [ 'styles' ] },
-                                    { name: 'colors', groups: [ 'colors' ] },
-                                    { name: 'tools', groups: [ 'tools' ] },
-                                    { name: 'others', groups: [ 'others' ] },
-                                    { name: 'about', groups: [ 'about' ] }
-                               ],
-                                          // Remove the redundant buttons from toolbar groups defined above.
-                                          removeButtons: 'SelectAll'
-        }); 
-
+      }); 
 
     
 </script>

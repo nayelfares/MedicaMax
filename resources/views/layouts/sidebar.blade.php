@@ -20,6 +20,10 @@
 
                                 <li><a href="{{route('disease.draw_en_tree')}}" target="_blank">Diseases</a></li>
                                 <li><a href="{{route('dif_dia.draw_en_tree')}}" target="_blank">Differential Diagnoses</a></li>
+
+                                <li><a href="{{ url('drug-administration/tag') }}">Tags</a></li>
+
+
                                 <li><a href="{{ url('drug-administration/company') }}">Companies</a></li>
                                 <li><a href="{{ url('drug-administration/composition') }}"       >Compositions</a></li>
                                 <li><a href="{{ url('drug-administration/drug') }}">Drugs</a></li>

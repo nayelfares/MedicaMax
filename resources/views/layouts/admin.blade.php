@@ -22,9 +22,15 @@
 		
 		<!-- Custom CSS -->
 		<link href="{{ asset('/assets/css/style.css') }}" rel="stylesheet" type="text/css" />
+		<!-- CSFR token for ajax call -->
+    	<meta name="_token" content="{{ csrf_token() }}"/>
+
 
 		
 </head>
+<style type="text/css">
+	.solid {border-style: solid; border-width: 0.5px;}
+</style>
 
 <body class="adminbody">
 

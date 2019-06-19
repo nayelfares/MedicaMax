@@ -12,9 +12,10 @@ use App\Status;
 use Maatwebsite\Excel\Facades\Excel; 
 use App\Imports\DifferentialDiagnosisImport;
 use Log; 
-
+use App\Http\Controllers\MedicaMaxTagController;
 class DifferentialDiagnosisController extends Controller
 {
+    
     //
    public function __construct()
     {
@@ -169,6 +170,16 @@ class DifferentialDiagnosisController extends Controller
 
     public function save_node(Request $request)
     {
+
+        $tag_controller = new MedicaMaxTagController();
+        //note
+        $en_note = $tag_controller->replace_code_with_tag($request->en_note);
+        $ar_note=$tag_controller->replace_code_with_tag($request->ar_note);
+        //term    
+        $en_term = $tag_controller->replace_code_with_tag($request->en_term);
+        $ar_term = $tag_controller->replace_code_with_tag($request->ar_term);
+
+
         if(is_null($request->id))
         {
             $this->validate($request, [
@@ -187,15 +198,10 @@ class DifferentialDiagnosisController extends Controller
                 $parent_code=$parent_dif_dia->code;
                 $level =  $parent_dif_dia->level + 1 ;      
             }
-            //note
-            $en_detail=$request->en_note;
-            
-            //ar_note
-            $ar_detail=$request->ar_note;
             
             //simple arabic term
             $re = '/\w|\s/um';
-            preg_match_all($re, $request->ar_term, $matches, PREG_SET_ORDER, 0);
+            preg_match_all($re, $ar_term , $matches, PREG_SET_ORDER, 0);
             $s_ar_term ='';
             foreach ($matches as $matche) 
             {
@@ -206,11 +212,11 @@ class DifferentialDiagnosisController extends Controller
                 'code' => $request->code,
                 'parent_id' => $parent_dif_dia->id,
                 'parent_code' => $parent_dif_dia->code,
-                'en_term' => $request->en_term,
-                'ar_term' => $request->ar_term,
+                'en_term' => $en_term ,
+                'ar_term' => $ar_term ,
                 's_ar_term' =>$s_ar_term,
-                'en_note' => $en_detail,
-                'ar_note' => $ar_detail,
+                'en_note' => $en_note,
+                'ar_note' => $ar_note,
                 'status_id' => 1,
                 'level'=>$level,
                 'bold' => $request->bold,
@@ -233,22 +239,22 @@ class DifferentialDiagnosisController extends Controller
                 "ar_width"=>$ar_width,
                 "en_width"=>$en_width ,
                 "parent_id" =>$parent_dif_dia->id,
-                "type"=>$type
+                "type"=>$type,
+                "en_term" => $en_term,
+                "ar_term" => $ar_term,
+                "en_note" => $en_note,
+                "ar_note" => $ar_note,
             ];
             return json_encode($node);
         }
         else{
+
             $my_dif_dia = DifferentialDiagnosis::find($request->id);
             
-            //note
-            $en_detail=$request->en_note;
 
-            //ar_note
-            $ar_detail=$request->ar_note;
-            
             //get simle arab term for this disease
             $re = '/\w|\s/um';
-            preg_match_all($re, $request->ar_term, $matches, PREG_SET_ORDER, 0);
+            preg_match_all($re, $ar_term , $matches, PREG_SET_ORDER, 0);
             $s_ar_term ='';
             foreach ($matches as $matche) 
             {
@@ -278,11 +284,11 @@ class DifferentialDiagnosisController extends Controller
                     'code' => $request->code,  
                     'parent_id' => $new_parent_id,
                     'parent_code' => $parent[0]->code,        
-                    'en_term' => $request->en_term,
-                    'ar_term' => $request->ar_term,
+                    'en_term' => $en_term ,
+                    'ar_term' => $ar_term ,
                     's_ar_term' => $s_ar_term,
-                    'en_note' => $en_detail,
-                    'ar_note' => $ar_detail,
+                    'en_note' => $en_note,
+                    'ar_note' => $ar_note,
                     'bold' => $request->copy_style == "true" ? $request->bold : $my_dif_dia->bold,
                     'italic' =>$request->copy_style == "true" ? $request->italic : $my_dif_dia->italic,
                     'text_color' =>$request->copy_style == "true" ? $request->color_text : $my_dif_dia->text_color,
@@ -302,11 +308,11 @@ class DifferentialDiagnosisController extends Controller
                     'code' => $request->code,  
                     'parent_id' => $new_parent_id,
                     'parent_code' => NULL,        
-                    'en_term' => $request->en_term,
-                    'ar_term' => $request->ar_term,
+                    'en_term' => $en_term ,
+                    'ar_term' => $ar_term ,
                     's_ar_term' => $s_ar_term,
-                    'en_note' => $en_detail,
-                    'ar_note' => $ar_detail,
+                    'en_note' => $en_note,
+                    'ar_note' => $ar_note,
                     
                     'bold' => $request->copy_style == "true" ? $request->bold : $my_dif_dia->bold,
                     'italic' =>$request->copy_style == "true" ? $request->italic : $my_dif_dia->italic,
@@ -325,11 +331,11 @@ class DifferentialDiagnosisController extends Controller
 
                 $input = [
                     'code' => $request->code,          
-                    'en_term' => $request->en_term,
-                    'ar_term' => $request->ar_term,
+                    'en_term' => $en_term ,
+                    'ar_term' => $ar_term ,
                     's_ar_term' => $s_ar_term,
-                    'en_note' => $en_detail,
-                    'ar_note' => $ar_detail,
+                    'en_note' => $en_note,
+                    'ar_note' => $ar_note,
 
                     'bold' => $request->copy_style == "true" ? $request->bold : $my_dif_dia->bold,
                     'italic' =>$request->copy_style == "true" ? $request->italic : $my_dif_dia->italic,
@@ -356,15 +362,19 @@ class DifferentialDiagnosisController extends Controller
                 "type"       =>$type, 
                 "parent_id"  => $new_parent_id == NULL? $request->parent_id : $new_parent_id,
                 "id"         =>$my_dif_dia->id,
-
                     
-                    'bold' => $request->copy_style == "true" ? $request->bold : $my_dif_dia->bold,
-                    'italic' =>$request->copy_style == "true" ? $request->italic : $my_dif_dia->italic,
-                    'text_color' =>$request->copy_style == "true" ? $request->color_text : $my_dif_dia->text_color,
-                    'background_color' =>$request->copy_style == "true" ? $request->color_background : $my_dif_dia->background_color,
-                    'under_line' =>$request->copy_style == "true" ? $request->under_line : $my_dif_dia->under_line,
-                    'ar_size' =>$request->copy_style == "true" ? $request->ar_size : $my_dif_dia->ar_size,
-                    'en_size' =>$request->copy_style == "true" ? $request->en_size : $my_dif_dia->en_size,
+                'bold' => $request->copy_style == "true" ? $request->bold : $my_dif_dia->bold,
+                'italic' =>$request->copy_style == "true" ? $request->italic : $my_dif_dia->italic,
+                'text_color' =>$request->copy_style == "true" ? $request->color_text : $my_dif_dia->text_color,
+                'background_color' =>$request->copy_style == "true" ? $request->color_background : $my_dif_dia->background_color,
+                'under_line' =>$request->copy_style == "true" ? $request->under_line : $my_dif_dia->under_line,
+                'ar_size' =>$request->copy_style == "true" ? $request->ar_size : $my_dif_dia->ar_size,
+                'en_size' =>$request->copy_style == "true" ? $request->en_size : $my_dif_dia->en_size,
+
+                "en_term" => $en_term,
+                "ar_term" => $ar_term,
+                "en_note" => $en_note,
+                "ar_note" => $ar_note,
             ];
 
             return json_encode($node);

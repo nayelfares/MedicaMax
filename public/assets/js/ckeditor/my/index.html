@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Replace Textarea by Code</title>
+     
+    <!-- (1) : Declaration for CKEditor library -->
+    <script src="../ckeditor.js"></script>
+     
+</head>
+<body>
+    <h2>Replace Textarea Elements Using JavaScript Code</h2>
+     
+    <form action="" method="post">
+     
+        <!-- (2): textarea will replace by CKEditor -->
+        <textarea id="editor1" name="editor1" cols="80" rows="10">
+            <p>Hello <strong>CKEditor</strong></p>
+        </textarea>
+         
+         <!-- (3): Javascript code to replace textarea with id='editor1' by CKEditor -->
+        <script>
+ 
+      CKEDITOR.replace('editor1', {
+              extraPlugins: 'lineheight',//,copyformatting,colorbutton,font,colordialog,justify,find',
+              removePlugins: 'resize',
+              height: 170,
+              enterMode : CKEDITOR.ENTER_BR,
+              contentsLangDirection : 'rtl',
+              sharedSpaces: {
+                top: 'top',
+                bottom: 'bottom'
+              },
+                toolbarGroups: [        
+                                    { name: 'clipboard', groups: [ 'clipboard', 'undo' ] },
+                                    { name: 'document', groups: [ 'mode', 'document', 'doctools' ] },
+                                    { name: 'editing', groups: [ 'find', 'selection', 'spellchecker', 'editing' ] },
+                                    { name: 'forms', groups: [ 'forms' ] },
+                                    { name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ] },
+                                    { name: 'paragraph', groups: [ 'list', 'indent', 'blocks', 'align', 'bidi', 'paragraph' ] },
+                                    { name: 'links', groups: [ 'links' ] },
+                                    { name: 'insert', groups: [ 'insert' ] },
+                                    { name: 'styles', groups: [ 'styles' ] },
+                                    { name: 'colors', groups: [ 'colors' ] },
+                                    { name: 'tools', groups: [ 'tools' ] },
+                                    { name: 'others', groups: [ 'others' ] },
+                                    { name: 'about', groups: [ 'about' ] }
+                               ],
+                                          // Remove the redundant buttons from toolbar groups defined above.
+                                          removeButtons: 'SelectAll'
+        });
+ 
+        </script>    
+             
+    </form>
+</body>
+</html>

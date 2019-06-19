@@ -248,6 +248,13 @@ Route::get('dd_import_interface', 'DifferentialDiagnosisController@importInterfa
 Route::post('dif_diaimport','DifferentialDiagnosisController@dif_diasImport')->name('dif_dia.import');
 
 
+/*********************
+* 
+*   Tags 
+*
+**********************/
+Route::resource('drug-administration/tag','MedicaMaxTagController');
+
 
 
 

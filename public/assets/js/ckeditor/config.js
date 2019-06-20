@@ -4,10 +4,7 @@ CKEDITOR.editorConfig = function( config ) {
 	// config.language = 'fr';
 	// config.uiColor = '#AADC6E';
               config.extraPlugins = 'sharedspace,lineheight,video,youtube';
-<<<<<<< HEAD
-=======
               config.removePlugins = 'resize';
->>>>>>> ba78d44523fc37cda5acdde86e69b74d9302e9e6
               config.height = 140;
               config.enterMode = CKEDITOR.ENTER_BR;
               config.sharedSpaces = {

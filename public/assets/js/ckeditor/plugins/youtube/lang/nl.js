@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 CKEDITOR.plugins.setLang('youtube', 'nl', {
 	button : 'Youtube video insluiten',
 	title : 'Youtube video insluiten',
@@ -24,30 +23,3 @@ CKEDITOR.plugins.setLang('youtube', 'nl', {
 	txtResponsive : 'Responsive video',
 	txtNoEmbed : 'Alleen video afbeelding en link'
 });
-=======
-CKEDITOR.plugins.setLang('youtube', 'nl', {
-	button : 'Youtube video insluiten',
-	title : 'Youtube video insluiten',
-	txtEmbed : 'Plak embedcode hier',
-	txtUrl : 'Plak video URL',
-	txtWidth : 'Breedte',
-	txtHeight : 'Hoogte',
-	chkRelated : 'Toon gesuggereerde video aan het einde van de video',
-	txtStartAt : 'Starten op (ss of mm:ss of hh:mm:ss)',
-	chkPrivacy : 'Privacy-enhanced mode inschakelen',
-	chkOlderCode : 'Gebruik oude embedcode',
-	chkAutoplay: 'Automatisch starten',
-	chkControls: 'Afspeelbediening weergeven',
-	noCode : 'U moet een embedcode of url ingeven',
-	invalidEmbed : 'De ingegeven embedcode lijkt niet geldig',
-	invalidUrl : 'De ingegeven url lijkt niet geldig',
-	or : 'of',
-	noWidth : 'U moet een breedte ingeven',
-	invalidWidth : 'U moet een geldige breedte ingeven',
-	noHeight : 'U moet een hoogte ingeven',
-	invalidHeight : 'U moet een geldige starttijd ingeven',
-	invalidTime : 'Inform a valid start time',
-	txtResponsive : 'Responsive video',
-	txtNoEmbed : 'Alleen video afbeelding en link'
-});
->>>>>>> ba78d44523fc37cda5acdde86e69b74d9302e9e6

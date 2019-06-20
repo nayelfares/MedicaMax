@@ -3,7 +3,7 @@ CKEDITOR.editorConfig = function( config ) {
 	// Define changes to default configuration here. For example:
 	// config.language = 'fr';
 	// config.uiColor = '#AADC6E';
-              config.extraPlugins = 'sharedspace,lineheight,video,youtube';
+              config.extraPlugins = 'sharedspace,lineheight,video,youtube,kcfinder';
               config.removePlugins = 'resize';
               config.height = 140;
               config.enterMode = CKEDITOR.ENTER_BR;

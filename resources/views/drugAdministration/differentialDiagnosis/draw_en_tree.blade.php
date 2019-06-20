@@ -1094,18 +1094,18 @@ div.none {border-style: none;}
 
     
       CKEDITOR.replace('ar_term', {
-              height: 170,
+              height: 175,
               contentsLangDirection : 'rtl'
       });
         CKEDITOR.replace('en_term', {
-              height: 170,
+              height: 175,
       });
         CKEDITOR.replace('ar_note', {
-              height: 140,
+              height: 170,
               contentsLangDirection : 'rtl'
       });
         CKEDITOR.replace('en_note', {
-              height: 140,
+              height: 170,
       }); 
 
     

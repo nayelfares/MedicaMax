@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 CKEDITOR.plugins.setLang('youtube', 'fi', {
 	button : 'Upota YouTube-video',
 	title : 'Upota YouTube-video',
@@ -21,4 +22,29 @@ CKEDITOR.plugins.setLang('youtube', 'fi', {
 	invalidHeight : 'Korkeus on virheellinen',
 	invalidTime : 'Aloitusaika on virheellinen',
 	txtResponsive : 'Responsiivinen leveys (sovita leveys)'
+=======
+CKEDITOR.plugins.setLang('youtube', 'fi', {
+	button : 'Upota YouTube-video',
+	title : 'Upota YouTube-video',
+	txtEmbed : 'Syötä YouTube-videon upotuskoodi',
+	txtUrl : 'Syötä YouTube-videon www-osoite',
+	txtWidth : 'Leveys',
+	txtHeight : 'Korkeus',
+	chkRelated : 'Näytä suositukset lopussa',
+	txtStartAt : 'Aloitusaika (ss tai mm:ss tai tt:mm:ss)',
+	chkPrivacy : 'Aktivoi yksityisyyttä parantava tila',
+	chkOlderCode : 'Käytä vanhaa upotuskoodia',
+	chkAutoplay: 'Soita automaattisesti',
+	chkControls : 'Näytä soittimen ohjaimet',
+	noCode : 'Sinun täytyy syötää upotuskoodi tai www-osoite',
+	invalidEmbed : 'Upotuskoodi on virheellinen',
+	invalidUrl : 'Www-osoite on virheellinen',
+	or : 'tai',
+	noWidth : 'Syötä leveys',
+	invalidWidth : 'Leveys on virheellinen',
+	noHeight : 'Syötä korkeus',
+	invalidHeight : 'Korkeus on virheellinen',
+	invalidTime : 'Aloitusaika on virheellinen',
+	txtResponsive : 'Responsiivinen leveys (sovita leveys)'
+>>>>>>> ba78d44523fc37cda5acdde86e69b74d9302e9e6
 });

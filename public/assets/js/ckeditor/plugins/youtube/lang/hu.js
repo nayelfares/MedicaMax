@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 CKEDITOR.plugins.setLang('youtube', 'hu', {
 	button : 'Youtube videó beillesztése',
 	title : 'Youtube videó beillesztése',
@@ -23,3 +24,30 @@ CKEDITOR.plugins.setLang('youtube', 'hu', {
 	txtResponsive : 'Reszponzív videó',
 	txtNoEmbed : 'Csak kép és hivatkozás jelenjen meg'
 });
+=======
+CKEDITOR.plugins.setLang('youtube', 'hu', {
+	button : 'Youtube videó beillesztése',
+	title : 'Youtube videó beillesztése',
+	txtEmbed : 'Illessze be a beágyazott kódot',
+	txtUrl : 'Illessze be a Youtube videó URL-jét',
+	txtWidth : 'Szélesség',
+	txtHeight : 'Magasság',
+	txtStartAt : 'Kezdő időpont (ss vagy mm:ss vagy hh:mm:ss)',
+	chkRelated : 'Ajánlott videók megjelenítése, amikor a videó befejeződik',
+	chkPrivacy : 'Fokozott adatvédelmi mód engedélyezése',
+	chkOlderCode : 'Régi beágyazott kód használata',
+	chkAutoplay : 'Automatikus lejátszás',
+	chkControls : 'Lejátszásvezérlők mutatása',
+	noCode : 'A beágyazott kód, vagy az URL megadása kötelező',
+	invalidEmbed : 'A beágyazott kód érvénytelen',
+	invalidUrl : 'A megadott URL érvénytelen',
+	or : 'vagy',
+	noWidth : 'A szélesség megadása kötelező',
+	invalidWidth : 'Érvényes szélességet adjon meg',
+	noHeight : 'A magasság megadása kötelező',
+	invalidHeight : 'Érvényes magasságot adjon meg',
+	invalidTime : 'Érvényes kezdő időpontot adjon meg',
+	txtResponsive : 'Reszponzív videó',
+	txtNoEmbed : 'Csak kép és hivatkozás jelenjen meg'
+});
+>>>>>>> ba78d44523fc37cda5acdde86e69b74d9302e9e6

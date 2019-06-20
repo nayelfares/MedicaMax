@@ -105,7 +105,11 @@ div.none {border-style: none;}
     <!--NOTE-->
     <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
   <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script> 
+<<<<<<< HEAD
    <script src="{{asset('/assets/js/ckeditor/ckeditor.js')}}"></script>
+=======
+  <script src="{{asset('/assets/js/ckeditor/ckeditor.js')}}"></script>
+>>>>>>> ba78d44523fc37cda5acdde86e69b74d9302e9e6
 
 <!-- choice -->
   <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
@@ -1107,6 +1111,10 @@ div.none {border-style: none;}
         CKEDITOR.replace('en_note', {
               height: 140,
       }); 
+<<<<<<< HEAD
+=======
+
+>>>>>>> ba78d44523fc37cda5acdde86e69b74d9302e9e6
 
     
 </script>

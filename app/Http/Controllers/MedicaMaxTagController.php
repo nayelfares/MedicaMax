@@ -186,20 +186,53 @@ class MedicaMaxTagController extends Controller
                 $sub_text   = '**';
                 $pos = strpos($text, $sub_text);
                 $code = substr($text,$pos+2,3);
+                if(substr($text,$pos+5,2) == '**')
+                {
+                    $tag = DB::table('medica_max_tags')->where('code','=',$code)->first();
+                   
+                    $tag_text = $tag->tag_text;
+                    $tag_text = "<span style='background-color:".$tag->background_color."'>".$tag_text."</span>";//background_color
+                    $tag_text = $tag->italic == "1" ? "<em>".$tag_text."</em>" :  $tag_text; //italic
+                    $tag_text = $tag->under_line == "1" ? "<u>".$tag_text."</u>" :  $tag_text; //under line
+                    $tag_text = $tag->sub_text == "1" ? "<sub>".$tag_text."</sub>" :  $tag_text; //
+                    $tag_text = $tag->sup_text == "1" ? "<sup>".$tag_text."</sup>" :  $tag_text; //italic
+                    $tag_text = "<span style='color:".$tag->text_color."'>".$tag_text."</span>";//
 
-                $tag = DB::table('medica_max_tags')->where('code','=',$code)->first();
-               
-                $tag_text = $tag->tag_text;
-                $tag_text = "<span style='background-color:".$tag->background_color."'>".$tag_text."</span>";//background_color
-                $tag_text = $tag->italic == "1" ? "<em>".$tag_text."</em>" :  $tag_text; //italic
-                $tag_text = $tag->under_line == "1" ? "<u>".$tag_text."</u>" :  $tag_text; //under line
-                $tag_text = $tag->sub_text == "1" ? "<sub>".$tag_text."</sub>" :  $tag_text; //
-                $tag_text = $tag->sup_text == "1" ? "<sup>".$tag_text."</sup>" :  $tag_text; //italic
-                $tag_text = "<span style='color:".$tag->text_color."'>".$tag_text."</span>";//
-
-                $text = str_replace("**".$code."**", $tag_text , $text);
+                    $text = str_replace("**".$code."**", $tag_text , $text);
+                }
+                elseif(substr($text,$pos+5,1) == '(')
+                    {
+                        $len = strlen($text);
+                        $old_str = substr($text,$pos,$len);
+                        $new_str = $this->change_style_by_code(substr($text,$pos,$len));
+                        $text = str_replace($old_str,$new_str,$text);
+                    }
             }
             return $text;
+        }
+
+        public function change_style_by_code($text)
+        {
+            $sub_str = ')';
+            $pos = strpos($text, $sub_str);
+            $code = substr($text,2,3);
+            $tag = DB::table('medica_max_tags')->where('code','=',$code)->first();
+            //$len_str_for_replace = $pos+1;
+            $old_str = substr($text,0,$pos+1); 
+            $len_str_for_change_style = abs(6 - $pos);
+            $new_str = substr($text,6,$len_str_for_change_style);
+
+
+            $new_str = "<span style='background-color:".$tag->background_color."'>".$new_str."</span>";//background_color
+            $new_str = $tag->italic == "1" ? "<em>".$new_str."</em>" :  $new_str; //italic
+            $new_str = $tag->under_line == "1" ? "<u>".$new_str."</u>" :  $new_str; //under line
+            $new_str = $tag->sub_text == "1" ? "<sub>".$new_str."</sub>" :  $new_str; //
+            $new_str = $tag->sup_text == "1" ? "<sup>".$new_str."</sup>" :  $new_str; //italic
+            $new_str = "<span style='color:".$tag->text_color."'>".$new_str."</span>";//
+
+            $text = str_replace($old_str, $new_str , $text);
+            return $text;
+
         }
     
 

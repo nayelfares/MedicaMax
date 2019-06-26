@@ -3,16 +3,21 @@ CKEDITOR.editorConfig = function( config ) {
 	// Define changes to default configuration here. For example:
 	// config.language = 'fr';
 	// config.uiColor = '#AADC6E';
-              config.extraPlugins = 'sharedspace,lineheight,video,youtube';
+              config.extraPlugins = 'sharedspace,lineheight,video,youtube,allowsave';
               config.removePlugins = 'resize';
-              config.height = 140;
+              config.height = 140
+			 // config.htmlEncodeOutput =false;
+			//  config.entries=false;
               config.enterMode = CKEDITOR.ENTER_BR;
               config.sharedSpaces = {
                 top: 'top',
                 bottom: 'bottom'
-              };
+              }; 
+	config.keystrokes = [
+    [ CKEDITOR.CTRL + 83, 'save' ]                       // CTRL + S
+];
 	config.toolbarGroups = [
-		{ name: 'document', groups: [ 'mode', 'document', 'doctools' ] },
+		{ name: 'document', groups: [ 'mode','Save', 'document', 'doctools' ] },
 		{ name: 'clipboard', groups: [ 'clipboard', 'undo' ] },
 		{ name: 'editing', groups: [ 'find', 'selection', 'spellchecker', 'editing' ] },
 		{ name: 'forms', groups: [ 'forms' ] },
@@ -27,5 +32,5 @@ CKEDITOR.editorConfig = function( config ) {
 		{ name: 'about', groups: [ 'about' ] }
 	];
 
-	config.removeButtons = 'Print,NewPage,Save,HiddenField,ImageButton,Button,Select,Textarea,TextField,Radio,Checkbox';
+	config.removeButtons = 'Print,NewPage,HiddenField,ImageButton,Button,Select,Textarea,TextField,Radio,Checkbox';
 };

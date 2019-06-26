@@ -387,24 +387,7 @@ div.none {border-style: none;}
         //save  
         $('#save_create').click(function(){
 
-            var my_id = document.getElementById('term_id').value;
-            var code = document.getElementById('code').value;
-            var parent_code = document.getElementById('parent_code').value;
-            var en_term = CKEDITOR.instances['en_term'].getData();
-            var ar_term = CKEDITOR.instances['ar_term'].getData();
-            var en_note;
-            var myInput = CKEDITOR.instances['en_note'].getData();
-            if(myInput)
-                en_note = CKEDITOR.instances['en_note'].getData();
-            else
-                en_note=" ";
-            var ar_note;
-            var myInput = CKEDITOR.instances['ar_note'].getData();
-            if(myInput)
-                ar_note = CKEDITOR.instances['ar_note'].getData();
-            else
-                ar_note = " ";
-            save_auto(my_id,compare,code,parent_code,en_term,ar_term,en_note,ar_note,bold,italic,color_text,color_background,under_line,ar_size,en_size,copy_style);
+            saveFunction();
         });
 
                
@@ -1091,33 +1074,79 @@ div.none {border-style: none;}
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
+    /***********************************************************
+            Saving Function
 
+    ***********************************************************/
+    function saveFunction(){
+                                
+                            var my_id = document.getElementById('term_id').value;
+                            var code = document.getElementById('code').value;
+                            var parent_code = document.getElementById('parent_code').value;
+                            var en_term = CKEDITOR.instances['en_term'].getData();
+                            var ar_term = CKEDITOR.instances['ar_term'].getData();
+                            var en_note;
+                            var myInput = CKEDITOR.instances['en_note'].getData();
+                            if(myInput)
+                                en_note = CKEDITOR.instances['en_note'].getData();
+                            else
+                                en_note=" ";
+                            var ar_note;
+                            var myInput = CKEDITOR.instances['ar_note'].getData();
+                            if(myInput)
+                                ar_note = CKEDITOR.instances['ar_note'].getData();
+                            else
+                                ar_note = " ";
+                            save_auto(my_id,compare,code,parent_code,en_term,ar_term,en_note,ar_note,bold,italic,color_text,color_background,under_line,ar_size,en_size,copy_style);
+                            return false;
+                        
+    }
     /***********************************************************/
     
-    /***********************************************************/
     
     
     
     
     
     
-    
- CKEDITOR.config.uiColor = '#cae8ca';  
-
-    
-      CKEDITOR.replace('ar_term', {
-              height: 165,
-              contentsLangDirection : 'rtl'
-      });
+ CKEDITOR.config.uiColor = '#cae8ca';   
+          CKEDITOR.replace('ar_term', {
+                  height: 165,
+                  contentsLangDirection : 'rtl',
+                  on: {
+                            save: function(evt)
+                            {
+                                saveFunction();
+                            }
+           }
+          });
         CKEDITOR.replace('en_term', {
               height: 165,
+              on: {
+                        save: function(evt)
+                        {
+                            saveFunction();
+                        }
+       }
       });
         CKEDITOR.replace('ar_note', {
               height: 150,
-              contentsLangDirection : 'rtl'
+              contentsLangDirection : 'rtl',
+              on: {
+                        save: function(evt)
+                        {
+                            saveFunction();
+                        }
+       }
       });
         CKEDITOR.replace('en_note', {
               height: 150,
+              on: {
+                        save: function(evt)
+                        {
+                            saveFunction();
+                        }
+       }
       }); 
 
     

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+ <meta charset="UTF-8">
 <meta name="csrf-token" content="{{ csrf_token() }}" />
 <head>
 <style>
@@ -231,11 +232,11 @@ div.none {border-style: none;}
             <div class="col-md-24 mb-0 col-sm-0">
                 <!-- Tree  -->
                 <hr class="fixedpar" style="float:left;border-style: inset; border-width: 0.8px;margin-top: 0.0em;margin-bottom: 0.0em; width:1425px;padding-bottom: 0.0px">
-                <div  id="container"  style="margin-left:15px;display:block;overflow:auto;height:425px;width:925px;">
+                <div  id="container"  style="margin-left:15px;display:block;overflow:auto;height:425px;width:1000px;">
                 </div>
                 <div >
                     <hr style="float:left;border-style: inset; border-width: 2px;margin-right: 10px; margin-top: 0.0em;margin-bottom:0.0em; width:925px;padding-bottom: 0.0px;">
-                    <div style="display:block;float:left;overflow:auto;height:195px;width:925px;text-align: left;margin-left:15px; ">
+                    <div style="display:block;float:left;overflow:auto;height:195px;width:1000px;text-align: left;margin-left:15px; ">
                         <div class="table-responsive">
                             <table id="example" class="table table-bordered" style="width:1000%;">
                             </table>
@@ -256,14 +257,14 @@ div.none {border-style: none;}
     var save_auto_choice = false;
     var cut_node_id ;
     var color_text="#000000";
-    var color_background = "#ffffff";
+    var color_background = "ffffff";
     var bold = "normal !important";
     var italic = "normal";
     var under_line = "none";
     var copy_style = false;
     var border_style = "none";
     var ar_size=18; 
-    var en_size=16;
+    var en_size=14;
     var type ;
     var code_width;
     var en_width;
@@ -271,6 +272,8 @@ div.none {border-style: none;}
     var selected_node;
     var all_parents_code = "";
     var get_data = 0;
+
+
 
 
     var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
@@ -722,6 +725,14 @@ div.none {border-style: none;}
             }
             //ar_term=super_script(ar_term);
             //en_term=super_script(en_term);
+            /*ar_term = ar_term.replace('&ndash;', '"');
+            ar_term = ar_term.replace('&lsquo;', '"');
+            ar_term = ar_term.replace('&rsquo;', '"');
+            */
+            en_term = en_term.replace('<br />', '');
+            ar_term = ar_term.replace('<br />', '');
+            console.log(ar_term);
+            console.log(en_term);
             $.ajax({
                 type :"POST",
                 url:"{{route('dif_dia_node.save')}}",
@@ -1023,6 +1034,7 @@ div.none {border-style: none;}
         }
 
         function autoChangeFontStyle(text_bold,text_italic,text_color,background_color,under_line,ar_size,en_size,border_style){
+
             $.ajax({
                 type :'GET',
                 url:"{{route('dif_dia_node.view')}}",
@@ -1094,18 +1106,18 @@ div.none {border-style: none;}
 
     
       CKEDITOR.replace('ar_term', {
-              height: 175,
+              height: 165,
               contentsLangDirection : 'rtl'
       });
         CKEDITOR.replace('en_term', {
-              height: 175,
+              height: 165,
       });
         CKEDITOR.replace('ar_note', {
-              height: 170,
+              height: 150,
               contentsLangDirection : 'rtl'
       });
         CKEDITOR.replace('en_note', {
-              height: 170,
+              height: 150,
       }); 
 
     

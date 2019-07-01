@@ -62,7 +62,7 @@ class DifferentialDiagnosisController extends Controller
                 "text" => "
                     <div >
                         <label  style='font-weight: ".$dif_dia->bold.";font-style: ".$dif_dia->italic.";background-color:".$dif_dia->background_color.";background-color:".$dif_dia->background_color.";float:left;text-align: left; text-decoration:".$dif_dia->under_line.";color:".$dif_dia->text_color.";word-wrap: break-word;font-weight: ".$dif_dia->bold.";width:".$en_width."px;font-size:".$dif_dia->en_size."px;padding: 0.0ex ;margint-buttom:0.01ex;'>".$dif_dia->en_term."</label>
-                        <label style='float:left; width:50px; '></label>
+                        <label style='float:left; width:35px; '></label>
                         <label dir='rtl' style='font-weight: ".$dif_dia->bold.";font-style: ".$dif_dia->italic.";background-color:".$dif_dia->background_color.";background-color:".$dif_dia->background_color.";text-decoration:".$dif_dia->under_line.";color:".$dif_dia->text_color.";word-wrap: break-word;font-weight: ".$dif_dia->bold.";float:right; width:".$ar_width."px;text-align:right;font-size:".$dif_dia->ar_size."px;padding: 0.0ex ;margint-buttom:0.01ex;' >".$dif_dia->ar_term."</label>
                         
                     </div>"

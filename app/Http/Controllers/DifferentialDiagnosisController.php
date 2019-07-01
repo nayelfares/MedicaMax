@@ -53,7 +53,7 @@ class DifferentialDiagnosisController extends Controller
         $tree = [];
         foreach ($dif_dias as $dif_dia) {
             $code_width = 60;
-            $ar_width = 300 - 12 * $dif_dia->level ;
+            $ar_width = 475 - 12 * $dif_dia->level ;
             $en_width = 475 - 12 * $dif_dia->level ;
             $type = 'b';
             $tree[] = [
@@ -62,7 +62,7 @@ class DifferentialDiagnosisController extends Controller
                 "text" => "
                     <div >
                         <label  style='font-weight: ".$dif_dia->bold.";font-style: ".$dif_dia->italic.";background-color:".$dif_dia->background_color.";background-color:".$dif_dia->background_color.";float:left;text-align: left; text-decoration:".$dif_dia->under_line.";color:".$dif_dia->text_color.";word-wrap: break-word;font-weight: ".$dif_dia->bold.";width:".$en_width."px;font-size:".$dif_dia->en_size."px;padding: 0.0ex ;margint-buttom:0.01ex;'>".$dif_dia->en_term."</label>
-                        <label style='float:left; width:35px; '></label>
+                        <label style='float:left; width:50px; '></label>
                         <label dir='rtl' style='font-weight: ".$dif_dia->bold.";font-style: ".$dif_dia->italic.";background-color:".$dif_dia->background_color.";background-color:".$dif_dia->background_color.";text-decoration:".$dif_dia->under_line.";color:".$dif_dia->text_color.";word-wrap: break-word;font-weight: ".$dif_dia->bold.";float:right; width:".$ar_width."px;text-align:right;font-size:".$dif_dia->ar_size."px;padding: 0.0ex ;margint-buttom:0.01ex;' >".$dif_dia->ar_term."</label>
                         
                     </div>"
@@ -118,7 +118,7 @@ class DifferentialDiagnosisController extends Controller
             $dif_dia = DifferentialDiagnosis::find( $request->id);
             
             $code_width = 60;
-            $ar_width = 300 - 12 * $dif_dia->level ;
+            $ar_width = 475 - 12 * $dif_dia->level ;
             $en_width = 475 - 12 * $dif_dia->level ;
              
             $type = 'b';
@@ -274,7 +274,7 @@ class DifferentialDiagnosisController extends Controller
             ])->id;
 
             $code_width = 60;
-            $ar_width = 300 - 12 * $level ;
+            $ar_width = 475 - 12 * $level ;
             $en_width = 475 - 12 * $level ;
             $type = 'b';
 
@@ -397,7 +397,7 @@ class DifferentialDiagnosisController extends Controller
             DB::table('differential_diagnoses')->where('id',$request->id)->update($input);
             
             $code_width = 60;
-            $ar_width = 300 - 12 * $level ;
+            $ar_width = 475 - 12 * $level ;
             $en_width = 475 - 12 * $level ;
             $node = [];
             $node [] = [

@@ -144,15 +144,54 @@ class DifferentialDiagnosisController extends Controller
                     ->orwhere('parent_code', 'like', "%".$request['condition']."%")
                     ->get();
         $count = $dif_dias->count();
+        
 
+
+        $search_str = $request['condition'];
+        $new_str = '<span style="color:#ff0000"><strong><span style="background-color:#000000">'.$search_str.'</span></strong></span>';
         $tree = [];
         foreach ($dif_dias as $dif_dia) {
+            $code = strpos($dif_dia->code, $search_str) !== false ? str_replace($search_str , $new_str  , $dif_dia->code) : $dif_dia->code;
+            $parent_code = strpos($dif_dia->parent_code, $search_str) !== false ? str_replace($search_str , $new_str  , $dif_dia->parent_code) : $dif_dia->parent_code;
+            $en_term = strpos($dif_dia->en_term, $search_str) !== false ? str_replace($search_str , $new_str  , $dif_dia->en_term) : $dif_dia->en_term;
+            
+
+            if(strpos($dif_dia->ar_term, $search_str) !== false || strpos($dif_dia->s_ar_term, $search_str) !== false)
+            {
+                $re = '/\w|\s/um';
+                $i=0;
+                $cc ="xx : " ;
+                
+                while($i <= strlen($dif_dia->ar_term))
+                {
+                    
+                    preg_match_all($re, substr($dif_dia->ar_term,$i,1) , $matches, PREG_SET_ORDER, 0);
+                    
+                    if (!empty($matches)) {
+                        
+                        $cc =$cc." (".$i.' , '.$matches[0].' ) ,';
+                    }
+                    $i++;
+                }
+                return $cc;
+                  
+
+
+                
+                $start_pos = strpos($dif_dia->s_ar_term,$search_str);
+                $len_search_str = strlen($search_str);
+                $len_ar_term = strlen($dif_dia->ar_term);
+                $ar_term = substr($dif_dia->ar_term,0,$start_pos).'<span style="color:#ff0000"><strong><span style="background-color:#000000">'.substr($dif_dia->ar_term,$start_pos,$len_search_str).'</span></strong></span>'.substr($dif_dia->ar_term,$start_pos+$len_search_str,$len_ar_term);
+            }
+            else{
+                $ar_term = $dif_dia->ar_term;
+            }
             $tree[] = [
                 "id" => (string)$dif_dia->id,
-                "code" => (string)$dif_dia->code ,
-                "parent_code" => (string)$dif_dia->parent_code,
-                "en_term" => (string)$dif_dia->en_term,
-                "ar_term" => (string)$dif_dia->ar_term,
+                "code" => $code ,
+                "parent_code" => $parent_code,
+                "en_term" => $en_term,
+                "ar_term" => $ar_term,
                 "text_color" => (string)$dif_dia->text_color,
                 "background_color" => (string)$dif_dia->background_color,
                 "bold" =>  (string)$dif_dia->bold,
@@ -171,24 +210,29 @@ class DifferentialDiagnosisController extends Controller
     public function save_node(Request $request)
     {
 
+        
         $tag_controller = new MedicaMaxTagController();
+
         //note
         $en_note = $tag_controller->replace_code_with_tag($request->en_note);
         $ar_note=$tag_controller->replace_code_with_tag($request->ar_note);
         //term    
         $en_term = $tag_controller->replace_code_with_tag($request->en_term);
         $ar_term = $tag_controller->replace_code_with_tag($request->ar_term);
-
-
+//$en_term=  str_replace("<br />","",$request->en_term); 
+      
         if(is_null($request->id))
         {
+
             $this->validate($request, [
                 'code' => 'required|unique:differential_diagnoses',
                 'en_term' => 'required'
                 ]);
+            
             //get parent code
             $level = 1;
             $parent_dif_dia = DifferentialDiagnosis::find($request->parent_id);
+
             if(is_null($parent_dif_dia))
             {
                 $parent_code=null;   
@@ -228,6 +272,7 @@ class DifferentialDiagnosisController extends Controller
                 'en_size' => $request->en_size,
                 'show_code' => "0",
             ])->id;
+
             $code_width = 60;
             $ar_width = 300 - 12 * $level ;
             $en_width = 475 - 12 * $level ;
@@ -242,8 +287,8 @@ class DifferentialDiagnosisController extends Controller
                 "type"=>$type,
                 "en_term" => $en_term,
                 "ar_term" => $ar_term,
-                "en_note" => $en_note,
-                "ar_note" => $ar_note,
+                "en_note" => $en_note ==""?" ":$en_note,
+                "ar_note" => $ar_note==""?" ":$ar_note,
             ];
             return json_encode($node);
         }

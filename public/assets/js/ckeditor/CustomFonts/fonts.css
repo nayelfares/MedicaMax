@@ -1,13 +1,105 @@
 /* font converted using font-converter.net. thank you! */
 @font-face {
   font-family: "ArefRuqaa-Regular";
-  src: url("./fonts/ArefRuqaa-Regular.eot"); /* IE9 Compat Modes */
-  src: url("./fonts/ArefRuqaa-Regular.eot?#iefix") format("embedded-opentype"), /* IE6-IE8 */
-    url("./fonts/ArefRuqaa-Regular.otf") format("opentype"), /* Open Type Font */
-    url("./fonts/ArefRuqaa-Regular.svg") format("svg"), /* Legacy iOS */
-    url("./fonts/ArefRuqaa-Regular.ttf") format("truetype"), /* Safari, Android, iOS */
-    url("./fonts/ArefRuqaa-Regular.woff") format("woff"), /* Modern Browsers */
-    url("./fonts/ArefRuqaa-Regular.woff2") format("woff2"); /* Modern Browsers */
+  src: url("./ArefRuqaa-Regular/ArefRuqaa-Regular.eot"); /* IE9 Compat Modes */
+  src: url("./ArefRuqaa-Regular/ArefRuqaa-Regular.eot?#iefix") format("embedded-opentype"), /* IE6-IE8 */
+    url("./ArefRuqaa-Regular/ArefRuqaa-Regular.otf") format("opentype"), /* Open Type Font */
+    url("./ArefRuqaa-Regular/ArefRuqaa-Regular.svg") format("svg"), /* Legacy iOS */
+    url("./ArefRuqaa-Regular/ArefRuqaa-Regular.ttf") format("truetype"), /* Safari, Android, iOS */
+    url("./ArefRuqaa-Regular/ArefRuqaa-Regular.woff") format("woff"), /* Modern Browsers */
+    url("./ArefRuqaa-Regular/ArefRuqaa-Regular.woff2") format("woff2"); /* Modern Browsers */
   font-weight: normal;
   font-style: normal;
 }
+
+@font-face {
+  font-family: "ArialMT";
+  src: url("./arial/arial.eot"); /* IE9 Compat Modes */
+  src: url("./arial/arial.eot?#iefix") format("embedded-opentype"), /* IE6-IE8 */
+    url("./arial/arial.otf") format("opentype"), /* Open Type Font */
+    url("./arial/arial.svg") format("svg"), /* Legacy iOS */
+    url("./arial/arial.ttf") format("truetype"), /* Safari, Android, iOS */
+    url("./arial/arial.woff") format("woff"), /* Modern Browsers */
+    url("./arial/arial.woff2") format("woff2"); /* Modern Browsers */
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Cairo-Regular";
+  src: url("./Cairo-Regular/Cairo-Regular.eot"); /* IE9 Compat Modes */
+  src: url("./Cairo-Regular/Cairo-Regular.eot?#iefix") format("embedded-opentype"), /* IE6-IE8 */
+    url("./Cairo-Regular/Cairo-Regular.otf") format("opentype"), /* Open Type Font */
+    url("./Cairo-Regular/Cairo-Regular.svg") format("svg"), /* Legacy iOS */
+    url("./Cairo-Regular/Cairo-Regular.ttf") format("truetype"), /* Safari, Android, iOS */
+    url("./Cairo-Regular/Cairo-Regular.woff") format("woff"), /* Modern Browsers */
+    url("./Cairo-Regular/Cairo-Regular.woff2") format("woff2"); /* Modern Browsers */
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Changa-Regular";
+  src: url("./Changa-Regular/Changa-Regular.eot"); /* IE9 Compat Modes */
+  src: url("./Changa-Regular/Changa-Regular.eot?#iefix") format("embedded-opentype"), /* IE6-IE8 */
+    url("./Changa-Regular/Changa-Regular.otf") format("opentype"), /* Open Type Font */
+    url("./Changa-Regular/Changa-Regular.svg") format("svg"), /* Legacy iOS */
+    url("./Changa-Regular/Changa-Regular.ttf") format("truetype"), /* Safari, Android, iOS */
+    url("./Changa-Regular/Changa-Regular.woff") format("woff"), /* Modern Browsers */
+    url("./Changa-Regular/Changa-Regular.woff2") format("woff2"); /* Modern Browsers */
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "CrimsonText-Regular";
+  src: url("./CrimsonText-Regular/CrimsonText-Regular.eot"); /* IE9 Compat Modes */
+  src: url("./CrimsonText-Regular/CrimsonText-Regular.eot?#iefix") format("embedded-opentype"), /* IE6-IE8 */
+    url("./CrimsonText-Regular/CrimsonText-Regular.otf") format("opentype"), /* Open Type Font */
+    url("./CrimsonText-Regular/CrimsonText-Regular.svg") format("svg"), /* Legacy iOS */
+    url("./CrimsonText-Regular/CrimsonText-Regular.ttf") format("truetype"), /* Safari, Android, iOS */
+    url("./CrimsonText-Regular/CrimsonText-Regular.woff") format("woff"), /* Modern Browsers */
+    url("./CrimsonText-Regular/CrimsonText-Regular.woff2") format("woff2"); /* Modern Browsers */
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "EBGaramond-Regular";
+  src: url("./EBGaramond-Regular/EBGaramond-Regular.eot"); /* IE9 Compat Modes */
+  src: url("./EBGaramond-Regular/EBGaramond-Regular.eot?#iefix") format("embedded-opentype"), /* IE6-IE8 */
+    url("./EBGaramond-Regular/EBGaramond-Regular.otf") format("opentype"), /* Open Type Font */
+    url("./EBGaramond-Regular/EBGaramond-Regular.svg") format("svg"), /* Legacy iOS */
+    url("./EBGaramond-Regular/EBGaramond-Regular.ttf") format("truetype"), /* Safari, Android, iOS */
+    url("./EBGaramond-Regular/EBGaramond-Regular.woff") format("woff"), /* Modern Browsers */
+    url("./EBGaramond-Regular/EBGaramond-Regular.woff2") format("woff2"); /* Modern Browsers */
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Tajawal-Regular";
+  src: url("./Tajawal-Regular/Tajawal-Regular.eot"); /* IE9 Compat Modes */
+  src: url("./Tajawal-Regular/Tajawal-Regular.eot?#iefix") format("embedded-opentype"), /* IE6-IE8 */
+    url("./Tajawal-Regular/Tajawal-Regular.otf") format("opentype"), /* Open Type Font */
+    url("./Tajawal-Regular/Tajawal-Regular.svg") format("svg"), /* Legacy iOS */
+    url("./Tajawal-Regular/Tajawal-Regular.ttf") format("truetype"), /* Safari, Android, iOS */
+    url("./Tajawal-Regular/Tajawal-Regular.woff") format("woff"), /* Modern Browsers */
+    url("./Tajawal-Regular/Tajawal-Regular.woff2") format("woff2"); /* Modern Browsers */
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "TimesNRCyrMT";
+  src: url("./timesnewroman/timesnewroman.eot"); /* IE9 Compat Modes */
+  src: url("./timesnewroman/timesnewroman.eot?#iefix") format("embedded-opentype"), /* IE6-IE8 */
+    url("./timesnewroman/timesnewroman.otf") format("opentype"), /* Open Type Font */
+    url("./timesnewroman/timesnewroman.svg") format("svg"), /* Legacy iOS */
+    url("./timesnewroman/timesnewroman.ttf") format("truetype"), /* Safari, Android, iOS */
+    url("./timesnewroman/timesnewroman.woff") format("woff"), /* Modern Browsers */
+    url("./timesnewroman/timesnewroman.woff2") format("woff2"); /* Modern Browsers */
+  font-weight: normal;
+  font-style: normal;
+}
+

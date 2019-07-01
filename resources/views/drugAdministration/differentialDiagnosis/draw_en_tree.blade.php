@@ -17,7 +17,7 @@ div.sticky {
   z-index: 3; 
 }
 label {
-  white-space: pre-wrap;
+  white-space: nowrap;
 }
 div.fixedpar {
   /*position: fixed;  
@@ -79,8 +79,19 @@ div.none {border-style: none;}
 
 .selected{background-color: red; }
 
-</style>
+ul{     
+    padding: 0px 0px 0px 0px !important;        
+    margin: 0px 0px 0px 0px !important;     
+    padding-inline-start: 0px;      
+    line-height: 24px;      
+}  
 
+li{     
+    line-height: 24px;      
+}
+
+</style>
+<link rel="stylesheet" type="text/css" href="{{asset('/assets/font-awesome/fonts/New Fonts.css')}}">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 <link href="{{asset('/assets/plugins/select2/css/select2.min.css')}}" rel="stylesheet" type="text/css"/>
 <script src="{{asset('/assets/plugins/select2/js/select2.min.js')}}"></script>
@@ -176,7 +187,7 @@ div.none {border-style: none;}
                             </div>
 
                             <textarea rows="2" cols="78" type="text" name="ar_term" data-parsley-trigger="change"   class="form-control" id="ar_term"
-                            dir="rtl" style="font-size:18px;height:100px;font-weight:bold;resize:none;"></textarea>
+                            dir="rtl" style=" font-size:18px;height:100px;font-weight:bold;resize:none;"></textarea>
                         </div>
                     </div>
 
@@ -247,6 +258,36 @@ div.none {border-style: none;}
     </div>
 </body>
 <!-----------------------------------------> 
+<script type="text/javascript">    
+$(document).ready(function(){ 
+
+var mm=[];
+my_obj = {};
+$.ajax({
+        type:"GET",
+        url:"{{route('style.get_styles')}}",
+        success:function(res){
+            styles =  JSON.parse(res);
+           
+            styles.forEach(function(item){
+                
+               my_obj=
+               { name: item.style_name, element: 'span',styles: { 'color': ''+item.style_text_color+'' ,'background':''+item.style_background_color+'','font-size': ''+item.style_font_size+'','font-family': ''+item.style_font_family+'', 'font-width': ''+item.style_bold+'' }}
+               ;
+               console.log(my_obj)
+               mm.push(my_obj);
+            });
+
+        }
+        });
+
+    CKEDITOR.stylesSet.add('default', mm);
+
+    
+})
+</script>
+
+
 <script type="text/javascript">
     var id;
     var parent_code ;
@@ -388,6 +429,7 @@ div.none {border-style: none;}
         $('#save_create').click(function(){
 
             saveFunction();
+
         });
 
                
@@ -645,7 +687,7 @@ div.none {border-style: none;}
                                 CKEDITOR.instances['en_term'].setData(node.en_term);
                                 CKEDITOR.instances['ar_term'].setData(node.ar_term);
                                 CKEDITOR.instances['en_note'].setData(node.en_note);
-                                CKEDITOR.instances['ar_note'].setData(node.ar_note);                    
+                                CKEDITOR.instances['ar_note'].setData(node.ar_note);
                     }
                 });
             }
@@ -706,14 +748,6 @@ div.none {border-style: none;}
                 parent_id = my_id;
                 my_id = null;
             }
-            //ar_term=super_script(ar_term);
-            //en_term=super_script(en_term);
-            /*ar_term = ar_term.replace('&ndash;', '"');
-            ar_term = ar_term.replace('&lsquo;', '"');
-            ar_term = ar_term.replace('&rsquo;', '"');
-            */
-            en_term = en_term.replace('<br />', '');
-            ar_term = ar_term.replace('<br />', '');
             console.log(ar_term);
             console.log(en_term);
             $.ajax({
@@ -1074,42 +1108,35 @@ div.none {border-style: none;}
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
+
     /***********************************************************
             Saving Function
-
     ***********************************************************/
-    function saveFunction(){
-                                
-                            var my_id = document.getElementById('term_id').value;
-                            var code = document.getElementById('code').value;
-                            var parent_code = document.getElementById('parent_code').value;
-                            var en_term = CKEDITOR.instances['en_term'].getData();
-                            var ar_term = CKEDITOR.instances['ar_term'].getData();
-                            var en_note;
-                            var myInput = CKEDITOR.instances['en_note'].getData();
-                            if(myInput)
-                                en_note = CKEDITOR.instances['en_note'].getData();
-                            else
-                                en_note=" ";
-                            var ar_note;
-                            var myInput = CKEDITOR.instances['ar_note'].getData();
-                            if(myInput)
-                                ar_note = CKEDITOR.instances['ar_note'].getData();
-                            else
-                                ar_note = " ";
-                            save_auto(my_id,compare,code,parent_code,en_term,ar_term,en_note,ar_note,bold,italic,color_text,color_background,under_line,ar_size,en_size,copy_style);
-                            return false;
+    function saveFunction(){                         
+        var my_id = document.getElementById('term_id').value;
+        var code = document.getElementById('code').value;
+        var parent_code = document.getElementById('parent_code').value;
+        var en_term = CKEDITOR.instances['en_term'].getData();
+        var ar_term = CKEDITOR.instances['ar_term'].getData();
+        var en_note;
+        var myInput = CKEDITOR.instances['en_note'].getData();
+        if(myInput)
+            en_note = CKEDITOR.instances['en_note'].getData();
+        else
+            en_note=" ";
+        var ar_note;
+        var myInput = CKEDITOR.instances['ar_note'].getData();
+        if(myInput)
+            ar_note = CKEDITOR.instances['ar_note'].getData();
+        else
+            ar_note = " ";
+        save_auto(my_id,compare,code,parent_code,en_term,ar_term,en_note,ar_note,bold,italic,color_text,color_background,under_line,ar_size,en_size,copy_style);
+        return false;
                         
     }
     /***********************************************************/
     
-    
-    
-    
-    
-    
-    
- CKEDITOR.config.uiColor = '#cae8ca';   
+  CKEDITOR.config.uiColor = '#cae8ca';   
           CKEDITOR.replace('ar_term', {
                   height: 165,
                   contentsLangDirection : 'rtl',

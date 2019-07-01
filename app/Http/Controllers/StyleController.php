@@ -20,7 +20,7 @@ class StyleController extends Controller
     public function __construct(){
     	$this->middleware('auth');
 	}
-	//'id','style_name' ,'bold','italic','under_line','text_color','background_color','border','font_family','font_size'
+	
     /**
      * Display a listing of the resource.
      *
@@ -175,8 +175,21 @@ class StyleController extends Controller
     {
         $styles = DB::table('styles')->get();
         $json_styles = [];
+        //'id','style_name' ,'bold','italic','under_line','text_color','','border','font_family','font_size'
         foreach ($styles as $style) {
-            
+         	 $json_styles[]=[
+         	 	"id" => $style->id,
+         	 	"style_name" => $style->style_name ,
+         	 	"style_bold" => $style->style_bold ,
+         	 	"style_italic" => $style->style_italic ,
+         	 	"style_under_line" => $style->style_under_line ,
+         	 	"style_text_color" => $style->style_text_color ,
+         	 	"style_background_color" => $style->style_background_color ,
+         	 	"style_font_family" => $style->style_font_family ,
+         	 	"style_font_size" =>(string) $style->style_font_size."px" ,
+         	 	"style_border" => $style->style_border ,
+         	 ];   
         }
+        return json_encode($json_styles);
     }
 }

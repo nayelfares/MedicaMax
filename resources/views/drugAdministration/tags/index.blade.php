@@ -42,7 +42,7 @@
     <i class="fa fa-tint bigfonts" aria-hidden="true"></i> All tags ({{$count}})  
     <span class="pull-right">
       <a  class="btn btn-outline-info btn-sm" href="{{ route('tag.index') }}"><i class="fa fa-refresh bigfonts" aria-hidden="true"></i> </a>
-      <a class="btn btn-primary btn-sm" href="#addTagModal" data-toggle="modal" id="add_tag"><i class="fa fa-plus bigfonts" aria-hidden="true"></i> Add new tag</a>
+      <a class="btn btn-primary btn-sm" href="#addTagModal" data-toggle="modal"><i class="fa fa-plus bigfonts" aria-hidden="true"></i> Add new tag</a>
     </span>              
   </div>
 
@@ -76,7 +76,7 @@
               <input type="hidden" name="_method" value="DELETE">
               <input type="hidden" name="_token" value="{{ csrf_token() }}">
               
-              <a  class="btn btn-primary btn-sm"  href="javascript:void(0)" id="edit-tag" data-id="{{ $tag->id }}"><i class="fa fa-pencil" aria-hidden="true" ></i></a>
+              <a href="{{ route('tag.edit', ['id' => $tag->id]) }}" class="btn btn-primary btn-sm" ><i class="fa fa-pencil" aria-hidden="true" ></i></a>
 
               <a href="#editTagModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
 
@@ -96,7 +96,7 @@
 
 
 
-  <!-- Add Modal HTML -->
+  <!-- Edit Modal HTML -->
   <div id="addTagModal" class="modal fade">
     <div class="modal-dialog">
       <div class="modal-content card mb-3">
@@ -110,21 +110,21 @@
           <div class="card-body">
             <div class="form-group">
                 <label for="code">Code<span class="text-danger">*</span></label>
-                <input type="text" name="code" data-parsley-trigger="change" required placeholder="Enter Code" class="form-control" id="code" value="">
+                <input type="text" name="code" data-parsley-trigger="change" required placeholder="Enter Code" class="form-control" id="code">
 
                 <label for="tag_text">Text</label>
-                <input type="text" name="tag_text" data-parsley-trigger="change" placeholder="Enter Text" class="form-control" id="tag_text" value="">
+                <input type="text" name="tag_text" data-parsley-trigger="change" placeholder="Enter Text" class="form-control" id="tag_text">
 
                 <label for="tag_text">Text Color</label>
                 <input class="input" type="color" name="text_color" data-parsley-trigger="change"  class="form-control" id="text_color" style=";width: 75px;padding-top: 1px;">
                 <input class="input" style="float: right;width: 75px;padding-top: 1px;" type="color" value="#ffffff" id="background_color" name="background_color" > 
                 <label for="tag_text" style="float: right;padding-right: 10px;padding-top: 1px;">backgraound color</label><br>
 
-                <input type="checkbox" name="bold" value="1" >  Bold<br>
-                <input type="checkbox" name="italic" value="1" >  Italic<br>
-                <input type="checkbox" name="under_line" value="1" >  Under line<br>
-                <input type="checkbox" name="border" value="1" >  Border<br>
-                <input type="checkbox" name="sup_text" value="1" >  Sup text<br>
+                <input type="checkbox" name="bold" value="1">  Bold<br>
+                <input type="checkbox" name="italic" value="1">  Italic<br>
+                <input type="checkbox" name="under_line" value="1">  Under line<br>
+                <input type="checkbox" name="border" value="1">  Border<br>
+                <input type="checkbox" name="sup_text" value="1">  Sup text<br>
                 <input type="checkbox" name="sub_text" value="1" > Sub Text<br><br>
                 
             </div>
@@ -138,7 +138,45 @@
       </div>
     </div>
   </div>
+  <!-- Edit Modal HTML -->
+  <div id="editEmployeeModal" class="modal fade">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <form method="POST"  action="{{ route('tag.update', ['id' => $tag->id]) }}" data-parsley-validate novalidate>
+              <div class="modal-header">            
+                <h4 class="modal-title">Edit Tag</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+              </div>
+              <div class="card-body">
+                <div class="form-group">
+                    <label for="code">Code<span class="text-danger">*</span></label>
+                    <input type="text" name="code" data-parsley-trigger="change" required placeholder="Enter Code" class="form-control" id="code">
 
+                    <label for="tag_text">Text</label>
+                    <input type="text" name="tag_text" data-parsley-trigger="change" placeholder="Enter Text" class="form-control" id="tag_text">
+
+                    <label for="tag_text">Text Color</label>
+                    <input class="input" type="color" name="text_color" data-parsley-trigger="change"  class="form-control" id="text_color" style=";width: 75px;padding-top: 1px;">
+                    <input class="input" style="float: right;width: 75px;padding-top: 1px;" type="color" value="#ffffff" id="background_color" name="background_color" > 
+                    <label for="tag_text" style="float: right;padding-right: 10px;padding-top: 1px;">backgraound color</label><br>
+
+                    <input type="checkbox" name="bold" value="1">  Bold<br>
+                    <input type="checkbox" name="italic" value="1">  Italic<br>
+                    <input type="checkbox" name="under_line" value="1">  Under line<br>
+                    <input type="checkbox" name="border" value="1">  Border<br>
+                    <input type="checkbox" name="sup_text" value="1">  Sup text<br>
+                    <input type="checkbox" name="sub_text" value="1" > Sub Text<br><br>
+                    
+                </div>
+            </div>
+              <div class="modal-footer">
+                <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+                <input type="submit" class="btn btn-info" value="Save">
+              </div>
+        </form>
+      </div>
+    </div>
+  </div>
   <!-- Delete Modal HTML -->
   <div id="deleteEmployeeModal" class="modal fade">
     <div class="modal-dialog">
@@ -177,58 +215,36 @@
   // START CODE FOR BASIC DATA TABLE 
  
   $(document).ready(function() {
-      $('#example').DataTable();
+    $('#example').DataTable();
 
+  } );
+  // END CODE FOR BASIC DATA TABLE 
+  $(document).ready(function() {
+    $('#example thead th').each( function () {
+      var title = $('#example thead th').eq( $(this).index() ).text();
+      $(this).html( '<input type="text" placeholder="Search '+title+'" />' );
+    } );
 
-      $('#example thead th').each( function () {
-          var title = $('#example thead th').eq( $(this).index() ).text();
-          $(this).html( '<input type="text" placeholder="Search '+title+'" />' );
+    // DataTable
+    var table = $('#example').DataTable();
+
+    // Apply the search
+    table.columns().eq( 0 ).each( function ( colIdx ) {
+      $( 'input', table.column( colIdx ).header() ).on( 'keyup change', function () {
+        table
+        .column( colIdx )
+        .search( this.value )
+        .draw();
       } );
+    } );
+  } );
 
-      // DataTable
-      var table = $('#example').DataTable();
 
-      // Apply the search
-      table.columns().eq( 0 ).each( function ( colIdx ) {
-          $( 'input', table.column( colIdx ).header() ).on( 'keyup change', function () {
-              table
-              .column( colIdx )
-              .search( this.value )
-              .draw();
-          });
-      });
-
-  });
-/////
-  $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-    });
-    /*  When user click add user button */
-    $('#add_tag').click(function () {
-        $('#btn-save').val("create-user");
-        $('#userForm').trigger("reset");
-        $('#userCrudModal').html("Add New User");
-        $('#ajax-crud-modal').modal('show');
-    });
- 
-   /* When click edit user */
-    $('body').on('click', '#edit-user', function () {
-      var user_id = $(this).data('id');
-      $.get('ajax-crud/' + user_id +'/edit', function (data) {
-         $('#userCrudModal').html("Edit User");
-          $('#btn-save').val("edit-user");
-          $('#ajax-crud-modal').modal('show');
-          $('#user_id').val(data.id);
-          $('#name').val(data.name);
-          $('#email').val(data.email);
-      })
-   });
-////
   function delete_record(id)
   {
+
     if (confirm('Confirm delete')) {
+
     }
   }
 </script>

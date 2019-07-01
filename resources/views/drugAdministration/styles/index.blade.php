@@ -1,6 +1,6 @@
 @extends('drugAdministration.styles.base')
 @section('action-content')
-
+<link rel="stylesheet" type="text/css" href="{{asset('/assets/font-awesome/fonts/New Fonts.css')}}">
 <div class="card mb-3"> 
 
   <div class="card-header">
@@ -20,14 +20,17 @@
           <tr>
             <th>#</th>
             <th>Name</th>
+            <th>Name</th>
             <td>Action</td>
           </tr>
         </thead>
 
         <tbody>
           @foreach ($styles as $style)
-          <tr role="row" class="odd">
+          <tr role="row" class="odd" style="background-color:{{$style->style_background_color}};font-size:{{$style->style_font_size}};font-family:{{$style->style_font_family}};color: {{ $style->style_text_color}};font-width:{{$style->style_bold}};text-decoration:{{ $style->style_under_line}};font-style:{{$style->style_italic}};">
+
             <td>{{ $style->id }}</td>
+            <td>{{ $style->style_name }}</td>
             <td>{{ $style->style_name }}</td>
             <td>
              <form  method="POST" action="{{ route('style.destroy', ['id' => $style->id]) }}" onsubmit = "return confirm('Are you sure?')">

@@ -16,7 +16,8 @@ CKEDITOR.editorConfig = function( config ) {
 	config.keystrokes = [
     [ CKEDITOR.CTRL + 83, 'save' ] ,                      // CTRL + S
 	[ CKEDITOR.CTRL + 76 , 'indent' ],                    //CTRL + L
-	[CKEDITOR.CTRL + 82, 'outdent' ]                      //CTRL + R
+	[CKEDITOR.CTRL + 82, 'outdent' ],                      //CTRL + R
+	[CKEDITOR.CTRL + 80, 'deletenewline' ]
 ];
 	config.toolbarGroups = [
 		{ name: 'document', groups: [ 'mode','Save', 'document', 'doctools' ] },

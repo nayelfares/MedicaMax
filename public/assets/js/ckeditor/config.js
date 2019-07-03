@@ -14,7 +14,9 @@ CKEDITOR.editorConfig = function( config ) {
                 bottom: 'bottom'
               }; 
 	config.keystrokes = [
-    [ CKEDITOR.CTRL + 83, 'save' ]                       // CTRL + S
+    [ CKEDITOR.CTRL + 83, 'save' ] ,                      // CTRL + S
+	[ CKEDITOR.CTRL + 76 , 'indent' ],                    //CTRL + L
+	[CKEDITOR.CTRL + 82, 'outdent' ]                      //CTRL + R
 ];
 	config.toolbarGroups = [
 		{ name: 'document', groups: [ 'mode','Save', 'document', 'doctools' ] },

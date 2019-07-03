@@ -79,16 +79,32 @@ div.none {border-style: none;}
 
 .selected{background-color: red; }
 
-ul{     
-    padding: 0px 0px 0px 0px !important;        
-    margin: 0px 0px 0px 0px !important;     
-    padding-inline-start: 0px;      
-    line-height: 24px;      
-}  
 
-li{     
-    line-height: 24px;      
+    
+    
+    
+
+/*     fixed Table Header*/
+
+thead {
+    border-right: 0px;
+  display: table; /* to take the same width as tr */
+  width: calc(100% - 17px); /* - 17px because of the scrollbar width */
+    text-align: center;
 }
+
+tbody {
+  display: block; /* to enable vertical scrolling */
+  max-height: 200px; /* e.g. */
+  overflow-y: scroll; /* keeps the scrollbar even if it doesn't need it; display purpose */
+}
+
+
+tr {
+  width: 100%;
+}
+
+/* End fexed Table Header*/
 
 </style>
 <link rel="stylesheet" type="text/css" href="{{asset('/assets/font-awesome/fonts/New Fonts.css')}}">
@@ -141,11 +157,6 @@ li{
                             <input type= "text" name="parent__code" data-parsley-trigger="change" class="form-control" id="parent__code" readonly style="height:30px" placeholder="Code">
                             <input type= "text" name="term_id" id="term_id">
                             <input type="text" name="code" data-parsley-trigger="change" class="form-control" id="code"  style="height:30px" placeholder="Code">
-
-                             <input type= "text" name="style 1" id="style1" placeholder="Style 1" style="width:95px;">
-                            <input type= "text" name="style 2" id="style2" placeholder="Style 2" style="width:95px;"> 
-                            <input type= "text" name="style 3" id="style3" placeholder="Style 3" style="width:95px;"> 
-                            <input type= "text" name="style 4" id="style4" placeholder="Style 4" style="width:95px;">
                         </div>
                         <div class="col-md-5 mb-0 col-sm-0" style="padding: 0.0px;">
                              
@@ -247,8 +258,8 @@ li{
                 </div>
                 <div >
                     <hr style="float:left;border-style: inset; border-width: 2px;margin-right: 10px; margin-top: 0.0em;margin-bottom:0.0em; width:925px;padding-bottom: 0.0px;">
-                    <div style="display:block;float:left;overflow:auto;height:195px;width:1000px;text-align: left;margin-left:15px; ">
-                        <div class="table-responsive">
+                    <div style="display:block;float:left;overflow:hidden;height:195px;width:1000px;text-align: left;margin-left:15px; ">
+                        <div class="table-responsive" >
                             <table id="example" class="table table-bordered" style="width:1000%;">
                             </table>
                         </div>
@@ -731,7 +742,7 @@ $.ajax({
                     $("#example").empty();
                     if(res){
                         result_search =  JSON.parse(res);
-                        $("#example").append("<thead><tr style='font-weight:bold'><td>No </td><td>id </td><td>ParentCode/Code</td><td>English Term("+result_search[0].count+")</td><td>Arabic Term</td></tr></thead><tbody>")
+                        $("#example").append("<thead border='0' ><tr style='font-weight:bold'><th width='55.5'>No </th><th width='51'>id </th><th width='79.5'>P/Code</th><th width='489'>English Term("+result_search[0].count+")</th><th width='265.5'>Arabic Term</th></tr></thead><tbody style='  text-align: center;'>")
                         
                         result_search[0].tree.forEach(function(item){
                             $("#example").append("<tr onclick='clickOnRow("+item.id+");selectedRow();' style='background-color:"+item.background_color+";color:"+item.text_color+";text-decoration:"+item.under_line+";font-weight: "+item.bold+";font-style: "+item.italic+"'><td>"+counter+"/"+result_search[0].count+"</td><td>"+item.id+"</td><td>"+item.parent_code+" / "+item.code+"</td><td dir='ltr' >"+item.en_term+"</td><td dir='rtl' style='text-align:right'>"+item.ar_term+"</td></tr>");
@@ -1138,7 +1149,7 @@ $.ajax({
     
   CKEDITOR.config.uiColor = '#cae8ca';   
           CKEDITOR.replace('ar_term', {
-                  height: 165,
+                  height: 200,
                   contentsLangDirection : 'rtl',
                   on: {
                             save: function(evt)
@@ -1148,7 +1159,7 @@ $.ajax({
            }
           });
         CKEDITOR.replace('en_term', {
-              height: 165,
+              height: 200,
               on: {
                         save: function(evt)
                         {
@@ -1157,7 +1168,7 @@ $.ajax({
        }
       });
         CKEDITOR.replace('ar_note', {
-              height: 150,
+              height: 140,
               contentsLangDirection : 'rtl',
               on: {
                         save: function(evt)
@@ -1167,7 +1178,7 @@ $.ajax({
        }
       });
         CKEDITOR.replace('en_note', {
-              height: 150,
+              height: 140,
               on: {
                         save: function(evt)
                         {
@@ -1175,6 +1186,8 @@ $.ajax({
                         }
        }
       }); 
+
+    
 
     
 </script>

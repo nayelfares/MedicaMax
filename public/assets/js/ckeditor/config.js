@@ -3,9 +3,11 @@ CKEDITOR.editorConfig = function( config ) {
 	// Define changes to default configuration here. For example:
 	// config.language = 'fr';
 	// config.uiColor = '#AADC6E';
+              config.contentsCss = './assets/js/ckeditor/CustomFonts/fonts.css';
+              //config.font_names =  'ArefRuqaa-Regular; ArefRuqaa-Regular;'+config.font_names;
               config.extraPlugins = 'sharedspace,lineheight,video,youtube,allowsave,deletenewline';
               config.removePlugins = 'resize';
-              config.height = 140
+              config.height = 140;
 			 // config.htmlEncodeOutput =false;
 			//  config.entries=false;
               config.enterMode = CKEDITOR.ENTER_BR;
@@ -14,12 +16,12 @@ CKEDITOR.editorConfig = function( config ) {
                 bottom: 'bottom'
               }; 
 	config.keystrokes = [
-    [ CKEDITOR.CTRL + 83, 'save' ] ,                      // CTRL + S
-	[ CKEDITOR.CTRL + 76 , 'indent' ],                    //CTRL + L
-	[CKEDITOR.CTRL + 82, 'outdent' ]                      //CTRL + R
-];
+	    [ CKEDITOR.CTRL + 83, 'save' ] ,                      // CTRL + S
+		[ CKEDITOR.CTRL + 76 , 'indent' ],                    //CTRL + L
+		[CKEDITOR.CTRL + 82, 'outdent' ]                      //CTRL + R
+	];
 	config.toolbarGroups = [
-		{ name: 'document', groups: [ 'mode','Save', 'document', 'doctools' ] },
+		{ name: 'document', groups: [ 'mode', 'Save', 'document', 'doctools' ] },
 		{ name: 'clipboard', groups: [ 'clipboard', 'undo' ] },
 		{ name: 'editing', groups: [ 'find', 'selection', 'spellchecker', 'editing' ] },
 		{ name: 'forms', groups: [ 'forms' ] },

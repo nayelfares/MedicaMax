@@ -53,7 +53,7 @@ class DifferentialDiagnosisController extends Controller
         $tree = [];
         foreach ($dif_dias as $dif_dia) {
             $code_width = 60;
-            $ar_width = 300 - 12 * $dif_dia->level ;
+            $ar_width = 475 - 12 * $dif_dia->level ;
             $en_width = 475 - 12 * $dif_dia->level ;
             $type = 'b';
             $tree[] = [
@@ -118,7 +118,7 @@ class DifferentialDiagnosisController extends Controller
             $dif_dia = DifferentialDiagnosis::find( $request->id);
             
             $code_width = 60;
-            $ar_width = 300 - 12 * $dif_dia->level ;
+            $ar_width = 475 - 12 * $dif_dia->level ;
             $en_width = 475 - 12 * $dif_dia->level ;
              
             $type = 'b';
@@ -274,7 +274,7 @@ class DifferentialDiagnosisController extends Controller
             ])->id;
 
             $code_width = 60;
-            $ar_width = 300 - 12 * $level ;
+            $ar_width = 475 - 12 * $level ;
             $en_width = 475 - 12 * $level ;
             $type = 'b';
 
@@ -397,7 +397,7 @@ class DifferentialDiagnosisController extends Controller
             DB::table('differential_diagnoses')->where('id',$request->id)->update($input);
             
             $code_width = 60;
-            $ar_width = 300 - 12 * $level ;
+            $ar_width = 475 - 12 * $level ;
             $en_width = 475 - 12 * $level ;
             $node = [];
             $node [] = [

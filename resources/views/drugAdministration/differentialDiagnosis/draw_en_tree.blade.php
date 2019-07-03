@@ -17,7 +17,7 @@ div.sticky {
   z-index: 3; 
 }
 label {
-  white-space: nowrap;
+  white-space: wrap;
 }
 div.fixedpar {
   /*position: fixed;  
@@ -254,12 +254,18 @@ tr {
             <div class="col-md-24 mb-0 col-sm-0">
                 <!-- Tree  -->
                 <hr class="fixedpar" style="float:left;border-style: inset; border-width: 0.8px;margin-top: 0.0em;margin-bottom: 0.0em; width:1425px;padding-bottom: 0.0px">
-                <div  id="container"  style="margin-left:15px;display:block;overflow:auto;height:425px;width:1000px;">
+                <div  id="container"  style="margin-left:15px;display:block;overflow:auto;height:425px;width:1010px;">
                 </div>
                 <div >
+<<<<<<< HEAD
                     <hr style="float:left;border-style: inset; border-width: 2px;margin-right: 10px; margin-top: 0.0em;margin-bottom:0.0em; width:925px;padding-bottom: 0.0px;">
                     <div style="display:block;float:left;overflow:hidden;height:195px;width:1000px;text-align: left;margin-left:15px; ">
                         <div class="table-responsive" >
+=======
+                    <hr style="float:left;border-style: inset; border-width: 2px;margin-right: 10px; margin-top: 0.0em;margin-bottom:0.0em; width:1010px;padding-bottom: 0.0px;">
+                    <div style="display:block;float:left;overflow:auto;height:195px;width:1010px;text-align: left;margin-left:15px; ">
+                        <div class="table-responsive">
+>>>>>>> 8efca44b39b2d7b32e863f6ef63487d2c53c861d
                             <table id="example" class="table table-bordered" style="width:1000%;">
                             </table>
                         </div>

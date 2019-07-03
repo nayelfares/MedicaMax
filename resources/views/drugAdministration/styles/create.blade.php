@@ -1,7 +1,8 @@
 @extends('drugAdministration.styles.base')
 
 @section('action-content')
-<script <script src={{asset("/js/alaa/jquery.js")}}></script>
+<script src="{{asset('/js/alaa/jquery.js')}}"></script>
+<link rel="stylesheet" type="text/css" href="{{asset('/assets/font-awesome/fonts/New Fonts.css')}}">
         <!-- BEGIN CSS for this page -->
         <style>
         .parsley-error {
@@ -132,12 +133,18 @@
                             
                         </select>
                     </div>
-                    <div class="form-group col-md-4 control-label"">
-                        <label class="col-md-4 control-label" for="font_family">Status</label>
+                    <div class="form-group col-md-4 control-label">
+                        <label class="col-md-4 control-label" for="font_family">Font Family</label>
                         <select class="form-control" name="style_font_family">
                             <option></option>
-                            
-                            <option value="{$stat->id}">{$stat->en_name}</option>
+                            <option value="ArefRuqaa-Regular" style="font-family: ArefRuqaa-Regular;font-size:18px">ArefRuqaa</option>
+                            <option value="arial" style="font-family: arial;font-size:18px">Arial</option>
+                            <option value="Cairo-Regular" style="font-family: Cairo-Regular;font-size:18px">Cairo</option>
+                            <option value="Changa-Regular" style="font-family: Changa-Regular;font-size:18px">Changa</option>
+                            <option value="CrimsonText-Regular" style="font-family: CrimsonText-Regular;font-size:18px">CrimsonText</option>
+                            <option value="EBGaramond-Regular" style="font-family: EBGaramond-Regular;font-size:18px">EBGaramond</option>
+                            <option value="Tajawal-Regular" style="font-family: Tajawal-Regular;font-size:18px">Tajawal</option>
+                            <option value="timesnewroman" style="font-family: timesnewroman;font-size:18px">Times New Roman</option>
                             
                         </select>
                     </div>

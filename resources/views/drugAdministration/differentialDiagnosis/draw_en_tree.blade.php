@@ -17,7 +17,7 @@ div.sticky {
   z-index: 3; 
 }
 label {
-  white-space: wrap;
+  white-space: nowrap;
 }
 div.fixedpar {
   /*position: fixed;  
@@ -86,21 +86,21 @@ div.none {border-style: none;}
 
 /*     fixed Table Header*/
 
-thead {
+#example > thead {
     border-right: 0px;
-  display: table; /* to take the same width as tr */
-  width: calc(100% - 17px); /* - 17px because of the scrollbar width */
+  display: table;
+  width: calc(100% - 17px); 
     text-align: center;
 }
 
-tbody {
-  display: block; /* to enable vertical scrolling */
-  max-height: 200px; /* e.g. */
-  overflow-y: scroll; /* keeps the scrollbar even if it doesn't need it; display purpose */
+#example > tbody {
+  display: block; 
+  max-height: 200px; 
+  overflow-y: scroll; 
 }
 
 
-tr {
+ #example > tbody >tr {
   width: 100%;
 }
 
@@ -209,7 +209,7 @@ tr {
                             <textarea id="en_note" name="en_note" > </textarea>
                         </div>
                         <div class="col-md-6 mb-0 col-sm-0" style="padding-left: 0.0px;margin-top: 0.0em;margin-bottom: 0.0em;text-align:right;">
-                            <textarea id="ar_note" name="ar_note"  > </textarea>
+                            <textarea id="ar_note" name="ar_note" style='overflow-y: scroll;overflow-x: scroll;' > </textarea>
                         </div>
                     </div>
                 </div>
@@ -254,18 +254,12 @@ tr {
             <div class="col-md-24 mb-0 col-sm-0">
                 <!-- Tree  -->
                 <hr class="fixedpar" style="float:left;border-style: inset; border-width: 0.8px;margin-top: 0.0em;margin-bottom: 0.0em; width:1425px;padding-bottom: 0.0px">
-                <div  id="container"  style="margin-left:15px;display:block;overflow:auto;height:425px;width:1010px;">
+                <div  id="container"  style="margin-left:15px;display:block;overflow:auto;height:425px;width:1000px;">
                 </div>
                 <div >
-<<<<<<< HEAD
                     <hr style="float:left;border-style: inset; border-width: 2px;margin-right: 10px; margin-top: 0.0em;margin-bottom:0.0em; width:925px;padding-bottom: 0.0px;">
                     <div style="display:block;float:left;overflow:hidden;height:195px;width:1000px;text-align: left;margin-left:15px; ">
                         <div class="table-responsive" >
-=======
-                    <hr style="float:left;border-style: inset; border-width: 2px;margin-right: 10px; margin-top: 0.0em;margin-bottom:0.0em; width:1010px;padding-bottom: 0.0px;">
-                    <div style="display:block;float:left;overflow:auto;height:195px;width:1010px;text-align: left;margin-left:15px; ">
-                        <div class="table-responsive">
->>>>>>> 8efca44b39b2d7b32e863f6ef63487d2c53c861d
                             <table id="example" class="table table-bordered" style="width:1000%;">
                             </table>
                         </div>
@@ -631,11 +625,11 @@ $.ajax({
                                 $('#parent_code').append('<option value="'+key+'">'+value+'</option>');
                             });  
                             //initialize summernote
-                            CKEDITOR.instances['en_term'].setData(node.en_term);
-                            CKEDITOR.instances['ar_term'].setData(node.ar_term);
+                            CKEDITOR.instances['en_term'].setData('<big>'+node.en_term +'</big>');
+                            CKEDITOR.instances['ar_term'].setData('<big>'+node.ar_term +'</big>');
                             
-                            CKEDITOR.instances['en_note'].setData(node.en_note);
-                            CKEDITOR.instances['ar_note'].setData(node.ar_note);
+                            CKEDITOR.instances['en_note'].setData(node.en_note );
+                            CKEDITOR.instances['ar_note'].setData(node.ar_note );
                             
                             var searchResult = $("#container").jstree('search', id);
                             $(searchResult).find('.jstree-search').focus();
@@ -701,10 +695,10 @@ $.ajax({
                                 $('#parent_code').append('<option value="'+node.parent_code+'">'+node.parent_code+'</option>');
                                 $('#parent_code').append(all_parents_code);
                                 //initialize summernote
-                                CKEDITOR.instances['en_term'].setData(node.en_term);
-                                CKEDITOR.instances['ar_term'].setData(node.ar_term);
-                                CKEDITOR.instances['en_note'].setData(node.en_note);
-                                CKEDITOR.instances['ar_note'].setData(node.ar_note);
+                                CKEDITOR.instances['en_term'].setData('<big>' + node.en_term +'</big>');
+                                CKEDITOR.instances['ar_term'].setData('<big>' + node.ar_term +'</big>');
+                                CKEDITOR.instances['en_note'].setData( node.en_note );
+                                CKEDITOR.instances['ar_note'].setData( node.ar_note );
                     }
                 });
             }
@@ -1125,7 +1119,18 @@ $.ajax({
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
-
+/***************************************************
+      Remove <big> Tag Function      
+**************************************************/
+    function removeBig(txt){
+        var con=txt.search("<big>");
+			while (con > -1) {
+                 txt=txt.replace('<big>','');
+                 txt=txt.replace('</big>','');
+				 con=txt.search("<big>");
+			}
+        return txt;
+    }
     /***********************************************************
             Saving Function
     ***********************************************************/
@@ -1134,20 +1139,23 @@ $.ajax({
         var code = document.getElementById('code').value;
         var parent_code = document.getElementById('parent_code').value;
         var en_term = CKEDITOR.instances['en_term'].getData();
+            en_term = removeBig(en_term);
         var ar_term = CKEDITOR.instances['ar_term'].getData();
+            ar_term = removeBig(ar_term);
         var en_note;
         var myInput = CKEDITOR.instances['en_note'].getData();
         if(myInput)
             en_note = CKEDITOR.instances['en_note'].getData();
         else
             en_note=" ";
+        en_note = removeBig(en_note);
         var ar_note;
         var myInput = CKEDITOR.instances['ar_note'].getData();
         if(myInput)
             ar_note = CKEDITOR.instances['ar_note'].getData();
         else
             ar_note = " ";
-        save_auto(my_id,compare,code,parent_code,en_term,ar_term,en_note,ar_note,bold,italic,color_text,color_background,under_line,ar_size,en_size,copy_style);
+        ar_note = removeBig(ar_note); save_auto(my_id,compare,code,parent_code,en_term,ar_term,en_note,ar_note,bold,italic,color_text,color_background,under_line,ar_size,en_size,copy_style);
         return false;
                         
     }
@@ -1155,7 +1163,7 @@ $.ajax({
     
   CKEDITOR.config.uiColor = '#cae8ca';   
           CKEDITOR.replace('ar_term', {
-                  height: 200,
+                  height: 190,
                   contentsLangDirection : 'rtl',
                   on: {
                             save: function(evt)
@@ -1165,7 +1173,7 @@ $.ajax({
            }
           });
         CKEDITOR.replace('en_term', {
-              height: 200,
+              height: 190,
               on: {
                         save: function(evt)
                         {
@@ -1174,7 +1182,7 @@ $.ajax({
        }
       });
         CKEDITOR.replace('ar_note', {
-              height: 140,
+              height: 125,
               contentsLangDirection : 'rtl',
               on: {
                         save: function(evt)
@@ -1184,7 +1192,7 @@ $.ajax({
        }
       });
         CKEDITOR.replace('en_note', {
-              height: 140,
+              height: 125,
               on: {
                         save: function(evt)
                         {

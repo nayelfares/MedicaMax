@@ -211,9 +211,7 @@ class TagController extends Controller
     //replace code with tage
     
         public function replace_code_with_tag($text)
-        {
-            
-            //$text = $request->text;
+        {           
             
             while(strpos($text, '**') !== false)
             {
@@ -222,15 +220,20 @@ class TagController extends Controller
                 $code = substr($text,$pos+2,3);
                 if(substr($text,$pos+5,2) == '**')
                 {
-                    $tag = DB::table('tags')->where('code','=',$code)->first();
-                   
-                    $tag_text = $tag->tag_text;
-                    $tag_text = "<span style='background-color:".$tag->background_color."'>".$tag_text."</span>";//background_color
-                    $tag_text = $tag->italic == "1" ? "<em>".$tag_text."</em>" :  $tag_text; //italic
-                    $tag_text = $tag->under_line == "1" ? "<u>".$tag_text."</u>" :  $tag_text; //under line
-                    $tag_text = $tag->sub_text == "1" ? "<sub>".$tag_text."</sub>" :  $tag_text; //
-                    $tag_text = $tag->sup_text == "1" ? "<sup>".$tag_text."</sup>" :  $tag_text; //italic
-                    $tag_text = "<span style='color:".$tag->text_color."'>".$tag_text."</span>";//
+                    $tag = DB::table('tags')->where('tag_code','=',$code)->first();
+
+                    $tag_text = "<span style='
+                    background-color:".$tag->tag_background_color.";
+                    color:".$tag->tag_text_color.";
+                    font-size:".$tag->tag_font_size.";
+                    font-family:".$tag->tag_font_family.";
+                    font-weight:".$tag->tag_bold.";
+                    font-style:".$tag->tag_italic.";
+                    border:".$tag->tag_border.";
+                    text-decoration:".$tag->tag_under_line.";'>".$tag->tag_text."</span>";
+
+                    $tag_text = $tag->tag_sub == "1" ? "<sub>".$tag_text."</sub>" :  $tag_text; 
+                    $tag_text = $tag->tag_sup == "1" ? "<sup>".$tag_text."</sup>" :  $tag_text; 
 
                     $text = str_replace("**".$code."**", $tag_text , $text);
                 }

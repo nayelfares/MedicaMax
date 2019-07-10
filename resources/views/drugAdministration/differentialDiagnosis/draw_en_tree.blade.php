@@ -138,6 +138,8 @@ div.none {border-style: none;}
 <!-- choice -->
   <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
   <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+<script src="https://code.responsivevoice.org/responsivevoice.js"></script>
+
 
 </head>
 <body>
@@ -1134,7 +1136,8 @@ $.ajax({
     /***********************************************************
             Saving Function
     ***********************************************************/
-    function saveFunction(){                         
+    function saveFunction(){          
+        
         var my_id = document.getElementById('term_id').value;
         var code = document.getElementById('code').value;
         var parent_code = document.getElementById('parent_code').value;

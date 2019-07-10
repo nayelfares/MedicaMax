@@ -3,7 +3,7 @@ CKEDITOR.editorConfig = function( config ) {
 	// Define changes to default configuration here. For example:
 	// config.language = 'fr';
 	// config.uiColor = '#AADC6E';
-              config.extraPlugins = 'sharedspace,lineheight,video,youtube,allowsave,deletenewline,link,max,min';
+              config.extraPlugins = 'sharedspace,lineheight,video,youtube,allowsave,deletenewline,link,max,min,t2s';
               config.removePlugins = 'resize';
               config.height = 140
 			 // config.htmlEncodeOutput =false;
@@ -19,7 +19,8 @@ CKEDITOR.editorConfig = function( config ) {
 	[CKEDITOR.CTRL + 82, 'outdent' ],                      //CTRL + R
 	[CKEDITOR.CTRL + 68, 'deletenewline' ],               //CTRL + D
 	[CKEDITOR.CTRL + 50, 'max' ],
-	[CKEDITOR.CTRL + 51, 'min' ]
+	[CKEDITOR.CTRL + 51, 'min' ],
+	[ CKEDITOR.CTRL + 49, 't2s' ]
 ];
 	config.toolbarGroups = [
 		{ name: 'document', groups: [ 'mode','Save', 'document', 'doctools' ] },

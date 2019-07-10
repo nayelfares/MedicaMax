@@ -10,7 +10,6 @@
                  text=text.replace('<br />',' ');
 				 con=text.search("<br />");
 			}
-			
 			editor.setData(text);
         }
     },

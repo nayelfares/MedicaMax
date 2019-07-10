@@ -253,7 +253,10 @@ Route::post('dif_diaimport','DifferentialDiagnosisController@dif_diasImport')->n
 *   Tags 
 *
 **********************/
-Route::resource('drug-administration/tag','MedicaMaxTagController');
+Route::resource('drug-administration/tag','TagController');
+Route::get('get_tags','TagController@get_tags')->name('tag.get_tags');
+Route::get('get_details_tag','TagController@get_details')->name('tag.get_details');
+Route::get('save_tag','TagController@save_tag')->name('tag.save_tag');
 /*********************
 * 
 *   Style 
@@ -261,6 +264,8 @@ Route::resource('drug-administration/tag','MedicaMaxTagController');
 **********************/
 Route::resource('drug-administration/style','StyleController');
 Route::get('get_styles','StyleController@get_styles')->name('style.get_styles');
+Route::get('get_details_style','StyleController@get_details')->name('style.get_details');
+Route::get('save_style','StyleController@save_style')->name('style.save_style');
 
 
 ///////////////////////////////USER   MANAGEMENT///////////////////////////////////////////////////////////////

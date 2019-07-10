@@ -1,0 +1,13 @@
+/* font converted using font-converter.net. thank you! */
+@font-face {
+  font-family: "AlHurraTxtBold";
+  src: url("./fonts/AlHurra.eot"); /* IE9 Compat Modes */
+  src: url("./fonts/AlHurra.eot?#iefix") format("embedded-opentype"), /* IE6-IE8 */
+    url("./fonts/AlHurra.otf") format("opentype"), /* Open Type Font */
+    url("./fonts/AlHurra.svg") format("svg"), /* Legacy iOS */
+    url("./fonts/AlHurra.ttf") format("truetype"), /* Safari, Android, iOS */
+    url("./fonts/AlHurra.woff") format("woff"), /* Modern Browsers */
+    url("./fonts/AlHurra.woff2") format("woff2"); /* Modern Browsers */
+  font-weight: normal;
+  font-style: normal;
+}

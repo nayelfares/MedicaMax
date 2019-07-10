@@ -103,3 +103,54 @@
   font-style: normal;
 }
 
+@font-face {
+  font-family: "Air";
+  src: url("./Air/Air.eot"); /* IE9 Compat Modes */
+  src: url("./Air/Air.eot?#iefix") format("embedded-opentype"), /* IE6-IE8 */
+    url("./Air/Air.otf") format("opentype"), /* Open Type Font */
+    url("./Air/Air.svg") format("svg"), /* Legacy iOS */
+    url("./Air/Air.ttf") format("truetype"), /* Safari, Android, iOS */
+    url("./Air/Air.woff") format("woff"), /* Modern Browsers */
+    url("./Air/Air.woff2") format("woff2"); /* Modern Browsers */
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "AlHurra";
+  src: url("./AlHurra/AlHurra.eot"); /* IE9 Compat Modes */
+  src: url("./AlHurra/AlHurra.eot?#iefix") format("embedded-opentype"), /* IE6-IE8 */
+    url("./AlHurra/AlHurra.otf") format("opentype"), /* Open Type Font */
+    url("./AlHurra/AlHurra.svg") format("svg"), /* Legacy iOS */
+    url("./AlHurra/AlHurra.ttf") format("truetype"), /* Safari, Android, iOS */
+    url("./AlHurra/AlHurra.woff") format("woff"), /* Modern Browsers */
+    url("./AlHurra/AlHurra.woff2") format("woff2"); /* Modern Browsers */
+  font-weight: normal;
+  font-style: normal;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

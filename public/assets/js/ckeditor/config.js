@@ -3,6 +3,9 @@ CKEDITOR.editorConfig = function( config ) {
 	// Define changes to default configuration here. For example:
 	// config.language = 'fr';
 	// config.uiColor = '#AADC6E';
+				config.contentsCss = './assets/js/ckeditor/CustomFonts/fonts.css';
+              //config.font_names =  'ArefRuqaa-Regular; ArefRuqaa-Regular;'+config.font_names;
+              
               config.extraPlugins = 'sharedspace,lineheight,video,youtube,allowsave,deletenewline,link,max,min,t2s';
               config.removePlugins = 'resize';
               config.height = 140

@@ -12,7 +12,8 @@ use App\Status;
 use Maatwebsite\Excel\Facades\Excel; 
 use App\Imports\DifferentialDiagnosisImport;
 use Log; 
-use App\Http\Controllers\MedicaMaxTagController;
+use App\Http\Controllers\TagController;
+use App\Http\Controllers\StyleController;
 class DifferentialDiagnosisController extends Controller
 {
     
@@ -211,7 +212,8 @@ class DifferentialDiagnosisController extends Controller
     {
 
         
-        $tag_controller = new MedicaMaxTagController();
+        $tag_controller = new TagController();
+        $style_controller = new StyleController();
 
         //note
         $en_note = $tag_controller->replace_code_with_tag($request->en_note);
@@ -219,7 +221,11 @@ class DifferentialDiagnosisController extends Controller
         //term    
         $en_term = $tag_controller->replace_code_with_tag($request->en_term);
         $ar_term = $tag_controller->replace_code_with_tag($request->ar_term);
-//$en_term=  str_replace("<br />","",$request->en_term); 
+
+        /*$en_term = $style_controller->replace_to_style($request->en_term);
+        $ar_term = $style_controller->replace_to_style($request->ar_term);*/
+        //$en_term=  str_replace("two","#f0f3b8",$en_term);
+        //$ar_term=  str_replace("two","#f0f3b8",$ar_term); 
       
         if(is_null($request->id))
         {

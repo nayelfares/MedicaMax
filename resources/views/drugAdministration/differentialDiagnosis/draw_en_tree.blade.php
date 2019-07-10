@@ -17,7 +17,7 @@ div.sticky {
   z-index: 3; 
 }
 label {
-  white-space: nowrap;
+  white-space: wrap;
 }
 div.fixedpar {
   /*position: fixed;  
@@ -79,32 +79,23 @@ div.none {border-style: none;}
 
 .selected{background-color: red; }
 
-
-    
-    
-    
-
 /*     fixed Table Header*/
-
 #example > thead {
     border-right: 0px;
   display: table;
   width: calc(100% - 17px); 
     text-align: center;
 }
-
 #example > tbody {
   display: block; 
   max-height: 200px; 
   overflow-y: scroll; 
 }
-
-
  #example > tbody >tr {
   width: 100%;
 }
-
 /* End fexed Table Header*/
+
 
 </style>
 <link rel="stylesheet" type="text/css" href="{{asset('/assets/font-awesome/fonts/New Fonts.css')}}">
@@ -138,9 +129,8 @@ div.none {border-style: none;}
 <!-- choice -->
   <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
   <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
-<script src="https://code.responsivevoice.org/responsivevoice.js"></script>
 
-
+  <script src="https://code.responsivevoice.org/responsivevoice.js"></script>
 </head>
 <body>
 
@@ -256,7 +246,7 @@ div.none {border-style: none;}
             <div class="col-md-24 mb-0 col-sm-0">
                 <!-- Tree  -->
                 <hr class="fixedpar" style="float:left;border-style: inset; border-width: 0.8px;margin-top: 0.0em;margin-bottom: 0.0em; width:1425px;padding-bottom: 0.0px">
-                <div  id="container"  style="margin-left:15px;display:block;overflow:auto;height:425px;width:1000px;">
+                <div  id="container"  style="margin-left:15px;display:block;overflow:auto;height:425px;width:1010px;">
                 </div>
                 <div >
                     <hr style="float:left;border-style: inset; border-width: 2px;margin-right: 10px; margin-top: 0.0em;margin-bottom:0.0em; width:925px;padding-bottom: 0.0px;">
@@ -285,18 +275,14 @@ $.ajax({
             styles.forEach(function(item){
                 
                my_obj=
-               { name: item.style_name, element: 'span',styles: { 'color': ''+item.style_text_color+'' ,'background':''+item.style_background_color+'','font-size': ''+item.style_font_size+'','font-family': ''+item.style_font_family+'', 'font-width': ''+item.style_bold+'' }}
-               ;
+               { name: item.style_name, element:'span',styles: { 'color': ''+item.style_text_color+'' ,'font-size': ''+item.style_font_size+'','font-family': ''+item.style_font_family+'', 'font-weight': ''+item.style_bold+'' ,'background-color': ''+item.style_background_color+'','font-style':''+item.style_italic+'','border': ''+item.style_border+'','text-decoration': ''+item.style_under_line+'',}}               ;
                console.log(my_obj)
                mm.push(my_obj);
             });
-
         }
         });
 
-    CKEDITOR.stylesSet.add('default', mm);
-
-    
+   CKEDITOR.stylesSet.add('default', mm);    
 })
 </script>
 
@@ -374,7 +360,7 @@ $.ajax({
             /*for open all child node when click on node*/
             selected_node = [data.selected[0]];       
             /**/
-
+            console.log("one");
             if(id != null && save_auto_choice == true){
                 var my_id = document.getElementById('term_id').value;
                 var code = document.getElementById('code').value;
@@ -399,6 +385,7 @@ $.ajax({
             if(id != null )
             {
                 fill_field(compare , id);
+                console.log("10");
                 if(copy_style == true)
                 {
                     
@@ -440,9 +427,7 @@ $.ajax({
         });
         //save  
         $('#save_create').click(function(){
-
             saveFunction();
-
         });
 
                
@@ -524,7 +509,9 @@ $.ajax({
             });
 
             $('#next_node').click(function(){
+                console.log("four");
                 next_open_node();
+                console.log("five");
             });
 
             
@@ -630,8 +617,8 @@ $.ajax({
                             CKEDITOR.instances['en_term'].setData('<big>'+node.en_term +'</big>');
                             CKEDITOR.instances['ar_term'].setData('<big>'+node.ar_term +'</big>');
                             
-                            CKEDITOR.instances['en_note'].setData(node.en_note );
-                            CKEDITOR.instances['ar_note'].setData(node.ar_note );
+                            CKEDITOR.instances['en_note'].setData(node.en_note);
+                            CKEDITOR.instances['ar_note'].setData(node.ar_note);
                             
                             var searchResult = $("#container").jstree('search', id);
                             $(searchResult).find('.jstree-search').focus();
@@ -676,6 +663,7 @@ $.ajax({
 
 
         function fill_field(compare , id){
+        console.log("siven");
         if(id != null){
             if(compare == 1)
             {
@@ -699,8 +687,8 @@ $.ajax({
                                 //initialize summernote
                                 CKEDITOR.instances['en_term'].setData('<big>' + node.en_term +'</big>');
                                 CKEDITOR.instances['ar_term'].setData('<big>' + node.ar_term +'</big>');
-                                CKEDITOR.instances['en_note'].setData( node.en_note );
-                                CKEDITOR.instances['ar_note'].setData( node.ar_note );
+                                CKEDITOR.instances['en_note'].setData(node.en_note);
+                                CKEDITOR.instances['ar_note'].setData(node.ar_note);
                     }
                 });
             }
@@ -761,6 +749,14 @@ $.ajax({
                 parent_id = my_id;
                 my_id = null;
             }
+            //ar_term=super_script(ar_term);
+            //en_term=super_script(en_term);
+            /*ar_term = ar_term.replace('&ndash;', '"');
+            ar_term = ar_term.replace('&lsquo;', '"');
+            ar_term = ar_term.replace('&rsquo;', '"');
+            */
+            /*en_term = en_term.replace('<br />', '');
+            ar_term = ar_term.replace('<br />', '');*/
             console.log(ar_term);
             console.log(en_term);
             $.ajax({
@@ -1121,30 +1117,30 @@ $.ajax({
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
-/***************************************************
-      Remove <big> Tag Function      
-**************************************************/
-    function removeBig(txt){
-        var con=txt.search("<big>");
-			while (con > -1) {
-                 txt=txt.replace('<big>','');
-                 txt=txt.replace('</big>','');
-				 con=txt.search("<big>");
-			}
-        return txt;
+/***************************************************    
+      Remove <big> Tag Function         
+**************************************************/   
+    function removeBig(txt){    
+        var con=txt.search("<big>");    
+      while (con > -1) {    
+                 txt=txt.replace('<big>','');   
+                 txt=txt.replace('</big>','');    
+         con=txt.search("<big>");   
+      }   
+        return txt;   
     }
+
     /***********************************************************
             Saving Function
     ***********************************************************/
-    function saveFunction(){          
-        
+    function saveFunction(){                         
         var my_id = document.getElementById('term_id').value;
         var code = document.getElementById('code').value;
         var parent_code = document.getElementById('parent_code').value;
         var en_term = CKEDITOR.instances['en_term'].getData();
-            en_term = removeBig(en_term);
+        en_term = removeBig(en_term);
         var ar_term = CKEDITOR.instances['ar_term'].getData();
-            ar_term = removeBig(ar_term);
+        ar_term = removeBig(ar_term);
         var en_note;
         var myInput = CKEDITOR.instances['en_note'].getData();
         if(myInput)
@@ -1158,7 +1154,8 @@ $.ajax({
             ar_note = CKEDITOR.instances['ar_note'].getData();
         else
             ar_note = " ";
-        ar_note = removeBig(ar_note); save_auto(my_id,compare,code,parent_code,en_term,ar_term,en_note,ar_note,bold,italic,color_text,color_background,under_line,ar_size,en_size,copy_style);
+        ar_note = removeBig(ar_note); 
+        save_auto(my_id,compare,code,parent_code,en_term,ar_term,en_note,ar_note,bold,italic,color_text,color_background,under_line,ar_size,en_size,copy_style);
         return false;
                         
     }
@@ -1203,8 +1200,6 @@ $.ajax({
                         }
        }
       }); 
-
-    
 
     
 </script>

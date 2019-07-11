@@ -18,9 +18,9 @@ class StyleController extends Controller
      * @return void
      */
     public function __construct(){
-    	$this->middleware('auth');
-	}
-	
+        $this->middleware('auth');
+    }
+    
     /**
      * Display a listing of the resource.
      *
@@ -54,34 +54,30 @@ class StyleController extends Controller
      */
     public function store(Request $request)
     {
-  		//dd($request);
+        
         $this->validateInput($request);
 
          $input = [
             'style_name' => $request['style_name'],
             'style_text_color' => $request['style_text_color'],
-            'style_background_color' => $request['style_background_color']
+            'style_background_color' => $request['style_background_color'],
+            'style_border_color' => $request['style_border_color']
         ];
         if($request['style_bold'] !== null)
-        	$input['style_bold'] = $request['style_bold'];
+            $input['style_bold'] = $request['style_bold'];
         if($request['style_italic'] !== null)
-        	$input['style_italic'] = $request['style_italic'];
+            $input['style_italic'] = $request['style_italic'];
         if($request['style_under_line'] !== null)
-        	$input['style_under_line'] = $request['style_under_line'];
+            $input['style_under_line'] = $request['style_under_line'];
         if($request['style_border'] !== null)
-        	$input['style_border'] = $request['style_border'];
+            $input['style_border'] = $request['style_border'];
         if($request['style_font_family'] !== null)
-        	$input['style_font_family'] = $request['style_font_family'];
+            $input['style_font_family'] = $request['style_font_family'];
         if($request['style_font_size'] !== null)
-        	$input['style_font_size'] = $request['style_font_size'];
-      	//dd($input);
-		Style::create($input);
+            $input['style_font_size'] = $request['style_font_size'];
+        //dd($input);
+        Style::create($input);
 
-
-
-
-
-        return redirect()->intended('/drug-administration/style');
     }
 
     
@@ -114,23 +110,29 @@ class StyleController extends Controller
         $style = Style::findOrFail($id);
         $input = [
             'style_name' => $request['style_name'],
-            'text_color' => $request['text_color'],
-            'background_color' => $request['background_color'],
-            'italic' => $request['italic'],
-            'under_line' => $request['under_line'],
-            'bold' => $request['bold'],
-            'border' => $request['border'],
-            'font_family' => $request['font_family'],
-            'font_size' => $request['font_size'],
+            'style_text_color' => $request['style_text_color'],
+            'style_background_color' => $request['style_background_color'],
+            'style_border_color' => $request['style_border_color'],
         ];
+        if($request['style_bold'] !== null)
+            $input['style_bold'] = $request['style_bold'];
+        if($request['style_italic'] !== null)
+            $input['style_italic'] = $request['style_italic'];
+        if($request['style_under_line'] !== null)
+            $input['style_under_line'] = $request['style_under_line'];
+        if($request['style_border'] !== null)
+            $input['style_border'] = $request['style_border'];
+        if($request['style_font_family'] !== null)
+            $input['style_font_family'] = $request['style_font_family'];
+        if($request['style_font_size'] !== null)
+            $input['style_font_size'] = $request['style_font_size'];
+
         $this->validate($request, [
-        'style_name' => 'required | unique:styles,en_name,'.$id.''
+        'style_name' => 'required | unique:styles,style_name,'.$id.''
         ]);
 
         Style::where('id', $id)
-            ->update($input);
-        
-        return redirect()->intended('drug-administration/style');
+            ->update($input);    
     }  
     /**
      * Display the specified resource.
@@ -177,19 +179,56 @@ class StyleController extends Controller
         $json_styles = [];
         //'id','style_name' ,'bold','italic','under_line','text_color','','border','font_family','font_size'
         foreach ($styles as $style) {
-         	 $json_styles[]=[
-         	 	"id" => $style->id,
-         	 	"style_name" => $style->style_name ,
-         	 	"style_bold" => $style->style_bold ,
-         	 	"style_italic" => $style->style_italic ,
-         	 	"style_under_line" => $style->style_under_line ,
-         	 	"style_text_color" => $style->style_text_color ,
-         	 	"style_background_color" => $style->style_background_color ,
-         	 	"style_font_family" => $style->style_font_family ,
-         	 	"style_font_size" =>(string) $style->style_font_size."px" ,
-         	 	"style_border" => $style->style_border ,
-         	 ];   
+             $json_styles[]=[
+                "id" => $style->id,
+                "style_name" => $style->style_name ,
+                "style_bold" => $style->style_bold ,
+                "style_italic" => $style->style_italic ,
+                "style_under_line" => $style->style_under_line ,
+                "style_text_color" => $style->style_text_color ,
+                "style_background_color" => $style->style_background_color ,
+                "style_font_family" => $style->style_font_family ,
+                "style_font_size" =>(string) $style->style_font_size."px" ,
+                "style_border" => $style->style_border ,
+                "style_border_color" => $style->style_border_color ,
+             ];   
         }
         return json_encode($json_styles);
     }
+
+    public function get_details(Request $request)
+    {
+        $style = Style::find($request->id);
+        //$style = DB::table('styles')->where('id','=',$request->id)->first();
+        $data = [
+            "id" => $style->id,
+            "style_name" => $style->style_name ,
+            "style_bold" => $style->style_bold ,
+            "style_italic" => $style->style_italic ,
+            "style_under_line" => $style->style_under_line ,
+            "style_text_color" => $style->style_text_color ,
+            "style_background_color" => $style->style_background_color ,
+            "style_font_family" => $style->style_font_family ,
+            "style_font_size" =>$style->style_font_size ,
+            "style_border" => $style->style_border ,
+            "style_border_color" => $style->style_border_color ,
+        ];
+        return json_encode($data);
+    }
+
+    public function save_style(Request $request)
+    {
+        if($request->id == null)
+        {
+            $this->store($request);
+        }
+        else
+        {
+            $this->update($request,$request->id);
+        }
+    }
+
+
 }
+ //replace code with tage
+    

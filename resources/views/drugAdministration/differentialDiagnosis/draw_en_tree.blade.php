@@ -275,8 +275,7 @@ $.ajax({
             styles.forEach(function(item){
                 
                my_obj=
-               { name: item.style_name, element:'span',styles: { 'color': ''+item.style_text_color+'' ,'font-size': ''+item.style_font_size+'','font-family': ''+item.style_font_family+'', 'font-weight': ''+item.style_bold+'' ,'background-color': ''+item.style_background_color+'','font-style':''+item.style_italic+'','border': ''+item.style_border+'','text-decoration': ''+item.style_under_line+'',}}               ;
-               console.log(my_obj)
+               { name: item.style_name, element:'span',styles: { 'color': ''+item.style_text_color+'' ,'font-size': ''+item.style_font_size+'','font-family': ''+item.style_font_family+'', 'font-weight': ''+item.style_bold+'' ,'background-color': ''+item.style_background_color+'','font-style':''+item.style_italic+'','border': ''+item.style_border+' '+item.style_border_color+'','text-decoration': ''+item.style_under_line+'','border-radius': '10px','padding':'5px'}};
                mm.push(my_obj);
             });
         }
@@ -360,7 +359,6 @@ $.ajax({
             /*for open all child node when click on node*/
             selected_node = [data.selected[0]];       
             /**/
-            console.log("one");
             if(id != null && save_auto_choice == true){
                 var my_id = document.getElementById('term_id').value;
                 var code = document.getElementById('code').value;
@@ -385,7 +383,6 @@ $.ajax({
             if(id != null )
             {
                 fill_field(compare , id);
-                console.log("10");
                 if(copy_style == true)
                 {
                     
@@ -509,9 +506,7 @@ $.ajax({
             });
 
             $('#next_node').click(function(){
-                console.log("four");
                 next_open_node();
-                console.log("five");
             });
 
             
@@ -559,7 +554,6 @@ $.ajax({
 
     function selectedRow(){
                //change color node you selected 
-               console.log("color");
                 var index;
                     table = document.getElementById("example");
             
@@ -663,7 +657,6 @@ $.ajax({
 
 
         function fill_field(compare , id){
-        console.log("siven");
         if(id != null){
             if(compare == 1)
             {
@@ -757,8 +750,8 @@ $.ajax({
             */
             /*en_term = en_term.replace('<br />', '');
             ar_term = ar_term.replace('<br />', '');*/
-            console.log(ar_term);
-            console.log(en_term);
+            /*console.log(ar_term);
+            console.log(en_term);*/
             $.ajax({
                 type :"POST",
                 url:"{{route('dif_dia_node.save')}}",
@@ -810,7 +803,7 @@ $.ajax({
                          
                         if(parent_id == null)
                         {
-                            console.log("parent_id");
+                            
                             var node_tree = $('#container').jstree(true).get_node(new_id);
                             node_tree.text = text_ ;
                             $('#container').jstree(true).redraw_node(node_tree, false, false, false);
@@ -892,7 +885,6 @@ $.ajax({
                     to :  $("#to_term").val(),
                 },
                 success:function(res){
-                    console.log(res);
                     $('#container').jstree(true).refresh();
                 }
             });
@@ -1037,7 +1029,6 @@ $.ajax({
                 },
                 success:function(res){
                     result_view =  JSON.parse(res);
-                    console.log(result_view);
                     var node =result_view.node;
                     bold = node.bold;
                     italic = node.italic;
@@ -1097,7 +1088,6 @@ $.ajax({
                         id : id,
                     },
                     success:function(array_parents_id){
-                            console.log(array_parents_id);
 
                             $('#container').jstree(true).load_node(array_parents_id, function () {
                                 this.select_node(id);
@@ -1107,7 +1097,6 @@ $.ajax({
         }
 
         function focus_node(id){
-            console.log("focus");
             $("#container").jstree(true).get_node(id, true).children('.jstree-anchor').focus();
         }
 

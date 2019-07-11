@@ -73,7 +73,7 @@
                   
               </select>
           </div>
-          <div class="form-group col-md-2 control-label">
+          <div class="form-group col-md-1 control-label">
               <label  for="font_family">Font Family</label>
               <select class="form-control" name="tag_font_family" id="tag_font_family">
                   <option selected="selected"></option>
@@ -123,6 +123,14 @@
               <label for="border">Border</label>
                   <input type="checkbox"  name="tag_border" id="tag_border" >
           </div>
+
+          <div class="form-group col-md-0 control-label" style="text-align: center;">
+              <label id="for_tag_border_color">border Color</label>
+              <div>    
+                <input type="color" name="tag_border_color"  id="tag_border_color" value="#000000">
+              </div>
+          </div> 
+
           <div class="form-group col-sm-0 control-label" style="padding-top: 30px;padding-right: 20px">
               <label for="border">Sub</label>
                   <input type="checkbox"  name="tag_sub" id="tag_sub" >
@@ -224,6 +232,7 @@
         },
         success:function(res){
             tag =  JSON.parse(res);
+            console.log(tag.tag_border_color);
             document.getElementById('tag_id').value = tag.id;
             document.getElementById('tag_code').value = tag.tag_code;
             document.getElementById('tag_text').value = tag.tag_text;
@@ -238,6 +247,7 @@
 
             document.getElementById('tag_text_color').value = tag.tag_text_color;
             document.getElementById('tag_background_color').value = tag.tag_background_color;
+            document.getElementById('tag_border_color').value = tag.tag_border_color;
             document.getElementById('tag_font_size').value = tag.tag_font_size;
             document.getElementById('tag_font_family').value = tag.tag_font_family;
 
@@ -250,6 +260,7 @@
 //save tag to update or create
   $('#save').click(function(){
     var id = document.getElementById('tag_id').value;
+    console.log(document.getElementById('tag_border_color').value);
     $.ajax({
         type :"GET",
         url:"{{route('tag.save_tag')}}",
@@ -265,6 +276,7 @@
             tag_under_line : document.getElementById('tag_under_line').checked == true?"underline":"none",
             tag_text_color : document.getElementById('tag_text_color').value,
             tag_background_color : document.getElementById('tag_background_color').value,
+            tag_border_color : document.getElementById('tag_border_color').value,
             tag_sub : document.getElementById('tag_sub').checked == true?"1":"0",
             tag_sup : document.getElementById('tag_sup').checked == true?"1":"0",
         },
@@ -293,6 +305,7 @@
     });
 
     document.getElementById('tag_background_color').value = "#ffffff";
+    document.getElementById('tag_border_color').value = "#ffffff";
     document.getElementById('tag_text_color').value = "#000000";
 
     document.getElementById('tag_bold').checked = false;

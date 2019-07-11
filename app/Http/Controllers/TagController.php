@@ -18,10 +18,10 @@ class TagController extends Controller
      * @return void
      */
     public function __construct(){
-    	$this->middleware('auth');
-	}
+        $this->middleware('auth');
+    }
 
-	/**
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -44,33 +44,34 @@ class TagController extends Controller
      */
     public function store(Request $request)
     {
-  		
+        
         $this->validateInput($request);
 
          $input = [
             'tag_code' => $request['tag_code'],
             'tag_text' => $request['tag_text'],
             'tag_text_color' => $request['tag_text_color'],
-            'tag_background_color' => $request['tag_background_color']
+            'tag_background_color' => $request['tag_background_color'],
+            'tag_border_color' => $request['tag_border_color']
         ];
         if($request['tag_bold'] !== null)
-        	$input['tag_bold'] = $request['tag_bold'];
+            $input['tag_bold'] = $request['tag_bold'];
         if($request['tag_italic'] !== null)
-        	$input['tag_italic'] = $request['tag_italic'];
+            $input['tag_italic'] = $request['tag_italic'];
         if($request['tag_under_line'] !== null)
-        	$input['tag_under_line'] = $request['tag_under_line'];
+            $input['tag_under_line'] = $request['tag_under_line'];
         if($request['tag_border'] !== null)
-        	$input['tag_border'] = $request['tag_border'];
+            $input['tag_border'] = $request['tag_border'];
         if($request['tag_font_family'] !== null)
-        	$input['tag_font_family'] = $request['tag_font_family'];
+            $input['tag_font_family'] = $request['tag_font_family'];
         if($request['tag_font_size'] !== null)
-        	$input['tag_font_size'] = $request['tag_font_size'];
+            $input['tag_font_size'] = $request['tag_font_size'];
         if($request['tag_sub'] !== null)
-        	$input['tag_sub'] = $request['tag_sub'];
+            $input['tag_sub'] = $request['tag_sub'];
         if($request['tag_sup'] !== null)
-        	$input['tag_sup'] = $request['tag_sup'];
-      	//dd($input);
-		Tag::create($input);
+            $input['tag_sup'] = $request['tag_sup'];
+        //dd($input);
+        Tag::create($input);
     }
 
     /**
@@ -89,24 +90,25 @@ class TagController extends Controller
             'tag_code' => $request['tag_code'],
             'tag_text' => $request['tag_text'],
             'tag_text_color' => $request['tag_text_color'],
-            'tag_background_color' => $request['tag_background_color']
+            'tag_background_color' => $request['tag_background_color'],
+            'tag_border_color' =>  $request['tag_border_color'],
         ];
         if($request['tag_bold'] !== null)
-        	$input['tag_bold'] = $request['tag_bold'];
+            $input['tag_bold'] = $request['tag_bold'];
         if($request['tag_italic'] !== null)
-        	$input['tag_italic'] = $request['tag_italic'];
+            $input['tag_italic'] = $request['tag_italic'];
         if($request['tag_under_line'] !== null)
-        	$input['tag_under_line'] = $request['tag_under_line'];
+            $input['tag_under_line'] = $request['tag_under_line'];
         if($request['tag_border'] !== null)
-        	$input['tag_border'] = $request['tag_border'];
+            $input['tag_border'] = $request['tag_border'];
         if($request['tag_font_family'] !== null)
-        	$input['tag_font_family'] = $request['tag_font_family'];
+            $input['tag_font_family'] = $request['tag_font_family'];
         if($request['tag_font_size'] !== null)
-        	$input['tag_font_size'] = $request['tag_font_size'];
+            $input['tag_font_size'] = $request['tag_font_size'];
         if($request['tag_sub'] !== null)
-        	$input['tag_sub'] = $request['tag_sub'];
+            $input['tag_sub'] = $request['tag_sub'];
         if($request['tag_sup'] !== null)
-        	$input['tag_sup'] = $request['tag_sup'];
+            $input['tag_sup'] = $request['tag_sup'];
 
 
         $this->validate($request, [
@@ -122,7 +124,6 @@ class TagController extends Controller
     */
     public function save_tag(Request $request)
     {
-         
         if($request->id == null)
         {
             $this->store($request);
@@ -175,6 +176,7 @@ class TagController extends Controller
             "tag_border" => $tag->tag_border ,
             "tag_sub" => $tag->tag_sub ,
             "tag_sup" => $tag->tag_sup ,
+            "tag_border_color" => $tag->tag_border_color,
         ];
         return json_encode($data);
     }
@@ -188,7 +190,7 @@ class TagController extends Controller
         $json_tags = [];
 
         foreach ($tags as $tag) {
-         	$json_tags[] = [
+            $json_tags[] = [
             "id" => $tag->id,
             "tag_code" => $tag->tag_code,
             "tag_text" => $tag->tag_text,
@@ -202,6 +204,7 @@ class TagController extends Controller
             "tag_border" => $tag->tag_border ,
             "tag_sub" => $tag->tag_sub ,
             "tag_sup" => $tag->tag_sup ,
+            "tag_border_color" => $tag->tag_border_color,
         ];  
         }
         return json_encode($json_tags);
@@ -225,12 +228,14 @@ class TagController extends Controller
                     $tag_text = "<span style='
                     background-color:".$tag->tag_background_color.";
                     color:".$tag->tag_text_color.";
-                    font-size:".$tag->tag_font_size.";
+                    font-size:".$tag->tag_font_size."px;
                     font-family:".$tag->tag_font_family.";
                     font-weight:".$tag->tag_bold.";
                     font-style:".$tag->tag_italic.";
-                    border:".$tag->tag_border.";
-                    text-decoration:".$tag->tag_under_line.";'>".$tag->tag_text."</span>";
+                    border:".$tag->tag_border." ".$tag->tag_border_color.";
+                    text-decoration:".$tag->tag_under_line.";
+                    border-radius: 10px;
+                    padding:5px'>".$tag->tag_text."</span>";
 
                     $tag_text = $tag->tag_sub == "1" ? "<sub>".$tag_text."</sub>" :  $tag_text; 
                     $tag_text = $tag->tag_sup == "1" ? "<sup>".$tag_text."</sup>" :  $tag_text; 

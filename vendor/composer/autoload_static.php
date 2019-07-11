@@ -636,6 +636,7 @@ class ComposerStaticInitf5c271aaa32886e600c5080b9d2b8741
         'App\\Http\\Controllers\\PictureController' => __DIR__ . '/../..' . '/app/Http/Controllers/PictureController.php',
         'App\\Http\\Controllers\\SessionController' => __DIR__ . '/../..' . '/app/Http/Controllers/SessionController.php',
         'App\\Http\\Controllers\\StyleController' => __DIR__ . '/../..' . '/app/Http/Controllers/StyleController.php',
+        'App\\Http\\Controllers\\TagController' => __DIR__ . '/../..' . '/app/Http/Controllers/TagController.php',
         'App\\Http\\Controllers\\UnitController' => __DIR__ . '/../..' . '/app/Http/Controllers/UnitController.php',
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',
         'App\\Http\\Middleware\\Authenticate' => __DIR__ . '/../..' . '/app/Http/Middleware/Authenticate.php',

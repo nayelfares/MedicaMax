@@ -119,6 +119,12 @@
               <label for="border">Border</label>
                   <input type="checkbox"  name="style_border" id="style_border" >
           </div>
+          <div class="form-group col-md-1 control-label" style="text-align: center;">
+              <label id="border_color_value">Border Color</label>
+              <div>    
+                <input type="color" name="style_border_color"  id="style_border_color" value="#000000">
+              </div>
+          </div>
           <button class="btn btn-primary btn-lg"  id="save" name="save" style="margin-top: 20px;margin-left: 40px;  height: 50px;text-align: center;"> Save</button>
           <button class="btn btn-danger btn-lg"  id="cancel" name="cancel" style="margin-top: 20px;margin-left: 40px;  height: 50px;text-align: center;"> Cancel</button>                     
       </div>
@@ -229,6 +235,7 @@
 
             document.getElementById('style_text_color').value = style.style_text_color;
             document.getElementById('style_background_color').value = style.style_background_color;
+            document.getElementById('style_border_color').value = style.style_border_color;
             document.getElementById('style_font_size').value = style.style_font_size;
             document.getElementById('style_font_family').value = style.style_font_family;
             
@@ -254,6 +261,7 @@
             style_under_line : document.getElementById('style_under_line').checked == true?"underline":"none",
             style_text_color : document.getElementById('style_text_color').value,
             style_background_color : document.getElementById('style_background_color').value,
+            style_border_color : document.getElementById('style_border_color').value,
         },
         success:function(res){
           console.log('res : ');
@@ -280,6 +288,7 @@
 
     document.getElementById('style_background_color').value = "#ffffff";
     document.getElementById('style_text_color').value = "#000000";
+    document.getElementById('style_border_color').value = "#000000";
 
     document.getElementById('style_bold').checked = false;
     document.getElementById('style_border').checked = false;

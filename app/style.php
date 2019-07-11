@@ -38,7 +38,7 @@ class Style extends Model
 
     protected $fillable =['id','style_name' ,'style_bold','style_italic'
     ,'style_under_line','style_text_color','style_background_color','style_border',
-    'style_font_family','style_font_size'];
+    'style_font_family','style_font_size','style_border_color'];
 
     //default value
     protected $attributes = [
@@ -47,6 +47,7 @@ class Style extends Model
         'style_under_line' => 'none',
         'style_text_color' => '#000000',
         'style_background_color' => 'ffffff',
+        'style_border_color' => 'ffffff',
         'style_border' => 'none',
         'style_font_family' => 'Arial',
         'style_font_size' => 14,

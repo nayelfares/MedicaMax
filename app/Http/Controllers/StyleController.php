@@ -75,28 +75,21 @@ class StyleController extends Controller
             $input['style_font_family'] = $request['style_font_family'];
         if($request['style_font_size'] !== null)
             $input['style_font_size'] = $request['style_font_size'];
+        if($request['style_border_radius'] !== null)
+            $input['style_border_radius'] = $request['style_border_radius'];
+
+
+        
         //dd($input);
+        $text ="background-color:".$request['style_background_color'].";border-radius:".$request['style_border_radius']."px;border:".$request['style_border']." ".$request['style_border_color'].";color:".$request['style_text_color'].";font-family:".$request['style_font_family'].";font-size:".$request['style_font_size']."px;font-style:".$request['style_italic'].";font-weight:".$request['style_bold'].";padding:5px;text-decoration:".$request['style_under_line'].";";
+
+        $input['style_text'] = $text;
+
         Style::create($input);
 
     }
 
     
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        $style = Style::find($id);
-        // Redirect to country list if updating country wasn't existed
-        if ($style == null ) {
-            return redirect()->intended('drug-administration/style');
-        }
-        return view('drugAdministration/styles/edit', ['style' => $style ]);
-    }
-
     /**
      * Update the specified resource in storage.
      *
@@ -108,6 +101,8 @@ class StyleController extends Controller
     {
       
         $style = Style::findOrFail($id);
+        $old_style_text = $style->style_text;
+
         $input = [
             'style_name' => $request['style_name'],
             'style_text_color' => $request['style_text_color'],
@@ -126,25 +121,22 @@ class StyleController extends Controller
             $input['style_font_family'] = $request['style_font_family'];
         if($request['style_font_size'] !== null)
             $input['style_font_size'] = $request['style_font_size'];
+        if($request['style_border_radius'] !== null)
+            $input['style_border_radius'] = $request['style_border_radius'];
+
+        $new_style_text ="background-color:".$request['style_background_color'].";border-radius:".$request['style_border_radius']."px;border:".$request['style_border']." ".$request['style_border_color'].";color:".$request['style_text_color'].";font-family:".$request['style_font_family'].";font-size:".$request['style_font_size']."px;font-style:".$request['style_italic'].";font-weight:".$request['style_bold'].";padding:5px;text-decoration:".$request['style_under_line'].";";
+        
+        $input['style_text'] = $new_style_text;
 
         $this->validate($request, [
         'style_name' => 'required | unique:styles,style_name,'.$id.''
         ]);
 
         Style::where('id', $id)
-            ->update($input);    
+            ->update($input);
+        //DB::statement('call changestyle( ? ,? )',['olaa','xvxx']);
+        DB::statement('call changestyle( ? ,? )',[$old_style_text,$new_style_text]);     
     }  
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-     public function show($id)
-    {
-        
-    }
-
     /**
      * Remove the specified resource from storage.
      *
@@ -191,6 +183,7 @@ class StyleController extends Controller
                 "style_font_size" =>(string) $style->style_font_size."px" ,
                 "style_border" => $style->style_border ,
                 "style_border_color" => $style->style_border_color ,
+                "style_border_radius" =>$style->style_border_radius,
              ];   
         }
         return json_encode($json_styles);
@@ -212,12 +205,15 @@ class StyleController extends Controller
             "style_font_size" =>$style->style_font_size ,
             "style_border" => $style->style_border ,
             "style_border_color" => $style->style_border_color ,
+            "style_border_radius" =>$style->style_border_radius,
         ];
         return json_encode($data);
     }
 
     public function save_style(Request $request)
     {
+        //return $request;
+
         if($request->id == null)
         {
             $this->store($request);

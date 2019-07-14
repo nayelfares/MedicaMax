@@ -38,5 +38,5 @@ class Tag extends Model
 
     protected $fillable =['id','tag_code' ,'tag_text' ,'tag_bold','tag_italic'
     ,'tag_under_line','tag_text_color','tag_background_color','tag_border',
-    'tag_font_family','tag_font_size','tag_sub' , 'tag_sup','tag_border_color'];
+    'tag_font_family','tag_font_size','tag_sub' , 'tag_sup','tag_border_color','tag_text_for_replace','tag_border_radius'];
 }

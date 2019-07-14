@@ -275,7 +275,7 @@ $.ajax({
             styles.forEach(function(item){
                 
                my_obj=
-               { name: item.style_name, element:'span',styles: { 'color': ''+item.style_text_color+'' ,'font-size': ''+item.style_font_size+'','font-family': ''+item.style_font_family+'', 'font-weight': ''+item.style_bold+'' ,'background-color': ''+item.style_background_color+'','font-style':''+item.style_italic+'','border': ''+item.style_border+' '+item.style_border_color+'','text-decoration': ''+item.style_under_line+'','border-radius': '10px','padding':'5px'}};
+               { name: item.style_name, element:'span',styles: { 'color': ''+item.style_text_color+'' ,'font-size': ''+item.style_font_size+'','font-family': ''+item.style_font_family+'', 'font-weight': ''+item.style_bold+'' ,'background-color': ''+item.style_background_color+'','font-style':''+item.style_italic+'','border': ''+item.style_border+' '+item.style_border_color+'','text-decoration': ''+item.style_under_line+'','border-radius':''+item.style_border_radius+'px','padding':'5px'}};
                mm.push(my_obj);
             });
         }

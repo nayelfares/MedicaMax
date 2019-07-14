@@ -6,7 +6,7 @@ CKEDITOR.editorConfig = function( config ) {
 				config.contentsCss = './assets/js/ckeditor/CustomFonts/fonts.css';
               //config.font_names =  'ArefRuqaa-Regular; ArefRuqaa-Regular;'+config.font_names;
               
-              config.extraPlugins = 'sharedspace,lineheight,video,youtube,allowsave,deletenewline,link,max,min,t2s';
+              config.extraPlugins = 'sharedspace,lineheight,video,youtube,allowsave,deletenewline,link,max,min,t2s,v2t,v2tstop';
               config.removePlugins = 'resize';
               config.height = 140
 			 // config.htmlEncodeOutput =false;

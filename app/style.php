@@ -38,7 +38,7 @@ class Style extends Model
 
     protected $fillable =['id','style_name' ,'style_bold','style_italic'
     ,'style_under_line','style_text_color','style_background_color','style_border',
-    'style_font_family','style_font_size','style_border_color'];
+    'style_font_family','style_font_size','style_border_color','style_text','style_border_radius'];
 
     //default value
     protected $attributes = [

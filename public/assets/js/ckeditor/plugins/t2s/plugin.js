@@ -7,15 +7,23 @@
 			  // console.log(text);
 			   /*  responsiveVoice.speak(text,'US English Male');
 				 responsiveVoice.lang='ar-SA';*/
-				     console.log('Nayel '+$('#ar_term').val());
+				  //   console.log('Nayel '+$('#ar_term').val());
 				     text = text.replace('<big>','');
 					 text = text.replace('</big>','');
-					 responsiveVoice.speak(text,'US English Male');
+					  var res = text.substring(0,1);
+					 var reg = /^[a-z]+$/i;
+						if(reg.test(res) ){
+							responsiveVoice.speak(text,'US English Male');
+							console.log('English');
+						}
+						else{
                             responsiveVoice.speak(text, "Arabic Male", {
                                 pitch: 1
                             }, {
                                 rate: 1
                             });
+							console.log('Arabic');
+						}
 			
         }
     },

@@ -257,6 +257,9 @@ Route::resource('drug-administration/tag','TagController');
 Route::get('get_tags','TagController@get_tags')->name('tag.get_tags');
 Route::get('get_details_tag','TagController@get_details')->name('tag.get_details');
 Route::get('save_tag','TagController@save_tag')->name('tag.save_tag');
+
+Route::get('replace_code_with_tag','TagController@replace_code_with_tag')->name('tag.replace_code_with_tag');
+
 /*********************
 * 
 *   Style 
@@ -265,7 +268,7 @@ Route::get('save_tag','TagController@save_tag')->name('tag.save_tag');
 Route::resource('drug-administration/style','StyleController');
 Route::get('get_styles','StyleController@get_styles')->name('style.get_styles');
 Route::get('get_details_style','StyleController@get_details')->name('style.get_details');
-Route::get('save_style','StyleController@save_style')->name('style.save_style');
+Route::post('save_style','StyleController@save_style')->name('style.save_style');
 
 
 ///////////////////////////////USER   MANAGEMENT///////////////////////////////////////////////////////////////

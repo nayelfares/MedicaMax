@@ -69,7 +69,7 @@
                   
               </select>
           </div>
-          <div class="form-group col-md-2 control-label">
+          <div class="form-group col-md-1 control-label">
               <label  for="font_family">Font Family</label>
               <select class="form-control" name="style_font_family" id="style_font_family">
                   <option selected="selected"></option>
@@ -118,6 +118,18 @@
           <div class="form-group col-sm-0 control-label" style="padding-top: 30px;padding-right: 20px">
               <label for="border">Border</label>
                   <input type="checkbox"  name="style_border" id="style_border" >
+          </div>
+          <div class="form-group col-md-1 control-label">
+              <label for="border_radius">Border Radius</label>
+              <select class="form-control" name="style_border_radius" id="style_border_radius">
+                  <option selected="selected"></option>
+                  <option  value="0">0</option>
+                  <option  value="2">2</option>
+                  <option  value="5">5</option>
+                  <option  value="7">7</option>
+                  <option  value="10">10</option>
+                  <option  value="15">15</option>
+              </select>
           </div>
           <div class="form-group col-md-1 control-label" style="text-align: center;">
               <label id="border_color_value">Border Color</label>
@@ -175,6 +187,7 @@
 <link  href="{{ asset('/js/alaa/jquery.dataTables.min.css')}}" type="text/css" />
 
 <script>
+  var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
   // END CODE FOR BASIC DATA TABLE 
   $(document).ready(function() {
 
@@ -237,6 +250,7 @@
             document.getElementById('style_background_color').value = style.style_background_color;
             document.getElementById('style_border_color').value = style.style_border_color;
             document.getElementById('style_font_size').value = style.style_font_size;
+            document.getElementById('style_border_radius').value = style.style_border_radius;
             document.getElementById('style_font_family').value = style.style_font_family;
             
             console.log(style);
@@ -247,14 +261,16 @@
 //save style to update or create
   $('#save').click(function(){
     var id = document.getElementById('style_id').value;
+  
     $.ajax({
-        type :"GET",
+        type :"POST",
         url:"{{route('style.save_style')}}",
         data:{
             id : document.getElementById('style_id').value,
             style_name : document.getElementById('style_name').value,
             style_font_size : document.getElementById('style_font_size').value,
-            style_font_family : document.getElementById('style_font_family').value,
+            style_border_radius : document.getElementById('style_border_radius').value,
+            style_font_family : document.getElementById('style_font_family').value == "" ? "Arial" : document.getElementById('style_font_family').value,
             style_bold : document.getElementById('style_bold').checked == true ? "bold" : " normal",
             style_border : document.getElementById('style_border').checked == true ? "solid":"none",
             style_italic : document.getElementById('style_italic').checked == true?"italic":" normal",
@@ -262,6 +278,7 @@
             style_text_color : document.getElementById('style_text_color').value,
             style_background_color : document.getElementById('style_background_color').value,
             style_border_color : document.getElementById('style_border_color').value,
+            _token: CSRF_TOKEN,
         },
         success:function(res){
           console.log('res : ');
@@ -269,8 +286,7 @@
           document.getElementById('container').hidden = true;
           initailize_feild_to_add();
           //alert(res['success']);
-          if(id == "")
-            location.reload();
+          location.reload();
         }
       });
   });
@@ -303,6 +319,8 @@
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
+
+
 </script>
 
 

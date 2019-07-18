@@ -2,6 +2,16 @@
     //Section 1 : Code to execute when the toolbar button is pressed
     var a = {
         exec: function(editor) {	
+		
+				navigator.mediaDevices.getUserMedia({ audio: false })
+				  .then(function(stream) {
+					console.log('You let me use your mic!')
+				  })
+				  .catch(function(err) {
+					console.log('No mic for you!')
+				  });
+		
+		
         if ('webkitSpeechRecognition' in window) {
 		 	var oldText=editor.getData();
 				oldText = oldText.replace('<big>','');

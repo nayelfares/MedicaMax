@@ -56,11 +56,11 @@ class StyleController extends Controller
     {
         
         $this->validateInput($request);
-
-         $input = [
+        $background_color_value = $request['style_background_color'] =="#ffffff" ? "none" :$request['style_background_color'] ;
+        $input = [
             'style_name' => $request['style_name'],
             'style_text_color' => $request['style_text_color'],
-            'style_background_color' => $request['style_background_color'],
+            'style_background_color' => $background_color_value,
             'style_border_color' => $request['style_border_color']
         ];
         if($request['style_bold'] !== null)
@@ -81,7 +81,7 @@ class StyleController extends Controller
 
         
         //dd($input);
-        $text ="background-color:".$request['style_background_color'].";border-radius:".$request['style_border_radius']."px;border:".$request['style_border']." ".$request['style_border_color'].";color:".$request['style_text_color'].";font-family:".$request['style_font_family'].";font-size:".$request['style_font_size']."px;font-style:".$request['style_italic'].";font-weight:".$request['style_bold'].";padding:5px;text-decoration:".$request['style_under_line'].";";
+        $text ="background-color:".$background_color_value.";border-radius:".$request['style_border_radius']."px;border:".$request['style_border']." ".$request['style_border_color'].";color:".$request['style_text_color'].";font-family:".$request['style_font_family'].";font-size:".$request['style_font_size']."px;font-style:".$request['style_italic'].";font-weight:".$request['style_bold'].";padding:5px;text-decoration:".$request['style_under_line'].";";
 
         $input['style_text'] = $text;
 
@@ -103,11 +103,12 @@ class StyleController extends Controller
         $style = Style::findOrFail($id);
         $old_style_text = $style->style_text;
 
+        $background_color_value = $request['style_background_color'] =="#ffffff" ? "none" :$request['style_background_color'] ;
         $input = [
-            'style_name' => $request['style_name'],
-            'style_text_color' => $request['style_text_color'],
-            'style_background_color' => $request['style_background_color'],
-            'style_border_color' => $request['style_border_color'],
+            'style_name' => $request['style_name'] ,
+            'style_text_color' => $request['style_text_color'] ,
+            'style_background_color' => $background_color_value ,
+            'style_border_color' => $request['style_border_color'] ,
         ];
         if($request['style_bold'] !== null)
             $input['style_bold'] = $request['style_bold'];
@@ -124,7 +125,7 @@ class StyleController extends Controller
         if($request['style_border_radius'] !== null)
             $input['style_border_radius'] = $request['style_border_radius'];
 
-        $new_style_text ="background-color:".$request['style_background_color'].";border-radius:".$request['style_border_radius']."px;border:".$request['style_border']." ".$request['style_border_color'].";color:".$request['style_text_color'].";font-family:".$request['style_font_family'].";font-size:".$request['style_font_size']."px;font-style:".$request['style_italic'].";font-weight:".$request['style_bold'].";padding:5px;text-decoration:".$request['style_under_line'].";";
+        $new_style_text ="background-color:".$background_color_value.";border-radius:".$request['style_border_radius']."px;border:".$request['style_border']." ".$request['style_border_color'].";color:".$request['style_text_color'].";font-family:".$request['style_font_family'].";font-size:".$request['style_font_size']."px;font-style:".$request['style_italic'].";font-weight:".$request['style_bold'].";padding:5px;text-decoration:".$request['style_under_line'].";";
         
         $input['style_text'] = $new_style_text;
 
@@ -178,7 +179,7 @@ class StyleController extends Controller
                 "style_italic" => $style->style_italic ,
                 "style_under_line" => $style->style_under_line ,
                 "style_text_color" => $style->style_text_color ,
-                "style_background_color" => $style->style_background_color ,
+                "style_background_color" => $style->style_background_color == "none" ,
                 "style_font_family" => $style->style_font_family ,
                 "style_font_size" =>(string) $style->style_font_size."px" ,
                 "style_border" => $style->style_border ,
@@ -200,7 +201,7 @@ class StyleController extends Controller
             "style_italic" => $style->style_italic ,
             "style_under_line" => $style->style_under_line ,
             "style_text_color" => $style->style_text_color ,
-            "style_background_color" => $style->style_background_color ,
+            "style_background_color" => $style->style_background_color == "none" ? "#ffffff" : $style->style_background_color,
             "style_font_family" => $style->style_font_family ,
             "style_font_size" =>$style->style_font_size ,
             "style_border" => $style->style_border ,

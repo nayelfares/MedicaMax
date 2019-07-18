@@ -66,10 +66,24 @@ class TagController extends Controller
             $input['tag_font_family'] = $request['tag_font_family'];
         if($request['tag_font_size'] !== null)
             $input['tag_font_size'] = $request['tag_font_size'];
-        if($request['tag_sub'] !== null)
+        if($request['tag_border_radius'] !== null)
+            $input['tag_border_radius'] = $request['tag_border_radius'];
+
+        //dd($input);
+        $text ="<span style='background-color:".$request['tag_background_color'].";border-radius:".$request['tag_border_radius']."px;border:".$request['tag_border']." ".$request['tag_border_color'].";color:".$request['tag_text_color'].";font-family:".$request['tag_font_family'].";font-size:".$request['tag_font_size']."px;font-style:".$request['tag_italic'].";font-weight:".$request['tag_bold'].";padding:3px;text-decoration:".$request['tag_under_line'].";'>".$request['tag_text']."</span>";
+
+        if($request['tag_sub']  == '1')
+        {
             $input['tag_sub'] = $request['tag_sub'];
-        if($request['tag_sup'] !== null)
+            $text = "<sub>".$text."</sub>";
+        }
+        if($request['tag_sup']  == '1')
+        {
             $input['tag_sup'] = $request['tag_sup'];
+            $text = "<sup>".$text."</sup>";
+        }
+
+        $input['tag_text_for_replace'] = $text;
         //dd($input);
         Tag::create($input);
     }
@@ -85,7 +99,8 @@ class TagController extends Controller
     {
       
         $tag = Tag::findOrFail($id);
-        
+        $old_tag_text_for_replace = $tag->tag_text_for_replace;
+           
         $input = [
             'tag_code' => $request['tag_code'],
             'tag_text' => $request['tag_text'],
@@ -105,18 +120,33 @@ class TagController extends Controller
             $input['tag_font_family'] = $request['tag_font_family'];
         if($request['tag_font_size'] !== null)
             $input['tag_font_size'] = $request['tag_font_size'];
-        if($request['tag_sub'] !== null)
-            $input['tag_sub'] = $request['tag_sub'];
-        if($request['tag_sup'] !== null)
-            $input['tag_sup'] = $request['tag_sup'];
+        if($request['tag_border_radius'] !== null)
+            $input['tag_border_radius'] = $request['tag_border_radius'];
 
+        $new_tag_text_for_replace ="<span style='background-color:".$request['tag_background_color'].";border-radius:".$request['tag_border_radius']."px;border:".$request['tag_border']." ".$request['tag_border_color'].";color:".$request['tag_text_color'].";font-family:".$request['tag_font_family'].";font-size:".$request['tag_font_size']."px;font-style:".$request['tag_italic'].";font-weight:".$request['tag_bold'].";padding:3px;text-decoration:".$request['tag_under_line'].";'>".$request['tag_text']."</span>";
+        
+        if($request['tag_sub'] == '1')
+        {
+            $input['tag_sub'] = $request['tag_sub'];
+            $new_tag_text_for_replace = "<sub>".$new_tag_text_for_replace."</sub>";
+        }
+        if($request['tag_sup']  == '1')
+        {
+            $input['tag_sup'] = $request['tag_sup'];
+            $new_tag_text_for_replace = "<sup>".$new_tag_text_for_replace."</sup>";
+        }
+
+        $input['tag_text_for_replace'] = $new_tag_text_for_replace;
 
         $this->validate($request, [
         'tag_code' => 'required | unique:tags,tag_code,'.$id.''
         ]);
 
         Tag::where('id', $id)
-            ->update($input);    
+            ->update($input);  
+
+
+        DB::statement('call changestyle( ? ,? )',[$old_tag_text_for_replace,$new_tag_text_for_replace]);     
     } 
 
     /**
@@ -124,6 +154,7 @@ class TagController extends Controller
     */
     public function save_tag(Request $request)
     {
+
         if($request->id == null)
         {
             $this->store($request);
@@ -177,6 +208,7 @@ class TagController extends Controller
             "tag_sub" => $tag->tag_sub ,
             "tag_sup" => $tag->tag_sup ,
             "tag_border_color" => $tag->tag_border_color,
+            "tag_border_radius" => $tag->tag_border_radius,
         ];
         return json_encode($data);
     }
@@ -191,9 +223,9 @@ class TagController extends Controller
 
         foreach ($tags as $tag) {
             $json_tags[] = [
-            "id" => $tag->id,
+            //"id" => $tag->id,
             "tag_code" => $tag->tag_code,
-            "tag_text" => $tag->tag_text,
+            /*"tag_text" => $tag->tag_text,
             "tag_bold" => $tag->tag_bold ,
             "tag_italic" => $tag->tag_italic ,
             "tag_under_line" => $tag->tag_under_line ,
@@ -205,6 +237,8 @@ class TagController extends Controller
             "tag_sub" => $tag->tag_sub ,
             "tag_sup" => $tag->tag_sup ,
             "tag_border_color" => $tag->tag_border_color,
+            "tag_border_radius" => $tag->tag_border_radius,*/
+            "tag_text_for_replace" => $tag->tag_text_for_replace,
         ];  
         }
         return json_encode($json_tags);
@@ -234,8 +268,8 @@ class TagController extends Controller
                     font-style:".$tag->tag_italic.";
                     border:".$tag->tag_border." ".$tag->tag_border_color.";
                     text-decoration:".$tag->tag_under_line.";
-                    border-radius: 10px;
-                    padding:5px'>".$tag->tag_text."</span>";
+                    border-radius:".$tag->tag_border_radius."px;
+                    padding:3px'>".$tag->tag_text."</span>";
 
                     $tag_text = $tag->tag_sub == "1" ? "<sub>".$tag_text."</sub>" :  $tag_text; 
                     $tag_text = $tag->tag_sup == "1" ? "<sup>".$tag_text."</sup>" :  $tag_text; 

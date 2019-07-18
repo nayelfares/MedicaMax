@@ -6,7 +6,7 @@ CKEDITOR.editorConfig = function( config ) {
 				config.contentsCss = './assets/js/ckeditor/CustomFonts/fonts.css';
               //config.font_names =  'ArefRuqaa-Regular; ArefRuqaa-Regular;'+config.font_names;
               
-              config.extraPlugins = 'sharedspace,lineheight,video,youtube,allowsave,deletenewline,link,max,min,t2s,v2t,v2tstop';
+              config.extraPlugins = 'sharedspace,lineheight,video,youtube,allowsave,deletenewline,link,max,min,t2s,v2t,v2tstop,tags';
               config.removePlugins = 'resize';
               config.height = 140
 			 // config.htmlEncodeOutput =false;
@@ -38,7 +38,14 @@ CKEDITOR.editorConfig = function( config ) {
 		{ name: 'styles', groups: [ 'styles' ] },
 		{ name: 'tools', groups: [ 'tools' ] },
 		{ name: 'others', groups: [ 'others' ] },
-		{ name: 'about', groups: [ 'about' ] }
+		{ name: 'about', groups: [ 'about' ] },
+
+
+		/**TAGS*/
+		{ name: 'editing', groups: [ 'find', 'selection', 'spellchecker' ] },
+		{ name: 'links' },{ name: 'paragraph', groups: [ 'list', 'indent', 'blocks', 'align' ] },
+		{ name: 'tags' }
+		/**/
 	];
 
 	config.removeButtons = 'Print,NewPage,HiddenField,ImageButton,Button,Select,Textarea,TextField,Radio,Checkbox';

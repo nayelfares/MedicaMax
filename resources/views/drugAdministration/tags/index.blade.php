@@ -76,7 +76,6 @@
           <div class="form-group col-md-1 control-label">
               <label  for="font_family">Font Family</label>
               <select class="form-control" name="tag_font_family" id="tag_font_family">
-                  <option selected="selected"></option>
 
                   <option value="Air" style="font-family: Air;font-size:18px">Air</option>
                   <option value="AlHurra" style="font-family: AlHurra;font-size:18px">Al Hurra</option>
@@ -122,6 +121,18 @@
           <div class="form-group col-sm-0 control-label" style="padding-top: 30px;padding-right: 20px">
               <label for="border">Border</label>
                   <input type="checkbox"  name="tag_border" id="tag_border" >
+          </div>
+          <div class="form-group col-md-0 control-label">
+              <label for="border_radius">Border Radius</label>
+              <select class="form-control" name="tag_border_radius" id="tag_border_radius">
+                  <option selected="selected"></option>
+                  <option  value="0">0</option>
+                  <option  value="2">2</option>
+                  <option  value="5">5</option>
+                  <option  value="7">7</option>
+                  <option  value="10">10</option>
+                  <option  value="15">15</option>
+              </select>
           </div>
 
           <div class="form-group col-md-0 control-label" style="text-align: center;">
@@ -249,6 +260,7 @@
             document.getElementById('tag_background_color').value = tag.tag_background_color;
             document.getElementById('tag_border_color').value = tag.tag_border_color;
             document.getElementById('tag_font_size').value = tag.tag_font_size;
+            document.getElementById('tag_border_radius').value = tag.tag_border_radius;
             document.getElementById('tag_font_family').value = tag.tag_font_family;
 
             
@@ -269,9 +281,10 @@
             tag_code : document.getElementById('tag_code').value,
             tag_text : document.getElementById('tag_text').value,
             tag_font_size : document.getElementById('tag_font_size').value,
-            tag_font_family : document.getElementById('tag_font_family').value,
+            tag_font_family : document.getElementById('tag_font_family').value == "" ?"Air" : document.getElementById('tag_font_family').value,
             tag_bold : document.getElementById('tag_bold').checked == true ? "bold" : " normal",
             tag_border : document.getElementById('tag_border').checked == true ? "solid":"none",
+            tag_border_radius : document.getElementById('tag_border_radius').value,
             tag_italic : document.getElementById('tag_italic').checked == true?"italic":" normal",
             tag_under_line : document.getElementById('tag_under_line').checked == true?"underline":"none",
             tag_text_color : document.getElementById('tag_text_color').value,

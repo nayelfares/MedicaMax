@@ -73,6 +73,7 @@ return array(
     'App\\Imports\\FormsImport' => $baseDir . '/app/Imports/FormsImport.php',
     'App\\Leaflet' => $baseDir . '/app/Leaflet.php',
     'App\\MedicaMaxTag' => $baseDir . '/app/MedicaMaxTag.php',
+    'App\\MultiMedia' => $baseDir . '/app/MultiMedia.php',
     'App\\Picture' => $baseDir . '/app/Picture.php',
     'App\\Providers\\AppServiceProvider' => $baseDir . '/app/Providers/AppServiceProvider.php',
     'App\\Providers\\AuthServiceProvider' => $baseDir . '/app/Providers/AuthServiceProvider.php',

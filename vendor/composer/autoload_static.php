@@ -657,6 +657,7 @@ class ComposerStaticInitf5c271aaa32886e600c5080b9d2b8741
         'App\\Imports\\FormsImport' => __DIR__ . '/../..' . '/app/Imports/FormsImport.php',
         'App\\Leaflet' => __DIR__ . '/../..' . '/app/Leaflet.php',
         'App\\MedicaMaxTag' => __DIR__ . '/../..' . '/app/MedicaMaxTag.php',
+        'App\\MultiMedia' => __DIR__ . '/../..' . '/app/MultiMedia.php',
         'App\\Picture' => __DIR__ . '/../..' . '/app/Picture.php',
         'App\\Providers\\AppServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AppServiceProvider.php',
         'App\\Providers\\AuthServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AuthServiceProvider.php',

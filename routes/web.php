@@ -270,6 +270,15 @@ Route::get('get_styles','StyleController@get_styles')->name('style.get_styles');
 Route::get('get_details_style','StyleController@get_details')->name('style.get_details');
 Route::post('save_style','StyleController@save_style')->name('style.save_style');
 
+/*********************
+* 
+*   MultiMedia 
+*
+**********************/
+Route::resource('drug-administration/multi_media','MultiMediaController');
+Route::get('get_multi_media','MultiMediaController@get_multi_media')->name('multi_media.get_multi_media');
+Route::get('get_details_multi_media','MultiMediaController@get_details')->name('multi_media.get_details');
+Route::post('save_multi_media','MultiMediaController@save_multi_media')->name('multi_media.save_multi_media');
 
 ///////////////////////////////USER   MANAGEMENT///////////////////////////////////////////////////////////////
 Route::resource('user_management/country','CountryController');

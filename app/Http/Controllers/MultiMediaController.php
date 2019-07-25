@@ -153,7 +153,7 @@ class MultiMediaController extends Controller
     public function destroy($id)
     {
         $m_m_delete = MultiMedia::findOrFail($id);;
-        unlink($m_m_delete->path);
+        unlink(public_path().$m_m_delete->path);
         $m_m_delete->delete();
         return redirect()->intended('drug-administration/multi_media');
     }

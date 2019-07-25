@@ -114,15 +114,29 @@
               <tr>
                 <th>Description</th>
                 <th>File Type</th>
-                <td>Action</td>
+                <th>SnapShoot</th>
+                  <th>Action</th>
               </tr>
             </thead>
 
             <tbody>
               @foreach ($multi_media as $m_m)
-              <tr role="row" class="odd" onclick='selectmulti_mediaToEdit({{$m_m->id}});'>
+              <tr role="row" class="odd" onclick='returnFileUrl({{$m_m->id}});'>
                 <td>{{ $m_m->description }}</td>
                 <td>{{ $m_m->file_type }}</td>
+                  @if($m_m->file_type =='image')
+                    <th><img alt="Logo" src="{{ asset($m_m->path) }}" width="320" height="128" /> </th>
+                  @endif
+                  @if($m_m->file_type =='video')
+                    <th>
+                      <video width="320" height="128" controls>
+                          <source src="{{ asset($m_m->path) }}" type="video/mp4">
+                      </video>
+                  </th>
+                  @endif
+                  @if($m_m->file_type =='file')
+                    <th><img alt="Logo" src="{{ asset('images_tree/pdf.svg') }}" width="320" height="128" /> </th>
+                  @endif
                 <td>
                  <form  method="POST" action="{{ route('multi_media.destroy', ['id' => $m_m->id]) }}" onsubmit = "return confirm('Are you sure?')">
                   <input type="hidden" name="_method" value="DELETE">
@@ -250,6 +264,36 @@
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
+    
+    
+/*****************************************/
+            function getUrlParam( paramName ) {
+            var reParam = new RegExp( '(?:[\?&]|&)' + paramName + '=([^&]+)', 'i' );
+            var match = window.location.search.match( reParam );
+
+            return ( match && match.length > 1 ) ? match[1] : null;
+        }
+        //*******/
+        function returnFileUrl(id) {   
+            document.getElementById('container').hidden = false;
+            $.ajax({
+                type :'GET',
+                url:"{{route('multi_media.get_details')}}",
+                data:{
+                    id : id
+                },
+                success:function(res){
+                    multi_media =  JSON.parse(res);
+                    var ur=multi_media.path;
+                    var funcNum = getUrlParam( 'CKEditorFuncNum' );
+                    var fileUrl ="{{ asset('') }}"+ur;
+                    window.opener.CKEDITOR.tools.callFunction( funcNum, fileUrl );
+                    window.close();
+                  }
+            });
+        }
+    
+    
 </script>
 
 

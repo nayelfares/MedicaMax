@@ -17,10 +17,10 @@ class MultiMediaController extends Controller
      * @return void
      */
     public function __construct(){
-    	$this->middleware('auth');
-	}
+        $this->middleware('auth');
+    }
 
-	/**
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -43,42 +43,30 @@ class MultiMediaController extends Controller
     public function store(Request $request)
     {
         //return $request;
-    	$file_name = null;
+        $file_name = null;
         $url = null;
         if($request->file('m_m_file')){
             $file_name = time() . '.' . $request->m_m_file->getClientOriginalName();
             if($request->file_type == "image")
             {
-            	$request->m_m_file->move(public_path('images_tree/'),$file_name);
-<<<<<<< HEAD
+                $request->m_m_file->move(public_path('images_tree/'),$file_name);
                 $url = '/images_tree/'.$file_name;
-=======
-                $url = 'images_tree/'.$file_name;
->>>>>>> 5c1938413d44b7eb998d42428646c8de97d17fa4
                 $request['description'] = $request['description']."dd";
             }
             else
             {
                 if($request->file_type == "video")
                 {
-                	
+                    
                     $request->m_m_file->move(public_path('videos_tree/'),$file_name);
-<<<<<<< HEAD
                     $url = '/videos_tree/'.$file_name;
-=======
-                    $url = 'videos_tree/'.$file_name;
->>>>>>> 5c1938413d44b7eb998d42428646c8de97d17fa4
              $request['description'] = $request['description']."ff";       
                 }
                 else
                 {
                    
-                	$request->m_m_file->move(public_path('files_tree/'),$file_name);
-<<<<<<< HEAD
+                    $request->m_m_file->move(public_path('files_tree/'),$file_name);
                     $url = '/files_tree/'.$file_name;
-=======
-                    $url = 'files_tree/'.$file_name;
->>>>>>> 5c1938413d44b7eb998d42428646c8de97d17fa4
                      $request['description'] = $request['description']."gg"; 
                 }
             }
@@ -90,7 +78,7 @@ class MultiMediaController extends Controller
                     ];
         MultiMedia::create($input);
 
-  	}
+    }
     /**
      * Update the specified resource in storage.
      *
@@ -108,8 +96,8 @@ class MultiMediaController extends Controller
             $file_name = time() . '.' . $request->m_m_file->getClientOriginalName();
             if($request->file_type == "image")
             {
-                $request->m_m_file->move(public_path('/images_tree/'),$file_name);
-                $url = public_path('/images_tree/').$file_name;
+                $request->m_m_file->move(public_path('images_tree/'),$file_name);
+                $url = '/images_tree/'.$file_name;
                 $request['description'] = $request['description']."dd";
             }
             else
@@ -117,15 +105,15 @@ class MultiMediaController extends Controller
                 if($request->file_type == "video")
                 {
                     
-                    $request->m_m_file->move(public_path('/videos_tree/'),$file_name);
-                    $url = public_path('/videos_tree/').$file_name;
+                    $request->m_m_file->move(public_path('videos_tree/'),$file_name);
+                    $url = '/videos_tree/'.$file_name;
              $request['description'] = $request['description']."ff";       
                 }
                 else
                 {
                    
-                    $request->m_m_file->move(public_path('/files_tree/'),$file_name);
-                    $url = public_path('/files_tree/').$file_name;
+                    $request->m_m_file->move(public_path('files_tree/'),$file_name);
+                    $url = '/files_tree/'.$file_name;
                      $request['description'] = $request['description']."gg"; 
                 }
             }
@@ -145,7 +133,7 @@ class MultiMediaController extends Controller
     
     } 
 
-  	/**
+    /**
     SAVE TAG
     */
     public function save_multi_media(Request $request)

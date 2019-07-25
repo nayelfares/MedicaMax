@@ -24,6 +24,7 @@
                                 <li><a href="{{ url('drug-administration/tag') }}">Tags</a></li>
                                 <li><a href="{{ url('drug-administration/style') }}">Styles</a></li>
                                 <li><a href="{{url('drug-administration/multi_media')}}">Multi Media</a></li>
+                                <li><a href="{{url('drug-administration/dictionary')}}">Dictionary</a></li>
 
 
                                 <li><a href="{{ url('drug-administration/company') }}">Companies</a></li>

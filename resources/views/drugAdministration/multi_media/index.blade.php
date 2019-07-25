@@ -80,21 +80,6 @@
                   <label for="m_mfile">Upload File</label>
                   <input id="image_input" type="file" name="m_m_file" class="form-control form-control-sm">
                   
-
-                  <div id="sample-box" class="modal fade" role="dialog">
-                       <div class="modal-dialog">
-                          <!-- Modal content-->
-                          <div class="modal-content">
-                            <div class="flowplayer" data-swf="http://releases.flowplayer.org/swf/flowplayer-3.2.18.swf" data-ratio="0.4167">
-                              <video controls loop autoplay>
-                            <source type="video/mp4" src="https://edge.flowplayer.org/bauhaus.mp4">
-                              </video>
-                            </div>      
-                          </div>
-                      </div>
-                  </div>
-
-
               </div>
               <button class="btn btn-primary btn-lg"  id="save" name="save" style="margin-top: 20px;margin-left: 15px;  height: 50px;text-align: center;"> Save</button>
               <button class="btn btn-danger btn-lg"  id="cancel" name="cancel" style="margin-top: 20px;margin-left: 15px;  height: 50px;text-align: center;"> Cancel</button>

@@ -260,6 +260,7 @@ Route::get('save_tag','TagController@save_tag')->name('tag.save_tag');
 
 Route::get('replace_code_with_tag','TagController@replace_code_with_tag')->name('tag.replace_code_with_tag');
 
+
 /*********************
 * 
 *   Style 
@@ -279,6 +280,18 @@ Route::resource('drug-administration/multi_media','MultiMediaController');
 Route::get('get_multi_media','MultiMediaController@get_multi_media')->name('multi_media.get_multi_media');
 Route::get('get_details_multi_media','MultiMediaController@get_details')->name('multi_media.get_details');
 Route::post('save_multi_media','MultiMediaController@save_multi_media')->name('multi_media.save_multi_media');
+/*********************
+* 
+*   Dictionary 
+*
+**********************/
+Route::resource('drug-administration/dictionary','DictionaryController');
+Route::get('get_details_dictionary','DictionaryController@get_details')->name('dictionary.get_details');
+Route::post('save_dictionary','DictionaryController@save_dictionary')->name('dictionary.save_dictionary');
+Route::get('dictionary_export', 'DictionaryController@export_dictionary')->name('dictionary.export');
+Route::get('dictionary_import_interface', 'DictionaryController@importInterface')->name('dictionary.import_interface');
+Route::post('dictionary_import','DictionaryController@import_dictionary')->name('dictionary.import');
+Route::get('dictionary_search', 'DictionaryController@search')->name('dictionary.search');
 
 ///////////////////////////////USER   MANAGEMENT///////////////////////////////////////////////////////////////
 Route::resource('user_management/country','CountryController');

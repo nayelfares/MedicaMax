@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Input;
 use Illuminate\Http\Request;
 use Validator;
 use Response;
-use DB;
+use DB; 
 use App\Tag;
 use View;
 
@@ -223,9 +223,8 @@ class TagController extends Controller
 
         foreach ($tags as $tag) {
             $json_tags[] = [
-            //"id" => $tag->id,
+            /*"id" => $tag->id,
             "tag_code" => $tag->tag_code,
-            /*"tag_text" => $tag->tag_text,
             "tag_bold" => $tag->tag_bold ,
             "tag_italic" => $tag->tag_italic ,
             "tag_under_line" => $tag->tag_under_line ,
@@ -238,6 +237,7 @@ class TagController extends Controller
             "tag_sup" => $tag->tag_sup ,
             "tag_border_color" => $tag->tag_border_color,
             "tag_border_radius" => $tag->tag_border_radius,*/
+            "tag_text" => $tag->tag_text,
             "tag_text_for_replace" => $tag->tag_text_for_replace,
         ];  
         }

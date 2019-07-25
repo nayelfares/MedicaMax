@@ -49,8 +49,8 @@ class MultiMediaController extends Controller
             $file_name = time() . '.' . $request->m_m_file->getClientOriginalName();
             if($request->file_type == "image")
             {
-            	$request->m_m_file->move(public_path('/images_tree/'),$file_name);
-                $url = public_path('/images_tree/').$file_name;
+            	$request->m_m_file->move(public_path('images_tree/'),$file_name);
+                $url = '/images_tree/'.$file_name;
                 $request['description'] = $request['description']."dd";
             }
             else
@@ -58,15 +58,15 @@ class MultiMediaController extends Controller
                 if($request->file_type == "video")
                 {
                 	
-                    $request->m_m_file->move(public_path('/videos_tree/'),$file_name);
-                    $url = public_path('/videos_tree/').$file_name;
+                    $request->m_m_file->move(public_path('videos_tree/'),$file_name);
+                    $url = '/videos_tree/'.$file_name;
              $request['description'] = $request['description']."ff";       
                 }
                 else
                 {
                    
-                	$request->m_m_file->move(public_path('/files_tree/'),$file_name);
-                    $url = public_path('/files_tree/').$file_name;
+                	$request->m_m_file->move(public_path('files_tree/'),$file_name);
+                    $url = '/files_tree/'.$file_name;
                      $request['description'] = $request['description']."gg"; 
                 }
             }

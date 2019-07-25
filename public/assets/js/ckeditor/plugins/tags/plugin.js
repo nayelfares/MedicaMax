@@ -16,7 +16,7 @@ $.ajax({
             styles =  JSON.parse(res);
            	console.log(styles);
             styles.forEach(function(item){
-               strings.push([item.tag_text_for_replace,item.tag_code,item.tag_code]);
+               strings.push([item.tag_text_for_replace,item.tag_text,item.tag_text]);
             });
         }
       });

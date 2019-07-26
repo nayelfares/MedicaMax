@@ -4,6 +4,7 @@
 <meta name="csrf-token" content="{{ csrf_token() }}" />
 
 <link rel="stylesheet" type="text/css" href="{{asset('/assets/font-awesome/fonts/New Fonts.css')}}">
+<link rel="stylesheet" type="text/css" href="{{asset('/assets/css/cs.css')}}">
 <script src="{{asset('/js/alaa/jquery.js')}}"></script>
 
 <script src="http://releases.flowplayer.org/js/flowplayer-3.2.12.min.js"></script>
@@ -97,40 +98,80 @@
           <table id="example" class="table table-bordered table-hover display" style="width:100%">
             <thead>
               <tr>
-                <th>Description</th>
-                <th>File Type</th>
-                <th>SnapShoot</th>
-                  <th>Action</th>
+                <th width ="100">Description</th>
+                <th width ="100">File Type</th>
+                <th width ="100">SnapShoot</th>
+                <th width ="100" >Action</th>
               </tr>
             </thead>
 
             <tbody>
               @foreach ($multi_media as $m_m)
-              <tr role="row" class="odd" onclick='returnFileUrl({{$m_m->id}});'>
-                <td>{{ $m_m->description }}</td>
-                <td>{{ $m_m->file_type }}</td>
+              <tr role="row" class="odd" >
+                <td width ="100">{{ $m_m->description }}</td>
+                <td width ="100">{{ $m_m->file_type }}</td>
                   @if($m_m->file_type =='image')
-                    <th><img alt="Logo" src="{{ asset($m_m->path) }}" width="320" height="128" /> </th>
+                    <th width ="100">
+                        
+                    <a href="#{{$m_m->id}}">
+                          <img src="{{ asset($m_m->path) }}" class="thumbnail" height="50">
+                     </a>
+
+                        <!-- lightbox container hidden with CSS -->
+                        <a href="#_" class="lightbox" id="{{$m_m->id}}">
+                          <img src="{{ asset($m_m->path) }}">
+                        </a>    
+                        
+                    </th>  
+                        
                   @endif
                   @if($m_m->file_type =='video')
-                    <th>
-                      <video width="320" height="128" controls>
-                          <source src="{{ asset($m_m->path) }}" type="video/mp4">
-                      </video>
+                    <th width ="100" >
+                        <div id="light">
+                          <a class="boxclose" id="boxclose" onclick="lightbox_close();"></a>
+                          <video id="VisaChipCardVideo" width="600" controls>
+                              <source src="{{ asset($m_m->path) }}" type="video/mp4">
+                              <!--Browser does not support <video> tag -->
+                            </video>
+                        </div>
+                        <div id="fade" onClick="lightbox_close();"></div>
+
+                        <div>
+                          <a href="#" onclick="lightbox_open();">       
+                            <img src="{{ asset('images_tree/watch.png') }}" width="200" height="100" >
+                            </a>
+                        </div>
                   </th>
                   @endif
                   @if($m_m->file_type =='file')
-                    <th><img alt="Logo" src="{{ asset('images_tree/pdf.svg') }}" width="320" height="128" /> </th>
+                    <th width ="100">
+                         
+                        <div id="light1">
+                          <a class="boxclose1" id="boxclose1" onclick="lightbox_close1();"></a>
+                            
+                            <iframe src="{{ asset($m_m->path) }}" height="500" width="600"></iframe>
+                        </div>
+                        <div id="fade1" onClick="lightbox_close1();"></div>
+
+                        <div>
+                          <a href="#" onclick="lightbox_open1();">       
+                            <img alt="Logo" src="{{ asset('images_tree/pdf.svg') }}" width="200" height="100" />
+                            </a>
+                        </div>
+                  
+                  </th>
                   @endif
-                <td>
-                 <form  method="POST" action="{{ route('multi_media.destroy', ['id' => $m_m->id]) }}" onsubmit = "return confirm('Are you sure?')">
-                  <input type="hidden" name="_method" value="DELETE">
-                  <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                  <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-trash-o" aria-hidden="true"></i>
-                    
-                  </button>
-                </form>
-              </td>
+                  <th width ="100" style="width: 100px !important;">  
+                    <form  method="POST" action="{{ route('multi_media.destroy', ['id' => $m_m->id]) }}" onsubmit = "return confirm('Are you sure?')">
+                      <input type="hidden" name="_method" value="DELETE">
+                      <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                      <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-trash-o" aria-hidden="true"></i>
+                      </button>
+                    </form>
+                  </th>
+                  <th>
+                      <button  onclick="returnFileUrl({{$m_m->id}});">Select</button>
+                  </th>
             </tr>
             @endforeach
           </tbody>
@@ -271,13 +312,53 @@
                     multi_media =  JSON.parse(res);
                     var ur=multi_media.path;
                     var funcNum = getUrlParam( 'CKEditorFuncNum' );
-                    var fileUrl ="{{ asset('') }}"+ur;
+                    var fileUrl ="{{ asset('') }}"+ur.substring(1,ur.length);
                     window.opener.CKEDITOR.tools.callFunction( funcNum, fileUrl );
                     window.close();
+                    
                   }
             });
         }
+    /****************************************/
+ window.document.onkeydown = function(e) {
+  if (!e) {
+    e = event;
+  }
+  if (e.keyCode == 27) {
+    lightbox_close();
+  }
+}
+
+function lightbox_open() {
+  var lightBoxVideo = document.getElementById("VisaChipCardVideo");
+  window.scrollTo(0, 0);
+  document.getElementById('light').style.display = 'block';
+  document.getElementById('fade').style.display = 'block';
+  lightBoxVideo.play();
+}
+
+function lightbox_close() {
+  var lightBoxVideo = document.getElementById("VisaChipCardVideo");
+  document.getElementById('light').style.display = 'none';
+  document.getElementById('fade').style.display = 'none';
+  lightBoxVideo.pause();
+}
+
     
+function lightbox_open1() {
+  var lightBoxVideo = document.getElementById("VisaChipCardVideo1");
+  window.scrollTo(0, 0);
+  document.getElementById('light1').style.display = 'block';
+  document.getElementById('fade1').style.display = 'block';
+  lightBoxVideo1.play();
+}
+
+function lightbox_close1() {
+  var lightBoxVideo = document.getElementById("VisaChipCardVideo1");
+  document.getElementById('light1').style.display = 'none';
+  document.getElementById('fade1').style.display = 'none';
+  lightBoxVideo1.pause();
+}    
     
 </script>
 
